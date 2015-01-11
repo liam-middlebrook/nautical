@@ -4,8 +4,12 @@
 
 int main(int argc, char** argv)
 {
-    nautical::math::Vector2<float> vector(2.0f, 3.0f);
+    nautical::math::Vector2<double> vector(4.0f, 3.0f);
 
     printf("Vector: %f, %f", vector.x, vector.y);
+
+    printf("Length: %f", vector.length());
+
+    printf("Direction %f", vector.direction());
     return 0;
 }
