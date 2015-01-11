@@ -1,3 +1,5 @@
+#include <cmath>
+
 namespace nautical
 {
     namespace math
@@ -17,6 +19,15 @@ namespace nautical
                             memcpy(components, data, sizeof(T) * 2);
                     };
 
+                    inline T length()
+                    {
+                        return sqrt(x*x + y*y);
+                    }
+
+                    inline T direction()
+                    {
+                        return atan2(y, x);
+                    }
         };
     }
 }

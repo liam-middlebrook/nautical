@@ -4,7 +4,7 @@ CPPFLAGS := -I./include
 
 CPPFLAGS += -std=c++11 -Wall -Wextra -pedantic
 
-LFLAGS := -lX11 -lglfw -lGL -lGLEW
+LFLAGS := -lX11 -lglfw -lGL -lGLEW -lm
 
 SOURCES = $(wildcard src/*.cpp)
 HEADERS = $(wildcard include/**.h)
