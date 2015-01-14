@@ -15,6 +15,7 @@ namespace nautical
                     };
                     Vector2() : x(0), y(0) {};
                     Vector2(T x, T y) : x(x), y(y) {};
+
                     Vector2(T* data)
                     {
                             memcpy(components, data, sizeof(T) * 2);
@@ -123,6 +124,28 @@ namespace nautical
                         this->x /= rhs;
                         this->y /= rhs;
                         return *this;
+                    }
+
+                    inline Vector2<T>& operator=(const Vector2<T>& rhs)
+                    {
+                        this->x = rhs.x;
+                        this->y = rhs.y;
+                        return *this;
+                    }
+
+                    inline bool operator==(const Vector2<T>& rhs) const
+                    {
+                        return this->x == rhs.x && this->y == rhs.y;
+                    }
+
+                    inline bool operator!=(const Vector2<T>& rhs) const
+                    {
+                        return !(*this == rhs);
+                    }
+
+                    inline T operator[](const int& b)
+                    {
+                        return components[b];
                     }
 
                     inline operator T* ()
