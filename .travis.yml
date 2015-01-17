@@ -4,7 +4,7 @@ compiler:
     - gcc
 install:
     - sudo apt-get update
-    - sudo apt-get install -y libcuint1 libcunit1-dev libglfw-dev libglew-dev xorg-dev
+    - sudo apt-get install -y libcunit1 libcunit1-dev libglfw-dev libglew-dev xorg-dev
 script:
     - make
     - make test
