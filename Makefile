@@ -20,9 +20,10 @@ nautical: $(OBJECTS)
 	$(CC) $(CPPFLAGS) $(OBJECTS) $(LFLAGS) -o bin/nautical
 
 test: $(TEST_OBJS)
-	$(CC) $(CPPFLAGS) -o bin/nautical-tests $(TEST_OBJS) $(LFLAGS)
+	$(CC) $(CPPFLAGS) -I./tests -o bin/nautical-tests $(TEST_OBJS) $(LFLAGS) -lcunit
 	./bin/nautical-tests
 
 clean:
 	@for dir in src; do find $$dir -name \*.o -exec rm -f {} \; ; done
+	@for dir in tests; do find $$dir -name \*.o -exec rm -f {} \; ; done
 	rm -f bin/nautical
