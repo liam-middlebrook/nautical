@@ -4,7 +4,7 @@ CPPFLAGS := -I./include
 
 CPPFLAGS += -std=c++11 -Wall -Wextra -pedantic
 
-LFLAGS := -lX11 -lglfw -lGL -lGLEW -lm
+LFLAGS := -lX11 -lglfw -lGL -lGLEW -lm -lstdc++
 
 SOURCES = $(wildcard src/*.cpp)
 TESTS = $(wildcard tests/*.cpp)
