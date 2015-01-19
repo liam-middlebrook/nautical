@@ -2,9 +2,13 @@ language: cpp
 compiler:
     - clang
     - gcc
+before_install:
+    - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+    - sudo apt-get update -qq
 install:
     - sudo apt-get update
-    - sudo apt-get install -y libcunit1 libcunit1-dev libglfw-dev libglew-dev xorg-dev
+    - sudo apt-get install -y -qq libcunit1 libcunit1-dev libglfw-dev libglew-dev xorg-dev gcc-4.8 g++-4.8
+    - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 90
 script:
     - make
     - make test
