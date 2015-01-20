@@ -78,3 +78,17 @@ void test_vector2_dot(void)
 
     CU_ASSERT(vec1.dot(vec2) == answer);
 }
+
+void test_vector2_normalize(void)
+{
+    Vector2<float> vec1(15.0f, 0.0f);
+    Vector2<float> vec1Ans(1.0f, 0.0f);
+
+    Vector2<float> vec2(30.0f, 40.0f);
+    Vector2<float> vec2Ans(3.0f/5.0f, 4.0f/5.0f);
+
+    CU_ASSERT(vec1.normalized() == vec1Ans);
+    CU_ASSERT(vec2.normalized() == vec2Ans);
+
+    CU_ASSERT(Vector2<float>.zero.normalized() == Vector2<float>.zero);
+}
