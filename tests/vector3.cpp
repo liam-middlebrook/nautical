@@ -66,7 +66,7 @@ void test_vector3_magnitude(void)
     float magnitude = sqrt(34);
 
     CU_ASSERT(vec1.length() == magnitude);
-    CU_ASSERT(vec1.lengthSquared() == magnitude * magnitude);
+    CU_ASSERT(vec1.lengthSquared() == 34.0f);
 }
 
 void test_vector3_dot(void)
@@ -74,7 +74,7 @@ void test_vector3_dot(void)
     Vector3<float> vec1(3.0f, 5.0f, 12.0f);
     Vector3<float> vec2(12.0f, -2.0f, 4.0f);
 
-    float answer = 54.0f;
+    float answer = 74.0f;
 
     CU_ASSERT(vec1.dot(vec2) == answer);
 }
