@@ -6,7 +6,11 @@ int main(int argc, char** argv)
 {
     nautical::math::Vector2<double> vector(4.0f, 3.0f);
 
-    printf("Vector: %f, %f", vector.x, vector.y);
+    nautical::math::Vector2<double> b(7.0, 4.0);
+
+    vector += b;
+
+    printf("Vector: %f, %f", vector[1], vector.y);
 
     printf("Length: %f", vector.length());
 
