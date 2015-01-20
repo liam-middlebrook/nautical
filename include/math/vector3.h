@@ -152,7 +152,7 @@ namespace nautical
 
                     inline bool operator==(const Vector3<T>& rhs) const
                     {
-                        return this->x == rhs.x && this->y == rhs.y && this->z = rhs.z;
+                        return this->x == rhs.x && this->y == rhs.y && this->z == rhs.z;
                     }
 
                     inline bool operator!=(const Vector3<T>& rhs) const
