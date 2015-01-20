@@ -192,6 +192,15 @@ namespace nautical
                         return x * b.x + y * b.y + z * b.z;
                     }
 
+                    inline Vector3<T> cross(const Vector3<T>& rhs) const
+                    {
+                        Vector3<T> out;
+                        out.x = y * rhs.z - z * rhs.y;
+                        out.y = z * rhs.x - x * rhs.z;
+                        out.z = x * rhs.y - y * rhs.x;
+                        return out;
+                    }
+                    
                     const static Vector3<T> zero;
                     const static Vector3<T> one;
                     const static Vector3<T> right;
