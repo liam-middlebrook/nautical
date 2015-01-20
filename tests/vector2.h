@@ -27,6 +27,6 @@ void test_vector2_normalize(void);
     {"Test Vector2 Normalization", test_vector2_normalize},
 };
 
-static size_t tests_vector2_count = 6;
+static size_t tests_vector2_count = 7;
 
 #endif
