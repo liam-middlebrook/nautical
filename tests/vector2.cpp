@@ -59,3 +59,22 @@ void test_vector2_divide(void)
     vec1 /= vec2;
     CU_ASSERT(vec1 == answer);
 }
+
+void test_vector2_magnitude(void)
+{
+    Vector2<float> vec1(3.0f, 4.0f);
+    float magnitude = 5.0f;
+
+    CU_ASSERT(vec1.length() == magnitude);
+    CU_ASSERT(vec1.lengthSquared() == magnitude * magnitude);
+}
+
+void test_vector2_dot(void)
+{
+    Vector2<float> vec1(3.0f, 5.0f);
+    Vector2<float> vec2(12.0f, -2.0f);
+
+    float answer = 26.0f;
+
+    CU_ASSERT(vec1.dot(vec2) == answer);
+}
