@@ -89,6 +89,4 @@ void test_vector2_normalize(void)
 
     CU_ASSERT(vec1.normalized() == vec1Ans);
     CU_ASSERT(vec2.normalized() == vec2Ans);
-
-    CU_ASSERT(Vector2<float>::zero.normalized() == Vector2<float>::zero);
 }
