@@ -51,6 +51,14 @@ namespace nautical
                         return *this;
                     } 
 
+                    inline Vector2<T> operator-() const
+                    {
+                        Vector2<T> out;
+                        out.x = -x;
+                        out.y = -y;
+                        return out;
+                    }
+
                     inline Vector2<T> operator-(const Vector2<T>& b) const
                     {
                         Vector2<T> out;
