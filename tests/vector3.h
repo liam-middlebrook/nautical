@@ -1,13 +1,8 @@
 #ifndef _TEST_VEC3_H_
 #define _TEST_VEC3_H_
 
-#include <CUnit/Basic.h>
+#include "test.h"
 #include "math/vector3.h"
-
-typedef struct {
-    const char* name;
-    CU_TestFunc func;
-} TestDef;
 
 void test_vector3_add(void);
 void test_vector3_subtract(void);
