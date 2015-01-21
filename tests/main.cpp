@@ -6,14 +6,31 @@
 
 int main(int argc, char** argv)
 {
-    CU_pSuite vector2_suite = NULL;
-    CU_pSuite vector3_suite = NULL;
 
     if(CUE_SUCCESS != CU_initialize_registry())
     {
         return CU_get_error();
     }
 
+    for(size_t i = 0; i < suite_count; ++i)
+    {
+        CU_pSuite suite = CU_add_suite(suites[i].name, NULL, NULL);
+        if(suite == NULL)
+        {
+            CU_cleanup_registry();
+            return CU_get_error();
+        }
+
+        for(size_t j = 0; j < suites[i].count; ++j)
+        {
+            if(CU_add_test(suite, suites[i].tests[j].name, suites[i].tests[j].func) == NULL)
+            {
+                CU_cleanup_registry();
+                return CU_get_error();
+            }
+        }
+    }
+/*
     vector2_suite = CU_add_suite("Vector2", NULL, NULL);
     if(vector2_suite == NULL)
     {
@@ -45,7 +62,7 @@ int main(int argc, char** argv)
             return CU_get_error();
         }
     }
-
+*/
     CU_basic_set_mode(CU_BRM_VERBOSE);
     CU_basic_run_tests();
 
