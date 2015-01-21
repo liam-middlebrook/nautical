@@ -2,8 +2,6 @@
 #define TEST_FRAMEWORK_H_
 
 #include <CUnit/Basic.h>
-#include "vector2.h"
-#include "vector3.h"
 
 typedef struct {
     const char* name;
@@ -15,6 +13,11 @@ typedef struct {
     TestDef* tests;
     size_t count;
 } SuiteDef;
+
+// Begin Test Suite Declarations
+
+#include "vector2.h"
+#include "vector3.h"
 
 static SuiteDef suites[] = {
     {"Vector2", tests_vector2, 7},
