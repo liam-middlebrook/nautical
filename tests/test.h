@@ -8,4 +8,10 @@ typedef struct {
     CU_TestFunc func;
 } TestDef;
 
+typedef struct {
+    const char* name;
+    TestDef* tests;
+    size_t count;
+} SuiteDef;
+
 #endif
