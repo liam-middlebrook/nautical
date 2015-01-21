@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <CUnit/Basic.h>
 
-#include "test.h"
-
 #include "vector2.h"
 #include "vector3.h"
 
