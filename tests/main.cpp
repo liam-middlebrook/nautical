@@ -3,6 +3,7 @@
 
 #include "vector2.h"
 #include "vector3.h"
+#include "test_list.h"
 
 int main(int argc, char** argv)
 {

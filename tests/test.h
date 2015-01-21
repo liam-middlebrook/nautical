@@ -15,7 +15,7 @@ typedef struct {
 } SuiteDef;
 
 // Begin Test Suite Declarations
-
+/*
 #include "vector2.h"
 #include "vector3.h"
 
@@ -25,4 +25,5 @@ static SuiteDef suites[] = {
 };
 
 static size_t suite_count = 2;
+*/
 #endif
