@@ -35,7 +35,7 @@ void test_matrix3_multiply(void)
     mat1.m22 = 4;
     mat1.m31 = 6;
 
-    answer = Matrix<float>();
+    answer = Matrix3<float>();
     answer.m11 = 3;
     answer.m13 = 14;
     answer.m22 = 20;
@@ -44,7 +44,7 @@ void test_matrix3_multiply(void)
 
     CU_ASSERT((mat1 * mat2) == answer);
 
-    answer = Matrix<float>();
+    answer = Matrix3<float>();
     answer.m11 = 3;
     answer.m13 = 6;
     answer.m22 = 20;
