@@ -18,30 +18,40 @@ void test_matrix3_multiply(void)
 {
     Matrix3<float> mat1;
 
-    print_matrix(mat1);
-
     Matrix3<float> mat2;
     mat2.m11 = 3;
     mat2.m22 = 5;
     mat2.m33 = 7;
-
-    print_matrix(mat2);
-
-    printf("Mat1 * Mat2");
-    print_matrix(mat1 * mat2);
-
-    printf("Mat2 * Mat1");
-    print_matrix(mat2 * mat1);
 
     Matrix3<float> answer;
     answer.m11 = 3;
     answer.m22 = 5;
     answer.m33 = 7;
 
-    print_matrix(answer);
-
-    CU_ASSERT(mat2 == answer);
     CU_ASSERT((mat1 * mat2) == answer);
+    CU_ASSERT((mat2 * mat1) == answer);
+
+    mat1.m13 = 2;
+    mat1.m22 = 4;
+    mat1.m31 = 6;
+
+    answer = Matrix<float>();
+    answer.m11 = 3;
+    answer.m13 = 14;
+    answer.m22 = 20;
+    answer.m31 = 18;
+    answer.m33 = 7;
+
+    CU_ASSERT((mat1 * mat2) == answer);
+
+    answer = Matrix<float>();
+    answer.m11 = 3;
+    answer.m13 = 6;
+    answer.m22 = 20;
+    answer.m23 = 30;
+    answer.m31 = 42;
+    answer.m33 = 7;
+
     CU_ASSERT((mat2 * mat1) == answer);
 }
 
