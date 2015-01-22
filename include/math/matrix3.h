@@ -76,7 +76,7 @@ namespace nautical
                         return Matrix3<T>(&out);
                     } 
 
-                    inline Vector3<T>& operator*(const Vector3<T>& b) const
+                    inline Vector3<T> operator*(const Vector3<T>& b) const
                     {
                         Vector3<T> out;
 
