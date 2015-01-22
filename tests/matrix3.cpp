@@ -56,5 +56,15 @@ void test_matrix3_multiply(void)
 
 void test_matrix3_vector(void)
 {
-    
+    Vector3<float> vec(12.0f, 14.6f, -10f);
+
+    Matrix<float> mat;
+
+    mat.m11 = 3.0f;
+    mat.m22 = 0.5f;
+    mat.m33 = -2.0f;
+
+    Vector3<float> answer(36.0f, 7.3f, 5.0f);
+
+    CU_ASSERT((mat * vec) == answer);
 }
