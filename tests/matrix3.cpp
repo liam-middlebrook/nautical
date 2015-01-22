@@ -48,14 +48,9 @@ void test_matrix3_multiply(void)
     answer.m11 = 3;
     answer.m13 = 6;
     answer.m22 = 20;
-    answer.m23 = 30;
     answer.m31 = 42;
     answer.m33 = 7;
 
-    print_matrix(mat2);
-    print_matrix(mat1);
-    print_matrix(mat2 * mat1);
-    print_matrix(answer);
     CU_ASSERT((mat2 * mat1) == answer);
 }
 
