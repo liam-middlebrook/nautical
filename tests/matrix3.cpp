@@ -56,7 +56,7 @@ void test_matrix3_multiply(void)
 
 void test_matrix3_vector(void)
 {
-    Vector3<float> vec(12.0f, 14.6f, -10f);
+    Vector3<float> vec(12.0f, 14.6f, -10.0f);
 
     Matrix3<float> mat;
 
