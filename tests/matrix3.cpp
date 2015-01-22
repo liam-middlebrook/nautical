@@ -3,7 +3,7 @@
 
 using namespace nautical::math;
 
-void print_vector(Vector3<float> vector)
+void print_vector3(Vector3<float> vector)
 {
     printf("Vector: X: %f Y: %f Z: %f", vector.x, vector.y, vector.z);
 }
@@ -71,8 +71,8 @@ void test_matrix3_vector(void)
 
     Vector3<float> answer(36.0f, 7.3f, 20.0f);
 
-    print_vector(vec);
+    print_vector3(vec);
     print_matrix(mat);
-    print_vector(mat * vec);
+    print_vector3(mat * vec);
     CU_ASSERT((mat * vec) == answer);
 }
