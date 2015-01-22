@@ -5,10 +5,10 @@ using namespace nautical::math;
 
 void print_matrix(Matrix3<float> m)
 {
-    printf("Matrix3:\n
-            %f %f %f\n
-            %f %f %f\n
-            %f %f %f",
+    printf("Matrix3:\n"
+           "%f %f %f\n"
+           "%f %f %f\n"
+           "%f %f %f",
             m.m11, m.m12, m.m13,
             m.m21, m.m22, m.m23,
             m.m31, m.m32, m.m33);
