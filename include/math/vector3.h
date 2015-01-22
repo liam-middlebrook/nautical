@@ -1,3 +1,6 @@
+#ifndef VECTOR3_H_
+#define VECTOR3_H_
+
 #include <cmath>
 
 namespace nautical
@@ -224,3 +227,5 @@ namespace nautical
         const Vector3<T> Vector3<T>::forward = Vector3<T>(0, 0, 1);
     }
 }
+
+#endif
