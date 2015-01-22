@@ -74,5 +74,6 @@ void test_matrix3_vector(void)
     print_vector3(vec);
     print_matrix(mat);
     print_vector3(mat * vec);
+    print_vector3(answer);
     CU_ASSERT((mat * vec) == answer);
 }
