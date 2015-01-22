@@ -64,7 +64,7 @@ void test_matrix3_vector(void)
     mat.m22 = 0.5f;
     mat.m33 = -2.0f;
 
-    Vector3<float> answer(36.0f, 7.3f, 5.0f);
+    Vector3<float> answer(36.0f, 7.3f, 20.0f);
 
     CU_ASSERT((mat * vec) == answer);
 }
