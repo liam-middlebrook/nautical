@@ -145,25 +145,23 @@ namespace nautical
                         this->z /= rhs;
                         return *this;
                     }
-
+//*/
                     inline Matrix3<T>& operator=(const Matrix3<T>& rhs)
                     {
-                        this->x = rhs.x;
-                        this->y = rhs.y;
-                        this->z = rhs.z;
+                        memcpy(this->components, &rhs, sizeof(T) * 9);
                         return *this;
                     }
 
                     inline bool operator==(const Matrix3<T>& rhs) const
                     {
-                        return this->x == rhs.x && this->y == rhs.y && this->z == rhs.z;
+                        return memcmp(this->components, &rhs, sizeof(T) * 9);
                     }
 
                     inline bool operator!=(const Matrix3<T>& rhs) const
                     {
                         return !(*this == rhs);
                     }
-
+/*
                     inline T operator[](const int& b)
                     { 
                         return components[b];
