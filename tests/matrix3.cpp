@@ -8,7 +8,7 @@ void print_matrix(Matrix3<float> m)
     printf("Matrix3:\n"
            "%f %f %f\n"
            "%f %f %f\n"
-           "%f %f %f",
+           "%f %f %f\n",
             m.m11, m.m12, m.m13,
             m.m21, m.m22, m.m23,
             m.m31, m.m32, m.m33);
@@ -27,6 +27,12 @@ void test_matrix3_multiply(void)
 
     print_matrix(mat2);
 
+    printf("Mat1 * Mat2");
+    print_matrix(mat1 * mat2);
+
+    printf("Mat2 * Mat1");
+    print_matrix(mat2 * mat1);
+
     Matrix3<float> answer;
     answer.m11 = 3;
     answer.m22 = 5;
@@ -34,6 +40,7 @@ void test_matrix3_multiply(void)
 
     print_matrix(answer);
 
+    CU_ASSERT(mat2 == answer);
     CU_ASSERT((mat1 * mat2) == answer);
     CU_ASSERT((mat2 * mat1) == answer);
 }
