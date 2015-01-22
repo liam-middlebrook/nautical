@@ -157,7 +157,7 @@ namespace nautical
 
                     inline bool operator==(const Matrix3<T>& rhs) const
                     {
-                        return memcmp(this->components, &rhs, sizeof(T) * 9);
+                        return !memcmp(this->components, &rhs, sizeof(T) * 9);
                     }
 
                     inline bool operator!=(const Matrix3<T>& rhs) const
