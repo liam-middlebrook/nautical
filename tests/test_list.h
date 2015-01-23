@@ -8,9 +8,9 @@
 #include "matrix3.h"
 
 static SuiteDef suites[] = {
-    {"Vector2", tests_vector2, 7},
-    {"Vector3", tests_vector3, 8},
-    {"Matrix3", tests_matrix3, 3},
+    {"Vector2", tests_vector2, tests_vector2_count},
+    {"Vector3", tests_vector3, tests_vector3_count},
+    {"Matrix3", tests_matrix3, tests_matrix3_count},
 };
 
 static size_t suite_count = 3;
