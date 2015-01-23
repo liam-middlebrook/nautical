@@ -10,7 +10,7 @@
 static SuiteDef suites[] = {
     {"Vector2", tests_vector2, 7},
     {"Vector3", tests_vector3, 8},
-    {"Matrix3", tests_matrix3, 2},
+    {"Matrix3", tests_matrix3, 3},
 };
 
 static size_t suite_count = 3;

@@ -73,3 +73,13 @@ void test_matrix3_vector(void)
 
     CU_ASSERT(Vector3<float>(mat * vec) == answer);
 }
+
+void test_matrix3_transpose(void)
+{
+    Matrix3<float> mat;
+    mat.m12 = 5.0f;
+    Matrix3<float> answer;
+    answer.m21 = 5.0f;
+
+    CU_ASSERT(mat.transpose() == answer);
+}

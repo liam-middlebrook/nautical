@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include "vector3.h"
+#include "../util.h"
 
 namespace nautical
 {
@@ -173,6 +174,17 @@ namespace nautical
                     inline operator T* ()
                     { 
                         return &m11;
+                    }
+
+                    inline Matrix3<T> transpose()
+                    {
+                        Matrix3<T> out = Matrix3<T>((T*)this);
+
+                        swap(out.m12, out.m21);
+                        swap(out.m13, out.m31);
+                        swap(out.m23, out.m32);
+
+                        return out;
                     }
 /*
                     inline Matrix3<T> normalized()
