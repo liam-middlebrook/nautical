@@ -1,6 +1,7 @@
 #include <cstdio>
 
 #include "math/vector2.h"
+#include "math/matrix3.h"
 
 int main(int argc, char** argv)
 {

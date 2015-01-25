@@ -1,3 +1,6 @@
+#ifndef VECTOR2_H_
+#define VECTOR2_H_
+
 #include <cmath>
 
 namespace nautical
@@ -201,3 +204,5 @@ namespace nautical
         const Vector2<T> Vector2<T>::up = Vector2<T>(0, 1);
     }
 }
+
+#endif
