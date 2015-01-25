@@ -2,6 +2,7 @@
 #define MATRIX3_H_
 
 #include <cmath>
+#include "vector2.h"
 #include "vector3.h"
 #include "../util.h"
 
@@ -31,6 +32,16 @@ namespace nautical
                     {
                             memcpy(components, data, sizeof(T) * 9);
                     };
+
+                    inline T operator[](const int& b)
+                    {
+                        return components[b];
+                    }
+
+                    inline operator T* ()
+                    {
+                        return &m11;
+                    }
 
                     inline Matrix3<T> operator*(const Matrix3<T>& b) const
                     {
@@ -158,22 +169,20 @@ namespace nautical
 
                     inline bool operator==(const Matrix3<T>& rhs) const
                     {
-                        return !memcmp(this->components, &rhs, sizeof(T) * 9);
+                        for(int i = 0; i < 9; ++i)
+                        {
+                            if(!tol(components[i], rhs.components[i]))
+                            {
+                                printf("%f != %f", components[i], rhs.components[i]);
+                                return false;
+                            }
+                        }
+                        return true;
                     }
 
                     inline bool operator!=(const Matrix3<T>& rhs) const
                     {
                         return !(*this == rhs);
-                    }
-/*
-                    inline T operator[](const int& b)
-                    { 
-                        return components[b];
-                    }
-//*/
-                    inline operator T* ()
-                    { 
-                        return &m11;
                     }
 
                     inline Matrix3<T> transpose()
@@ -184,6 +193,32 @@ namespace nautical
                         swap(out.m13, out.m31);
                         swap(out.m23, out.m32);
 
+                        return out;
+                    }
+
+                    inline static Matrix3<T> scale(const Vector2<T> scaleVector)
+                    {
+                        Matrix3<T> out;
+                        out.m11 = scaleVector.x;
+                        out.m22 = scaleVector.y;
+                        return out;
+                    }
+
+                    inline static Matrix3<T> rotate(const T& angle)
+                    {
+                        Matrix3<T> out;
+                        out.m11 = cos(angle);
+                        out.m12 = -sin(angle);
+                        out.m21 = -out.m12;
+                        out.m22 = out.m11;
+                        return out;
+                    }
+
+                    inline static Matrix3<T> translate(const Vector2<T> transVector)
+                    {
+                        Matrix3<T> out;
+                        out.m13 = transVector.x;
+                        out.m23 = transVector.y;
                         return out;
                     }
 /*
