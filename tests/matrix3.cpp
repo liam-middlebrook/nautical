@@ -123,3 +123,19 @@ void test_matrix3_translate(void)
 
     CU_ASSERT(mat == answer);
 }
+
+void test_matrix3_determinant(void)
+{
+    Matrix3<float> mat;
+    mat.m11 = 1.0f;
+    mat.m12 = 2.0f;
+    mat.m13 = 3.0f;
+    mat.m21 = 0.0f;
+    mat.m22 = -4.0f;
+    mat.m23 = 1.0f;
+    mat.m31 = 0.0f;
+    mat.m32 = 3.0f;
+    mat.m33 = -1.0f;
+
+    CU_ASSERT(mat.determinant() == 1.0f);
+}

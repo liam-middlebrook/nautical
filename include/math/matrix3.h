@@ -143,6 +143,12 @@ namespace nautical
                         return out;
                     }
 
+                    inline T determinant()
+                    {
+                        return m11 * ((m22 * m33) - (m23 * m32))
+                             - m12 * ((m21 * m33) - (m23 * m31))
+                             + m13 * ((m21 * m32) - (m22 * m31));
+                    }
                     inline static Matrix3<T> scale(const Vector2<T> scaleVector)
                     {
                         Matrix3<T> out;
