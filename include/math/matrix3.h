@@ -43,6 +43,46 @@ namespace nautical
                         return &m11;
                     }
 
+                    inline Matrix3<T> operator+(const Matrix3<T>& b) const
+                    {
+    `                   Matrix3<T> out;
+                        for(int i = 0; i < 9; ++i)
+                        {
+                            out.components[i] = components[i] + b.components[i];
+                        }
+                        return out;
+                    }
+
+                    inline Matrix3<T>& operator+=(const Matrix3<T>& rhs)
+                    {
+                        Matrix3<T> out;
+                        for(int i = 0; i < 9; ++i)
+                        {
+                            out.components[i] = components[i] + b.components[i];
+                        }
+                        return Matrix3<T>(&out);
+                    }
+
+                    inline Matrix3<T> operator-(const Matrix3<T>& b) const
+                    {
+    `                   Matrix3<T> out;
+                        for(int i = 0; i < 9; --i)
+                        {
+                            out.components[i] = components[i] - b.components[i];
+                        }
+                        return out;
+                    }
+
+                    inline Matrix3<T>& operator-=(const Matrix3<T>& rhs)
+                    {
+                        Matrix3<T> out;
+                        for(int i = 0; i < 9; ++i)
+                        {
+                            out.components[i] = components[i] - b.components[i];
+                        }
+                        return Matrix3<T>(&out);
+                    }
+
                     inline Matrix3<T> operator*(const Matrix3<T>& b) const
                     {
                         Matrix3<T> out;
@@ -109,6 +149,7 @@ namespace nautical
 
                         return Vector3<T>(&out);
                     }
+
                     inline Matrix3<T>& operator=(const Matrix3<T>& rhs)
                     {
                         memcpy(this->components, &rhs, sizeof(T) * 9);
