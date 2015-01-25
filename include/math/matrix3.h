@@ -173,7 +173,6 @@ namespace nautical
                         {
                             if(!tol(components[i], rhs.components[i]))
                             {
-                                printf("%f != %f", components[i], rhs.components[i]);
                                 return false;
                             }
                         }
