@@ -65,7 +65,7 @@ namespace nautical
                     inline Matrix3<T> operator-(const Matrix3<T>& b) const
                     {
                         Matrix3<T> out;
-                        for(int i = 0; i < 9; --i)
+                        for(int i = 0; i < 9; ++i)
                         {
                             out.components[i] = components[i] - b.components[i];
                         }
