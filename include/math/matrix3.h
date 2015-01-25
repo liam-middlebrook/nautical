@@ -45,7 +45,7 @@ namespace nautical
 
                     inline Matrix3<T> operator+(const Matrix3<T>& b) const
                     {
-    `                   Matrix3<T> out;
+                        Matrix3<T> out;
                         for(int i = 0; i < 9; ++i)
                         {
                             out.components[i] = components[i] + b.components[i];
@@ -55,17 +55,16 @@ namespace nautical
 
                     inline Matrix3<T>& operator+=(const Matrix3<T>& rhs)
                     {
-                        Matrix3<T> out;
                         for(int i = 0; i < 9; ++i)
                         {
-                            out.components[i] = components[i] + b.components[i];
+                            components[i] += rhs.components[i];
                         }
-                        return Matrix3<T>(&out);
+                        return *this;
                     }
 
                     inline Matrix3<T> operator-(const Matrix3<T>& b) const
                     {
-    `                   Matrix3<T> out;
+                        Matrix3<T> out;
                         for(int i = 0; i < 9; --i)
                         {
                             out.components[i] = components[i] - b.components[i];
@@ -78,9 +77,9 @@ namespace nautical
                         Matrix3<T> out;
                         for(int i = 0; i < 9; ++i)
                         {
-                            out.components[i] = components[i] - b.components[i];
+                            components[i] -= rhs.components[i];
                         }
-                        return Matrix3<T>(&out);
+                        return *this;
                     }
 
                     inline Matrix3<T> operator*(const Matrix3<T>& b) const
@@ -124,8 +123,12 @@ namespace nautical
                         out.m23 = m21 * rhs.m13 + m22 * rhs.m23 + m23 * rhs.m33;
                         out.m33 = m31 * rhs.m13 + m32 * rhs.m23 + m33 * rhs.m33;
 
+                        for(int i = 0; i < 9; ++i)
+                        {
+                            components[i] = out.components[i];
+                        }
 
-                        return Matrix3<T>(&out);
+                        return *this;
                     } 
 
                     inline Vector3<T> operator*(const Vector3<T>& b) const
