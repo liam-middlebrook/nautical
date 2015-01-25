@@ -83,3 +83,43 @@ void test_matrix3_transpose(void)
 
     CU_ASSERT(mat.transpose() == answer);
 }
+
+void test_matrix3_scale(void)
+{
+    Matrix3<float> mat = Matrix3<float>::scale(Vector2<float>(15.0f, -5.0f));
+
+    Matrix3<float> answer;
+    answer.m11 = 15.0f;
+    answer.m22 = -5.0f;
+
+    CU_ASSERT(mat == answer);
+}
+
+void test_matrix3_rotate(void)
+{
+    Matrix3<float> mat = Matrix3<float>::rotate(degreesToRadians(90.0f));
+
+    Matrix3<float> answer;
+    answer.m11 = -0.0f;
+    answer.m22 = -0.0f;
+    answer.m12 = -1.0f;
+    answer.m21 = 1.0f;
+
+    CU_ASSERT(mat == answer);
+
+    answer = Matrix3<float>::rotate(degreesToRadians(-270.0f));
+
+    CU_ASSERT(mat == answer);
+}
+
+void test_matrix3_translate(void)
+{
+    Matrix3<float> mat = Matrix3<float>::translate(Vector2<float>(15.0f, -10.0f));
+
+    Matrix3<float> answer;
+
+    answer.m13 = 15.0f;
+    answer.m23 = -10.0f;
+
+    CU_ASSERT(mat == answer);
+}
