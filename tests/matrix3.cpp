@@ -19,8 +19,57 @@ void print_matrix(Matrix3<float> m)
             m.m31, m.m32, m.m33);
 }
 
+void test_matrix3_add(void)
+{
+    Matrix3<float> dummy;
+    Matrix3<float> mat1;
+    mat1.m11 = 15.0f;
+    mat1.m23 = -70.0f;
+    mat1.m31 = 14.6f;
+    mat1.m33 = -3.5f;
+
+    Matrix3<float> answer;
+    answer.m11 = 16.0f;
+    answer.m22 = 2.0f;
+    answer.m23 = -70.0f;
+    answer.m31 = 14.6f;
+    answer.m33 = -2.5f;
+
+    CU_ASSERT((mat1 + Matrix3<float>::identity) == answer);
+
+    dummy = mat1;
+    dummy += Matrix3<float>::identity;
+
+    CU_ASSERT(dummy == answer);
+}
+
+void test_matrix3_subtract(void)
+{
+    Matrix3<float> dummy;
+    Matrix3<float> mat1;
+    mat1.m11 = 15.0f;
+    mat1.m23 = -70.0f;
+    mat1.m31 = 14.6f;
+    mat1.m33 = -3.5f;
+
+    Matrix3<float> answer;
+    answer.m11 = 14.0f;
+    answer.m22 = 0.0f;
+    answer.m23 = -70.0f;
+    answer.m31 = 14.6f;
+    answer.m33 = -4.5f;
+
+    CU_ASSERT((mat1 - Matrix3<float>::identity) == answer);
+
+    dummy = mat1;
+    dummy -= Matrix3<float>::identity;
+
+    CU_ASSERT(dummy == answer);
+}
+
 void test_matrix3_multiply(void)
 {
+    Matrix3<float> dummy;
     Matrix3<float> mat1;
 
     Matrix3<float> mat2;
@@ -34,7 +83,17 @@ void test_matrix3_multiply(void)
     answer.m33 = 7;
 
     CU_ASSERT((mat1 * mat2) == answer);
+
+    dummy = mat1;
+    dummy *= mat2;
+
+    CU_ASSERT(dummy == answer);
     CU_ASSERT((mat2 * mat1) == answer);
+
+    dummy = mat2;
+    dummy *= mat1;
+
+    CU_ASSERT(dummy == answer);
 
     mat1.m13 = 2;
     mat1.m22 = 4;
