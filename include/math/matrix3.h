@@ -109,58 +109,6 @@ namespace nautical
 
                         return Vector3<T>(&out);
                     }
-/*
-                    inline Matrix3<T> operator/(const Matrix3<T>& b) const
-                    {
-                        Matrix3<T> out;
-                        out.x = x / b.x;
-                        out.y = y / b.y;
-                        out.z = z / b.z;
-                        return out;
-                    } 
-
-                    inline Matrix3<T>& operator/=(const Matrix3<T>& rhs)
-                    {
-                        this->x /= rhs.x;
-                        this->y /= rhs.y;
-                        this->z /= rhs.z;
-                        return *this;
-                    }
-
-                    inline Matrix3<T> operator*(const T& b) const
-                    {
-                        Matrix3<T> out;
-                        out.x = x * b;
-                        out.y = y * b;
-                        out.z = z * b;
-                        return out;
-                    }
-
-                    inline Matrix3<T>& operator*=(const T& rhs)
-                    {
-                        this->x *= rhs;
-                        this->y *= rhs;
-                        this->z *= rhs;
-                        return *this;
-                    }
-
-                    inline Matrix3<T> operator/(const T& b) const
-                    {
-                        Matrix3<T> out;
-                        out.x = x / b;
-                        out.y = y / b;
-                        out.z = z / b;
-                        return out;
-                    }
-
-                    inline Matrix3<T>& operator/=(const T& rhs)
-                    {
-                        this->x /= rhs;
-                        this->y /= rhs;
-                        this->z /= rhs;
-                        return *this;
-                    }
-//*/
                     inline Matrix3<T>& operator=(const Matrix3<T>& rhs)
                     {
                         memcpy(this->components, &rhs, sizeof(T) * 9);
@@ -220,62 +168,10 @@ namespace nautical
                         out.m23 = transVector.y;
                         return out;
                     }
-/*
-                    inline Matrix3<T> normalized()
-                    { 
-                        if(lengthSquared() == 0)
-                        {
-                            return Matrix3<T>::zero;
-                        }
-                        return *this / length();
-                    }
 
-                    inline void normalize()
-                    {
-                        Matrix3<T> temp = normalized();
-                        this->x = temp.x;
-                        this->y = temp.y;
-                        this->z = temp.z;
-                    }
-
-                    inline T dot(Matrix3<T>& b)
-                    {
-                        return x * b.x + y * b.y + z * b.z;
-                    }
-
-                    inline Matrix3<T> cross(const Matrix3<T>& rhs) const
-                    {
-                        Matrix3<T> out;
-                        out.x = y * rhs.z - z * rhs.y;
-                        out.y = z * rhs.x - x * rhs.z;
-                        out.z = x * rhs.y - y * rhs.x;
-                        return out;
-                    }
-                    
-                    const static Matrix3<T> zero;
-                    const static Matrix3<T> one;
-                    const static Matrix3<T> right;
-                    const static Matrix3<T> up;
-                    const static Matrix3<T> forward;
-//*/
                     const static Matrix3<T> identity;
         };
-/*
-        template<typename T>
-        const Matrix3<T> Matrix3<T>::zero = Matrix3<T>(0, 0, 0);
 
-        template<typename T>
-        const Matrix3<T> Matrix3<T>::one = Matrix3<T>(1, 1, 1);
-
-        template<typename T>
-        const Matrix3<T> Matrix3<T>::right = Matrix3<T>(1, 0, 0);
-
-        template<typename T>
-        const Matrix3<T> Matrix3<T>::up = Matrix3<T>(0, 1, 0);
-
-        template<typename T>
-        const Matrix3<T> Matrix3<T>::forward = Matrix3<T>(0, 0, 1);
-//*/
         template<typename T>
         const Matrix3<T> Matrix3<T>::identity = Matrix3<T>();
     }
