@@ -12,7 +12,7 @@ void test_vector4_magnitude(void);
 void test_vector4_dot(void);
 void test_vector4_normalize(void);
 
- static TestDef tests_vector4[] = {
+static TestDef tests_vector4[] = {
     {"Test Vector3 Add", test_vector4_add},
     {"Test Vector3 Subtract", test_vector4_subtract},
     {"Test Vector3 Multiply", test_vector4_multiply},
@@ -22,6 +22,6 @@ void test_vector4_normalize(void);
     {"Test Vector3 Normalization", test_vector4_normalize},
 };
 
-static size_t tests_vector4_count = 8;
+static size_t tests_vector4_count = 7;
 
 #endif

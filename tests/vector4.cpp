@@ -1,11 +1,23 @@
 #include "vector4.h"
 #include <stdio.h>
-
+#include "util.h"
 using namespace nautical::math;
 
 void print_vector(Vector4<float> vector)
 {
     printf("Vector: X: %f Y: %f Z: %f W: %f", vector.x, vector.y, vector.z, vector.w);
+}
+
+bool tol_vector(Vector4<float> vec1, Vector4<float> vec2)
+{
+    for(int i = 0; i < 4; ++i)
+    {
+        if(!tol(vec1[i], vec2[i]))
+        {
+            return false;
+        }
+    }
+    return true;
 }
 
 void test_vector4_add(void)
@@ -66,7 +78,7 @@ void test_vector4_magnitude(void)
     float magnitude = sqrt(59);
 
     CU_ASSERT(vec1.length() == magnitude);
-    CU_ASSERT(vec1.lengthSquared() == 34.0f);
+    CU_ASSERT(vec1.lengthSquared() == 59);
 }
 
 void test_vector4_dot(void)
@@ -84,9 +96,9 @@ void test_vector4_normalize(void)
     Vector4<float> vec1(15.0f, 0.0f, 0.0f, 0.0f);
     Vector4<float> vec1Ans(1.0f, 0.0f, 0.0f, 0.0f);
 
-    Vector4<float> vec2(3.0f, 4.0f, 3.0f, 5.0f);
-    Vector4<float> vec2Ans(3.0f/sqrt(59), 4.0f/sqrt(59), 3/sqrt(59), 5/sqrt(59));
+    Vector4<float> vec2(3.0f, 4.0f, -2.0f, 5.0f);
+    Vector4<float> vec2Ans(1.0f/sqrt(6), 2 * sqrt(2.0f/3.0f)/3.0f, -sqrt(2.0f/3.0f)/3.0f, 5.0f/(3.0f * sqrt(6)));
 
     CU_ASSERT(vec1.normalized() == vec1Ans);
-    CU_ASSERT(vec2.normalized() == vec2Ans);
+    CU_ASSERT(tol_vector(vec2.normalized(),vec2Ans));
 }
