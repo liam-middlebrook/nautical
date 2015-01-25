@@ -26,6 +26,6 @@ static TestDef tests_matrix3[] = {
     {"Test Matrix3 Determinant", test_matrix3_determinant},
 };
 
-static size_t tests_matrix3_count = 7;
+static size_t tests_matrix3_count = 9;
 
 #endif
