@@ -13,6 +13,7 @@ void test_matrix3_scale(void);
 void test_matrix3_rotate(void);
 void test_matrix3_translate(void);
 void test_matrix3_determinant(void);
+void test_matrix3_inverse(void);
 
 static TestDef tests_matrix3[] = {
     {"Test Matrix3 Add", test_matrix3_add},
@@ -24,8 +25,9 @@ static TestDef tests_matrix3[] = {
     {"Test Matrix3 Rotate", test_matrix3_rotate},
     {"Test Matrix3 Translate", test_matrix3_translate},
     {"Test Matrix3 Determinant", test_matrix3_determinant},
+    {"Test Matrix3 Inverse", test_matrix3_inverse},
 };
 
-static size_t tests_matrix3_count = 9;
+static size_t tests_matrix3_count = 10;
 
 #endif

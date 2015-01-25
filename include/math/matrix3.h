@@ -193,6 +193,33 @@ namespace nautical
                              - m12 * ((m21 * m33) - (m23 * m31))
                              + m13 * ((m21 * m32) - (m22 * m31));
                     }
+
+                    inline Matrix3<T> inverse()
+                    {
+                        T determinant = this->determinant();
+
+                        Matrix3<T> inv;
+
+                        inv.m11 = (m22 * m33) - (m23 * m32);
+                        inv.m12 = (m13 * m32) - (m12 * m33);
+                        inv.m13 = (m12 * m23) - (m13 * m22);
+
+                        inv.m21 = (m23 * m31) - (m21 * m33);
+                        inv.m22 = (m11 * m33) - (m13 * m31);
+                        inv.m23 = (m13 * m21) - (m11 * m23);
+
+                        inv.m31 = (m21 * m32) - (m22 * m31);
+                        inv.m32 = (m12 * m31) - (m11 * m32);
+                        inv.m33 = (m11 * m22) - (m12 * m21);
+
+                        for(int i = 0; i < 9; ++i)
+                        {
+                            inv.components[i] /= determinant;
+                        }
+
+                        return inv;
+                    }
+
                     inline static Matrix3<T> scale(const Vector2<T> scaleVector)
                     {
                         Matrix3<T> out;

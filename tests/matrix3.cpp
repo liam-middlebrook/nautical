@@ -198,3 +198,21 @@ void test_matrix3_determinant(void)
 
     CU_ASSERT(mat.determinant() == 1.0f);
 }
+
+void test_matrix3_inverse(void)
+{
+    Matrix3<float> mat;
+
+    mat.m11 = 2.0f;
+    mat.m13 = 2.0f;
+    mat.m23 = 2.0f;
+    mat.m33 = 2.0f;
+
+    Matrix3<float> inv;
+    inv.m11 = 0.5f;
+    inv.m13 = -0.5f;
+    inv.m23 = -1.0f;
+    inv.m33 = 0.5f;
+
+    CU_ASSERT(mat.inverse() == inv);
+}
