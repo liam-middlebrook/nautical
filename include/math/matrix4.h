@@ -29,7 +29,7 @@ namespace nautical
                     Matrix4() : m11(1), m12(0), m13(0), m14(0),
                                 m21(0), m22(1), m23(0), m24(0),
                                 m31(0), m32(0), m33(1), m34(0),
-                                m41(0), m42(0), m43(0), m44(0) {};
+                                m41(0), m42(0), m43(0), m44(1) {};
 
                     Matrix4(T* data)
                     {
@@ -90,19 +90,28 @@ namespace nautical
                         Matrix4<T> out;
                         
                         // First column
-                        out.m11 = m11 * b.m11 + m12 * b.m21 + m13 * b.m31;
-                        out.m21 = m21 * b.m11 + m22 * b.m21 + m23 * b.m31;
-                        out.m31 = m31 * b.m11 + m32 * b.m21 + m33 * b.m31;
+                        out.m11 = m11 * b.m11 + m12 * b.m21 + m13 * b.m31 + m14 * b.m41;
+                        out.m21 = m21 * b.m11 + m22 * b.m21 + m23 * b.m31 + m24 * b.m41;
+                        out.m31 = m31 * b.m11 + m32 * b.m21 + m33 * b.m31 + m34 * b.m41;
+                        out.m41 = m41 * b.m11 + m42 * b.m21 + m43 * b.m31 + m44 * b.m41;
 
                         // Second Column
-                        out.m12 = m11 * b.m12 + m12 * b.m22 + m13 * b.m32;
-                        out.m22 = m21 * b.m12 + m22 * b.m22 + m23 * b.m32;
-                        out.m32 = m31 * b.m12 + m32 * b.m22 + m33 * b.m32;
+                        out.m12 = m11 * b.m12 + m12 * b.m22 + m13 * b.m32 + m14 * b.m42;
+                        out.m22 = m21 * b.m12 + m22 * b.m22 + m23 * b.m32 + m24 * b.m42;
+                        out.m32 = m31 * b.m12 + m32 * b.m22 + m33 * b.m32 + m34 * b.m42;
+                        out.m42 = m41 * b.m12 + m42 * b.m22 + m43 * b.m32 + m44 * b.m42;
 
                         // Third Column
-                        out.m13 = m11 * b.m13 + m12 * b.m23 + m13 * b.m33;
-                        out.m23 = m21 * b.m13 + m22 * b.m23 + m23 * b.m33;
-                        out.m33 = m31 * b.m13 + m32 * b.m23 + m33 * b.m33;
+                        out.m13 = m11 * b.m13 + m12 * b.m23 + m13 * b.m33 + m14 * b.m43;
+                        out.m23 = m21 * b.m13 + m22 * b.m23 + m23 * b.m33 + m24 * b.m43;
+                        out.m33 = m31 * b.m13 + m32 * b.m23 + m33 * b.m33 + m34 * b.m43;
+                        out.m43 = m41 * b.m13 + m42 * b.m23 + m43 * b.m33 + m44 * b.m43;
+
+                        // Fourth Column
+                        out.m14 = m11 * b.m14 + m12 * b.m24 + m13 * b.m34 + m14 * b.m44;
+                        out.m24 = m21 * b.m14 + m22 * b.m24 + m23 * b.m34 + m24 * b.m44;  
+                        out.m34 = m31 * b.m14 + m32 * b.m24 + m33 * b.m34 + m34 * b.m44;
+                        out.m44 = m41 * b.m14 + m42 * b.m24 + m43 * b.m34 + m44 * b.m44;
 
                         return out;
                     }
@@ -112,21 +121,30 @@ namespace nautical
                         Matrix4<T> out;
 
                         // First column
-                        out.m11 = m11 * rhs.m11 + m12 * rhs.m21 + m13 * rhs.m31;
-                        out.m21 = m21 * rhs.m11 + m22 * rhs.m21 + m23 * rhs.m31;
-                        out.m31 = m31 * rhs.m11 + m32 * rhs.m21 + m33 * rhs.m31;
+                        out.m11 = m11 * rhs.m11 + m12 * rhs.m21 + m13 * rhs.m31 + m14 * rhs.m41;
+                        out.m21 = m21 * rhs.m11 + m22 * rhs.m21 + m23 * rhs.m31 + m24 * rhs.m41;
+                        out.m31 = m31 * rhs.m11 + m32 * rhs.m21 + m33 * rhs.m31 + m34 * rhs.m41;
+                        out.m41 = m41 * rhs.m11 + m42 * rhs.m21 + m43 * rhs.m31 + m44 * rhs.m41;
 
                         // Second Column
-                        out.m12 = m11 * rhs.m12 + m12 * rhs.m22 + m13 * rhs.m32;
-                        out.m22 = m21 * rhs.m12 + m22 * rhs.m22 + m23 * rhs.m32;
-                        out.m32 = m31 * rhs.m12 + m32 * rhs.m22 + m33 * rhs.m32;
+                        out.m12 = m11 * rhs.m12 + m12 * rhs.m22 + m13 * rhs.m32 + m14 * rhs.m42;
+                        out.m22 = m21 * rhs.m12 + m22 * rhs.m22 + m23 * rhs.m32 + m24 * rhs.m42;
+                        out.m32 = m31 * rhs.m12 + m32 * rhs.m22 + m33 * rhs.m32 + m34 * rhs.m42;
+                        out.m42 = m41 * rhs.m12 + m42 * rhs.m22 + m43 * rhs.m32 + m44 * rhs.m42;
 
                         // Third Column
-                        out.m13 = m11 * rhs.m13 + m12 * rhs.m23 + m13 * rhs.m33;
-                        out.m23 = m21 * rhs.m13 + m22 * rhs.m23 + m23 * rhs.m33;
-                        out.m33 = m31 * rhs.m13 + m32 * rhs.m23 + m33 * rhs.m33;
+                        out.m13 = m11 * rhs.m13 + m12 * rhs.m23 + m13 * rhs.m33 + m14 * rhs.m43;
+                        out.m23 = m21 * rhs.m13 + m22 * rhs.m23 + m23 * rhs.m33 + m24 * rhs.m43;
+                        out.m33 = m31 * rhs.m13 + m32 * rhs.m23 + m33 * rhs.m33 + m34 * rhs.m43;
+                        out.m43 = m41 * rhs.m13 + m42 * rhs.m23 + m43 * rhs.m33 + m44 * rhs.m43;
 
-                        for(int i = 0; i < 9; ++i)
+                        // Fourth Column
+                        out.m14 = m11 * rhs.m14 + m12 * rhs.m24 + m13 * rhs.m34 + m14 * rhs.m44;
+                        out.m24 = m21 * rhs.m14 + m22 * rhs.m24 + m23 * rhs.m34 + m24 * rhs.m44;  
+                        out.m34 = m31 * rhs.m14 + m32 * rhs.m24 + m33 * rhs.m34 + m34 * rhs.m44;
+                        out.m44 = m41 * rhs.m14 + m42 * rhs.m24 + m43 * rhs.m34 + m44 * rhs.m44;
+
+                        for(int i = 0; i < 16; ++i)
                         {
                             components[i] = out.components[i];
                         }
@@ -134,9 +152,9 @@ namespace nautical
                         return *this;
                     } 
 
-                    inline Vector3<T> operator*(const Vector4<T>& b) const
+                    inline Vector4<T> operator*(const Vector4<T>& b) const
                     {
-                        Vector3<T> out;
+                        Vector4<T> out;
 
                         out.x = m11 * b.x + m12 * b.y + m13 * b.z + m14 * b.w;
                         out.y = m21 * b.x + m22 * b.y + m23 * b.z + m24 * b.w;
@@ -146,16 +164,16 @@ namespace nautical
                         return out;
                     }
 
-                    inline Vector3<T>& operator*=(const Vector3<T>& rhs)
+                    inline Vector4<T>& operator*=(const Vector4<T>& rhs)
                     {
-                        Vector3<T> out;
+                        Vector4<T> out;
 
                         out.x = m11 * rhs.x + m12 * rhs.y + m13 * rhs.z + m14 * rhs.w;
                         out.y = m21 * rhs.x + m22 * rhs.y + m23 * rhs.z + m24 * rhs.w;
                         out.z = m31 * rhs.x + m32 * rhs.y + m33 * rhs.z + m34 * rhs.w;
                         out.w = m41 * rhs.x + m42 * rhs.y + m43 * rhs.z + m44 * rhs.w;
 
-                        return Vector3<T>(&out);
+                        return Vector4<T>(&out);
                     }
 
                     inline Matrix4<T>& operator=(const Matrix4<T>& rhs)
@@ -247,7 +265,7 @@ namespace nautical
                         inv.m13 = (m12 * m23 * m44)
                             + (m13 * m24 * m42)
                             + (m14 * m22 * m43)
-                            - (m12 * m23 * m43)
+                            - (m12 * m24 * m43)
                             - (m13 * m22 * m44)
                             - (m14 * m23 * m42);
 
@@ -273,7 +291,7 @@ namespace nautical
                             - (m13 * m31 * m44)
                             - (m14 * m33 * m41);
 
-                        inv.m23 = (m11 * m23 * m43)
+                        inv.m23 = (m11 * m24 * m43)
                             + (m13 * m21 * m44)
                             + (m14 * m23 * m41)
                             - (m11 * m23 * m44)
@@ -281,7 +299,7 @@ namespace nautical
                             - (m14 * m21 * m43);
 
                         inv.m24 = (m11 * m23 * m34)
-                            + (m13 * m23 * m31)
+                            + (m13 * m24 * m31)
                             + (m14 * m21 * m33)
                             - (m11 * m24 * m33)
                             - (m13 * m21 * m34)
@@ -291,7 +309,7 @@ namespace nautical
                         inv.m31 = (m21 * m32 * m44)
                             + (m22 * m34 * m41)
                             + (m24 * m31 * m42)
-                            - (m21 * m34 * m42)
+                            - (m21 * m34 * m44)
                             - (m22 * m31 * m44)
                             - (m24 * m32 * m41);
 
@@ -299,7 +317,7 @@ namespace nautical
                             + (m12 * m31 * m44)
                             + (m14 * m32 * m41)
                             - (m11 * m32 * m44)
-                            - (m12 * m32 * m41)
+                            - (m12 * m34 * m41)
                             - (m14 * m31 * m42);
 
                         inv.m33 = (m11 * m22 * m44)

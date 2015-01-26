@@ -3,11 +3,6 @@
 
 using namespace nautical::math;
 
-void print_vector3(Vector3<float> vector)
-{
-    printf("Vector: X: %f Y: %f Z: %f\n", vector.x, vector.y, vector.z);
-}
-
 void print_matrix44(Matrix4<float> m)
 {
     printf("Matrix4:\n"
@@ -29,6 +24,7 @@ void test_matrix4_add(void)
     mat1.m23 = -70.0f;
     mat1.m31 = 14.6f;
     mat1.m33 = -3.5f;
+    mat1.m44 = 1.0f;
 
     Matrix4<float> answer;
     answer.m11 = 16.0f;
@@ -61,6 +57,7 @@ void test_matrix4_subtract(void)
     answer.m23 = -70.0f;
     answer.m31 = 14.6f;
     answer.m33 = -4.5f;
+    answer.m44 = 0.0f;
 
     CU_ASSERT((mat1 - Matrix4<float>::identity) == answer);
 
@@ -110,6 +107,7 @@ void test_matrix4_multiply(void)
     answer.m22 = 20;
     answer.m31 = 18;
     answer.m33 = 7;
+    answer.m44 = 9;
 
     CU_ASSERT((mat1 * mat2) == answer);
 
@@ -119,6 +117,7 @@ void test_matrix4_multiply(void)
     answer.m22 = 20;
     answer.m31 = 42;
     answer.m33 = 7;
+    answer.m44 = 9;
 
     CU_ASSERT((mat2 * mat1) == answer);
 }
@@ -205,18 +204,20 @@ void test_matrix4_inverse(void)
 
     mat.m11 = 2.0f;
     mat.m13 = 2.0f;
-    mat.m23 = 2.0f;
+    mat.m22 = 2.0f;
     mat.m24 = 5.0f;
     mat.m33 = 2.0f;
     mat.m42 = 5.0f;
+    mat.m44 = 0.0f;
 
     Matrix4<float> inv;
     inv.m11 = 0.5f;
     inv.m13 = -0.5f;
-    inv.m24 = 1.0f/5.0f;
+    inv.m22 = 0.0f;
+    inv.m24 = 0.2f;
     inv.m33 = 0.5f;
-    inv.m42 = 1.0f/5.0f;
-    inv.m44 = -2.0f/25.0f;
+    inv.m42 = 0.2f;
+    inv.m44 = -0.08;
 
     CU_ASSERT(mat.inverse() == inv);
 }

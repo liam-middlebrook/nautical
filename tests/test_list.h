@@ -17,6 +17,6 @@ static SuiteDef suites[] = {
     {"Matrix4", tests_matrix4, tests_matrix4_count},
 };
 
-static size_t suite_count = 4;
+static size_t suite_count = 5;
 
 #endif
