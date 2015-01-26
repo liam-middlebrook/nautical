@@ -175,6 +175,28 @@ void test_matrix4_rotate(void)
     answer.m22 = c;
 
     CU_ASSERT(mat == answer);
+
+    mat = Matrix4<float>::rotate(Vector3<float>(0, 1, 0), angle);
+
+    answer = Matrix4<float>();
+
+    answer.m11 = c;
+    answer.m13 = s;
+    answer.m31 = -s;
+    answer.m33 = c;
+
+    CU_ASSERT(mat == answer);
+
+    mat = Matrix4<float>::rotate(Vector3<float>(1, 0, 0), angle);
+
+    answer = Matrix4<float>();
+
+    answer.m22 = c;
+    answer.m23 = -s;
+    answer.m32 = s;
+    answer.m33 = c;
+
+    CU_ASSERT(mat == answer);
 }
 
 void test_matrix4_translate(void)
