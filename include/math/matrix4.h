@@ -380,13 +380,33 @@ namespace nautical
                         return out;
                     }
 
-                    inline static Matrix4<T> rotate(const T& angle)
+                    inline static Matrix4<T> rotate(const Vector3<T>& axis, const T& angle)
                     {
+                        Vector3<T> a = ((Vector3<T>)axis).normalized();
+
                         Matrix4<T> out;
-                        out.m11 = cos(angle);
-                        out.m12 = -sin(angle);
-                        out.m21 = -out.m12;
-                        out.m22 = out.m11;
+
+                        T c = cos(angle);
+                        T s = sin(angle);
+                        out.m11 = c + a.x * a.x * (1.0 - c);
+                        out.m12 = a.x * a.y * (1.0 - c) - a.z * s;
+                        out.m13 = a.x * a.z * (1.0 - c) + a.y * s;
+                        out.m14 = 0;
+
+                        out.m21 = a.y * a.x * (1.0 - c) + a.z * s;
+                        out.m22 = c + a.y * a.y * (1.0 - c);
+                        out.m23 = a.y * a.z * (1.0 - c) - a.x * s;
+                        out.m24 = 0;
+
+                        out.m31 = a.z * a.x * (1.0 - c) - a.y * s;
+                        out.m32 = a.z * a.y * (1.0 - c) + a.x * s;
+                        out.m33 = c + a.z * a.z * (1.0 - c);
+                        out.m34 = 0;
+
+                        out.m41 = 0;
+                        out.m42 = 0;
+                        out.m43 = 0;
+                        out.m44 = 1;
                         return out;
                     }
 

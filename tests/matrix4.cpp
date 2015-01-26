@@ -161,7 +161,20 @@ void test_matrix4_scale(void)
 
 void test_matrix4_rotate(void)
 {
-    CU_ASSERT(0);
+    float angle = degreesToRadians(90.0f);
+    float s = sin(angle);
+    float c = cos(angle);
+
+    Matrix4<float> mat = Matrix4<float>::rotate(Vector3<float>(0,0,1), angle);
+
+    Matrix4<float> answer;
+
+    answer.m11 = c;
+    answer.m12 = -s;
+    answer.m21 = s;
+    answer.m22 = c;
+
+    CU_ASSERT(mat == answer);
 }
 
 void test_matrix4_translate(void)
