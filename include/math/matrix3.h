@@ -28,6 +28,10 @@ namespace nautical
                                 m21(0), m22(1), m23(0),
                                 m31(0), m32(0), m33(1) {};
 
+                    Matrix3(T v) : m11(v), m12(0), m13(0),
+                                   m21(0), m22(v), m23(0),
+                                   m31(0), m32(0), m33(v) {};
+
                     Matrix3(T* data)
                     {
                             memcpy(components, data, sizeof(T) * 9);
