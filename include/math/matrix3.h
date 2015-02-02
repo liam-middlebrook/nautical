@@ -1,5 +1,4 @@
-#ifndef MATRIX3_H_
-#define MATRIX3_H_
+#pragma once
 
 #include <cmath>
 #include "vector2.h"
@@ -257,5 +256,3 @@ namespace nautical
         const Matrix3<T> Matrix3<T>::identity = Matrix3<T>();
     }
 }
-
-#endif

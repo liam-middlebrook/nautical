@@ -1,5 +1,4 @@
-#ifndef UTILS_H_
-#define UTILS_H_
+#pragma once
 
 #define PI acos(-1.0)
 
@@ -27,4 +26,3 @@ inline T radiansToDegrees(const T& val)
 {
     return val * (180.0/PI);
 }
-#endif

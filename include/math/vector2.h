@@ -1,5 +1,4 @@
-#ifndef VECTOR2_H_
-#define VECTOR2_H_
+#pragma once
 
 #include <cmath>
 
@@ -204,5 +203,3 @@ namespace nautical
         const Vector2<T> Vector2<T>::up = Vector2<T>(0, 1);
     }
 }
-
-#endif
