@@ -6,11 +6,10 @@ CPPFLAGS += -std=c++11 -Wall -Wextra -pedantic
 
 LFLAGS := -lX11 -lglfw -lGL -lGLEW -lm -lstdc++
 
-SOURCES = $(wildcard src/*.cpp)
-TESTS = $(wildcard tests/*.cpp)
-HEADERS = $(wildcard include/**.h)
-OBJECTS = $(patsubst src/%.cpp,src/%.o,$(wildcard src/*.cpp))
-TEST_OBJS = $(patsubst tests/%.cpp,tests/%.o,$(wildcard tests/*.cpp))
+SOURCES = $(wildcard src/*.cpp) $(wildcard src/**/*.cpp)
+TESTS = $(wildcard tests/*.cpp) $(wildcard tests/**/*.cpp)
+OBJECTS = $(subst .cpp,.o,$(SOURCES))
+TEST_OBJS = $(subst .cpp,.o,$(TESTS))
 
 .PHONY: all
 all: nautical
