@@ -1,10 +1,14 @@
-#include <stdio.h>
+#include <map>
+#include <string>
 #include <CUnit/CUnit.h>
+using std::map;
+using std::string;
 
 #include "test_list.h"
 
 int main(int argc, char** argv)
 {
+	map<string, CU_pSuite> suitemap;
 
     if(CUE_SUCCESS != CU_initialize_registry())
     {
@@ -19,6 +23,7 @@ int main(int argc, char** argv)
             CU_cleanup_registry();
             return CU_get_error();
         }
+		suitemap[suites[i].name] = suite;
 
         for(size_t j = 0; j < suites[i].count; ++j)
         {
@@ -34,8 +39,7 @@ int main(int argc, char** argv)
 	if(argc > 1) {
 		for(int i=1; i<argc; i++)
 		{
-			CU_pSuite suite = CU_get_suite(argv[i]);
-			CU_basic_run_suite(suite);
+			CU_basic_run_suite(suitemap[argv[i]]);
 		}
 	} else {
 	    CU_basic_run_tests();
