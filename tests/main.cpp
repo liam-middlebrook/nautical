@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <CUnit/Basic.h>
+#include <CUnit/CUnit.h>
 
 #include "test_list.h"
 
