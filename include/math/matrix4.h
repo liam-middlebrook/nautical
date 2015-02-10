@@ -29,17 +29,17 @@ namespace nautical
                     Matrix4() : m11(1), m12(0), m13(0), m14(0),
                                 m21(0), m22(1), m23(0), m24(0),
                                 m31(0), m32(0), m33(1), m34(0),
-                                m41(0), m42(0), m43(0), m44(1) {};
+                                m41(0), m42(0), m43(0), m44(1) {}
 
                     Matrix4(T v) : m11(v), m12(0), m13(0), m14(0),
                                    m21(0), m22(v), m23(0), m24(0),
                                    m31(0), m32(0), m33(v), m34(0),
-                                   m41(0), m42(0), m43(0), m44(v) {};
+                                   m41(0), m42(0), m43(0), m44(v) {}
 
                     Matrix4(T* data)
                     {
                             memcpy(components, data, sizeof(T) * 16);
-                    };
+                    }
 
                     Matrix4(const Matrix3<T>& m)
                     {
@@ -58,7 +58,7 @@ namespace nautical
                         m41 = 0;
                         m42 = 0;
                         m43 = 0;
-                    };
+                    }
 
                     inline T operator[](const int& b)
                     {
@@ -112,7 +112,7 @@ namespace nautical
                     inline Matrix4<T> operator*(const Matrix4<T>& b) const
                     {
                         Matrix4<T> out;
-                        
+
                         // First column
                         out.m11 = m11 * b.m11 + m12 * b.m21 + m13 * b.m31 + m14 * b.m41;
                         out.m21 = m21 * b.m11 + m22 * b.m21 + m23 * b.m31 + m24 * b.m41;
@@ -133,7 +133,7 @@ namespace nautical
 
                         // Fourth Column
                         out.m14 = m11 * b.m14 + m12 * b.m24 + m13 * b.m34 + m14 * b.m44;
-                        out.m24 = m21 * b.m14 + m22 * b.m24 + m23 * b.m34 + m24 * b.m44;  
+                        out.m24 = m21 * b.m14 + m22 * b.m24 + m23 * b.m34 + m24 * b.m44;
                         out.m34 = m31 * b.m14 + m32 * b.m24 + m33 * b.m34 + m34 * b.m44;
                         out.m44 = m41 * b.m14 + m42 * b.m24 + m43 * b.m34 + m44 * b.m44;
 
@@ -164,7 +164,7 @@ namespace nautical
 
                         // Fourth Column
                         out.m14 = m11 * rhs.m14 + m12 * rhs.m24 + m13 * rhs.m34 + m14 * rhs.m44;
-                        out.m24 = m21 * rhs.m14 + m22 * rhs.m24 + m23 * rhs.m34 + m24 * rhs.m44;  
+                        out.m24 = m21 * rhs.m14 + m22 * rhs.m24 + m23 * rhs.m34 + m24 * rhs.m44;
                         out.m34 = m31 * rhs.m14 + m32 * rhs.m24 + m33 * rhs.m34 + m34 * rhs.m44;
                         out.m44 = m41 * rhs.m14 + m42 * rhs.m24 + m43 * rhs.m34 + m44 * rhs.m44;
 
@@ -174,7 +174,7 @@ namespace nautical
                         }
 
                         return *this;
-                    } 
+                    }
 
                     inline Vector4<T> operator*(const Vector4<T>& b) const
                     {

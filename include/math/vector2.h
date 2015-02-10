@@ -15,13 +15,14 @@ namespace nautical
                             struct { T x; T y;};
                             T components[2];
                     };
-                    Vector2() : x(0), y(0) {};
-                    Vector2(T x, T y) : x(x), y(y) {};
+
+                    Vector2() : x(0), y(0) {}
+                    Vector2(T x, T y) : x(x), y(y) {}
 
                     Vector2(T* data)
                     {
                             memcpy(components, data, sizeof(T) * 2);
-                    };
+                    }
 
                     inline T lengthSquared() const
                     {
@@ -51,7 +52,7 @@ namespace nautical
                         this->x += rhs.x;
                         this->y += rhs.y;
                         return *this;
-                    } 
+                    }
 
                     inline Vector2<T> operator-() const
                     {
@@ -67,7 +68,7 @@ namespace nautical
                         out.x = x - b.x;
                         out.y = y - b.y;
                         return out;
-                    } 
+                    }
 
                     inline Vector2<T>& operator-=(const Vector2<T>& rhs)
                     {
@@ -97,7 +98,7 @@ namespace nautical
                         out.x = x / b.x;
                         out.y = y / b.y;
                         return out;
-                    } 
+                    }
 
                     inline Vector2<T>& operator/=(const Vector2<T>& rhs)
                     {
