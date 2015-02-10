@@ -14,7 +14,7 @@ namespace nautical
                     {
                             struct { T x; T y; T z;};
                             T components[3];
-                    }
+                    };
                     Vector3() : x(0), y(0), z(0) {}
                     Vector3(T x, T y, T z) : x(x), y(y), z(z) {}
 
