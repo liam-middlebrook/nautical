@@ -59,7 +59,9 @@ target_link_libraries(nautical-tests cunit)
 
 enable_testing()
 
-add_test(
-	NAME nautical-tests-all
-	COMMAND nautical-tests
-)
+foreach(tst Vector2 Vector3 Vector4 Matrix3 Matrix4)
+	add_test(
+		NAME ${tst}
+		COMMAND nautical-tests ${tst}
+	)
+endforeach()

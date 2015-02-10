@@ -31,7 +31,15 @@ int main(int argc, char** argv)
     }
 
     CU_basic_set_mode(CU_BRM_VERBOSE);
-    CU_basic_run_tests();
+	if(argc > 1) {
+		for(int i=1; i<argc; i++)
+		{
+			CU_pSuite suite = CU_get_suite(argv[i]);
+			CU_basic_run_suite(suite);
+		}
+	} else {
+	    CU_basic_run_tests();
+	}
 
     int errCode = CU_get_number_of_tests_failed();
     CU_cleanup_registry();
