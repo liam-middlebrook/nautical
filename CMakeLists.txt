@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.0.2)
 
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_LIST_DIR}/CMake)
+find_package(CUnit REQUIRED)
+
 include_directories(
 	"include"
 )
@@ -52,10 +55,10 @@ add_executable(nautical-tests
 )
 
 target_include_directories(nautical-tests
-	PUBLIC tests
+	PUBLIC tests ${CUNIT_INCLUDE_DIRS}
 )
 
-target_link_libraries(nautical-tests cunit)
+target_link_libraries(nautical-tests ${CUNIT_LIBRARY})
 
 enable_testing()
 
