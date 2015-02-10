@@ -15,13 +15,13 @@ namespace nautical
                             struct { T x; T y; T z; T w;};
                             T components[4];
                     };
-                    Vector4() : x(0), y(0), z(0), w(0) {};
-                    Vector4(T x, T y, T z, T w) : x(x), y(y), z(z), w(w) {};
+                    Vector4() : x(0), y(0), z(0), w(0) {}
+                    Vector4(T x, T y, T z, T w) : x(x), y(y), z(z), w(w) {}
 
                     Vector4(T* data)
                     {
                             memcpy(components, data, sizeof(T) * 4);
-                    };
+                    }
 
                     inline T lengthSquared() const
                     {
@@ -50,7 +50,7 @@ namespace nautical
                         this->z += rhs.z;
                         this->w += rhs.w;
                         return *this;
-                    } 
+                    }
 
                     inline Vector4<T> operator-() const
                     {
@@ -70,7 +70,7 @@ namespace nautical
                         out.z = z - b.z;
                         out.w = w - b.w;
                         return out;
-                    } 
+                    }
 
                     inline Vector4<T>& operator-=(const Vector4<T>& rhs)
                     {
@@ -108,7 +108,7 @@ namespace nautical
                         out.z = z / b.z;
                         out.w = w / b.w;
                         return out;
-                    } 
+                    }
 
                     inline Vector4<T>& operator/=(const Vector4<T>& rhs)
                     {
@@ -180,17 +180,17 @@ namespace nautical
                     }
 
                     inline T operator[](const int& b)
-                    { 
+                    {
                         return components[b];
                     }
 
                     inline operator T* ()
-                    { 
+                    {
                         return &x;
                     }
 
                     inline Vector4<T> normalized()
-                    { 
+                    {
                         if(lengthSquared() == 0)
                         {
                             return Vector4<T>::zero;

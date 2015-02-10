@@ -25,16 +25,16 @@ namespace nautical
                     };
                     Matrix3() : m11(1), m12(0), m13(0),
                                 m21(0), m22(1), m23(0),
-                                m31(0), m32(0), m33(1) {};
+                                m31(0), m32(0), m33(1) {}
 
                     Matrix3(T v) : m11(v), m12(0), m13(0),
                                    m21(0), m22(v), m23(0),
-                                   m31(0), m32(0), m33(v) {};
+                                   m31(0), m32(0), m33(v) {}
 
                     Matrix3(T* data)
                     {
                             memcpy(components, data, sizeof(T) * 9);
-                    };
+                    }
 
                     inline T operator[](const int& b)
                     {
@@ -88,7 +88,7 @@ namespace nautical
                     inline Matrix3<T> operator*(const Matrix3<T>& b) const
                     {
                         Matrix3<T> out;
-                        
+
                         // First column
                         out.m11 = m11 * b.m11 + m12 * b.m21 + m13 * b.m31;
                         out.m21 = m21 * b.m11 + m22 * b.m21 + m23 * b.m31;
@@ -132,7 +132,7 @@ namespace nautical
                         }
 
                         return *this;
-                    } 
+                    }
 
                     inline Vector3<T> operator*(const Vector3<T>& b) const
                     {

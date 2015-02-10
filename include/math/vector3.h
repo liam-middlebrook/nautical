@@ -14,14 +14,14 @@ namespace nautical
                     {
                             struct { T x; T y; T z;};
                             T components[3];
-                    };
-                    Vector3() : x(0), y(0), z(0) {};
-                    Vector3(T x, T y, T z) : x(x), y(y), z(z) {};
+                    }
+                    Vector3() : x(0), y(0), z(0) {}
+                    Vector3(T x, T y, T z) : x(x), y(y), z(z) {}
 
                     Vector3(T* data)
                     {
                             memcpy(components, data, sizeof(T) * 3);
-                    };
+                    }
 
                     inline T lengthSquared() const
                     {
@@ -48,7 +48,7 @@ namespace nautical
                         this->y += rhs.y;
                         this->z += rhs.z;
                         return *this;
-                    } 
+                    }
 
                     inline Vector3<T> operator-() const
                     {
@@ -66,7 +66,7 @@ namespace nautical
                         out.y = y - b.y;
                         out.z = z - b.z;
                         return out;
-                    } 
+                    }
 
                     inline Vector3<T>& operator-=(const Vector3<T>& rhs)
                     {
@@ -100,7 +100,7 @@ namespace nautical
                         out.y = y / b.y;
                         out.z = z / b.z;
                         return out;
-                    } 
+                    }
 
                     inline Vector3<T>& operator/=(const Vector3<T>& rhs)
                     {
@@ -163,17 +163,17 @@ namespace nautical
                     }
 
                     inline T operator[](const int& b)
-                    { 
+                    {
                         return components[b];
                     }
 
                     inline operator T* ()
-                    { 
+                    {
                         return &x;
                     }
 
                     inline Vector3<T> normalized()
-                    { 
+                    {
                         if(lengthSquared() == 0)
                         {
                             return Vector3<T>::zero;
@@ -202,7 +202,7 @@ namespace nautical
                         out.z = x * rhs.y - y * rhs.x;
                         return out;
                     }
-                    
+
                     const static Vector3<T> zero;
                     const static Vector3<T> one;
                     const static Vector3<T> right;
