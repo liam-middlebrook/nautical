@@ -1,20 +1,23 @@
 #include <cstdio>
 
-#include "math/vector2.h"
-#include "math/matrix3.h"
+#include "graphics/window.h"
 
 int main(int argc, char** argv)
 {
-    nautical::math::Vector2<double> vector(4.0f, 3.0f);
+    if(!nautical::graphics::Window::init())
+    {
+        printf("Error Window System Not Inited!");
+        return 1;
+    }
 
-    nautical::math::Vector2<double> b(7.0, 4.0);
+    nautical::graphics::Window window(500, 500, "Window!");
 
-    vector += b;
+    window.setActive();
 
-    printf("Vector: %f, %f", vector[1], vector.y);
-
-    printf("Length: %f", vector.length());
-
-    printf("Direction %f", vector.direction());
+    while(!window.shouldClose())
+    {
+        glfwPollEvents();
+    //    window.render();
+    }
     return 0;
 }

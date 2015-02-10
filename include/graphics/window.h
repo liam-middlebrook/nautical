@@ -23,6 +23,11 @@ namespace nautical
 
             inline void render() { glfwSwapBuffers(_window); }
 
+            inline static bool init()
+            {
+                return glfwInit();
+            }
+
         private:
             GLFWwindow* _window;
             int _w, _h;
