@@ -4,12 +4,14 @@ include_directories(
 	"include"
 )
 
-add_definitions(
-	-std=c++11
-	-Wall
-	-Wextra
-	-pedantic
-)
+if(NOT MSVC)
+	add_definitions(
+		-std=c++11
+		-Wall
+		-Wextra
+		-pedantic
+	)
+endif()
 
 set(h_files
 	"include/util.h"
