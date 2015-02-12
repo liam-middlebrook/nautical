@@ -42,7 +42,7 @@ int main(int argc, char** argv)
 			CU_basic_run_suite(suitemap[argv[i]]);
 		}
 	} else {
-	    CU_basic_run_tests();
+        CU_basic_run_tests();
 	}
 
     int errCode = CU_get_number_of_tests_failed();
