@@ -3,12 +3,14 @@
 
 #include <CUnit/Basic.h>
 
-typedef struct {
+typedef struct
+{
     const char* name;
     CU_TestFunc func;
 } TestDef;
 
-typedef struct {
+typedef struct
+{
     const char* name;
     TestDef* tests;
     size_t count;
