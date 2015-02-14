@@ -17,6 +17,8 @@ if(NOT MSVC)
 endif()
 
 set(h_files
+    "include/gameobject.h"
+    "include/transform.h"
 	"include/util.h"
 	"include/math/matrix3.h"
 	"include/math/matrix4.h"
