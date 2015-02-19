@@ -10,26 +10,29 @@ namespace nautical
         class Vector2
         {
         public:
-            union
-            {
-                struct
-                {
-                    T x;
-                    T y;
-                };
-                T components[2];
-            };
+            T x, y;
 
             Vector2() : x(0), y(0)
             {
             }
+
             Vector2(T x, T y) : x(x), y(y)
             {
             }
 
             Vector2(T* data)
             {
-                memcpy(components, data, sizeof(T) * 2);
+                memcpy(&x, data, sizeof(T) * 2);
+            }
+
+            inline T& operator[](int b)
+            {
+                return (&x)[b];
+            }
+
+            inline const T& operator[](int b) const
+            {
+                return (&x)[b];
             }
 
             inline T lengthSquared() const
@@ -160,11 +163,6 @@ namespace nautical
             inline bool operator!=(const Vector2<T>& rhs) const
             {
                 return !(*this == rhs);
-            }
-
-            inline T operator[](const int& b)
-            {
-                return components[b];
             }
 
             inline operator T*()

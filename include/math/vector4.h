@@ -10,27 +10,29 @@ namespace nautical
         class Vector4
         {
         public:
-            union
-            {
-                struct
-                {
-                    T x;
-                    T y;
-                    T z;
-                    T w;
-                };
-                T components[4];
-            };
+            T x, y, z, w;
+
             Vector4() : x(0), y(0), z(0), w(0)
             {
             }
+
             Vector4(T x, T y, T z, T w) : x(x), y(y), z(z), w(w)
             {
             }
 
             Vector4(T* data)
             {
-                memcpy(components, data, sizeof(T) * 4);
+                memcpy(&x, data, sizeof(T) * 4);
+            }
+
+            inline T& operator[](int b)
+            {
+                return (&x)[b];
+            }
+
+            inline const T& operator[](const int& b) const
+            {
+                return (&x)[b];
             }
 
             inline T lengthSquared() const
@@ -185,11 +187,6 @@ namespace nautical
             inline bool operator!=(const Vector4<T>& rhs) const
             {
                 return !(*this == rhs);
-            }
-
-            inline T operator[](const int& b)
-            {
-                return components[b];
             }
 
             inline operator T*()

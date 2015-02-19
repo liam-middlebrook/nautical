@@ -14,16 +14,10 @@ namespace nautical
         template <typename T>
         class Matrix4
         {
+            T m11, m12, m13, m14, m21, m22, m23, m24, m31, m32, m33, m34, m41,
+                m42, m43, m44;
+
         public:
-            union
-            {
-                struct
-                {
-                    T m11, m12, m13, m14, m21, m22, m23, m24, m31, m32, m33,
-                        m34, m41, m42, m43, m44;
-                };
-                T components[16];
-            };
             Matrix4()
                 : m11(1), m12(0), m13(0), m14(0), m21(0), m22(1), m23(0),
                   m24(0), m31(0), m32(0), m33(1), m34(0), m41(0), m42(0),
@@ -40,7 +34,7 @@ namespace nautical
 
             Matrix4(T* data)
             {
-                memcpy(components, data, sizeof(T) * 16);
+                memcpy(&m11, data, sizeof(T) * 16);
             }
 
             Matrix4(const Matrix3<T>& m)
@@ -62,9 +56,24 @@ namespace nautical
                 m43 = 0;
             }
 
-            inline T operator[](const int& b)
+            inline T& operator[](int b)
             {
-                return components[b];
+                return (&m11)[b];
+            }
+
+            inline const T& operator[](int b) const
+            {
+                return (&m11)[b];
+            }
+
+            inline T& operator()(int row, int col)
+            {
+                return (&m11)[row * 4 + col];
+            }
+
+            inline const T& operator()(int row, int col) const
+            {
+                return (&m11)[row * 4 + col];
             }
 
             inline operator T*()
@@ -77,7 +86,7 @@ namespace nautical
                 Matrix4<T> out;
                 for (int i = 0; i < 16; ++i)
                 {
-                    out.components[i] = components[i] + b.components[i];
+                    out[i] = (*this)[i] + b[i];
                 }
                 return out;
             }
@@ -86,7 +95,7 @@ namespace nautical
             {
                 for (int i = 0; i < 16; ++i)
                 {
-                    components[i] += rhs.components[i];
+                    (*this)[i] += rhs[i];
                 }
                 return *this;
             }
@@ -96,7 +105,7 @@ namespace nautical
                 Matrix4<T> out;
                 for (int i = 0; i < 16; ++i)
                 {
-                    out.components[i] = components[i] - b.components[i];
+                    out[i] = (*this)[i] - b[i];
                 }
                 return out;
             }
@@ -106,7 +115,7 @@ namespace nautical
                 Matrix4<T> out;
                 for (int i = 0; i < 16; ++i)
                 {
-                    components[i] -= rhs.components[i];
+                    (*this)[i] -= rhs[i];
                 }
                 return *this;
             }
@@ -188,7 +197,7 @@ namespace nautical
 
                 for (int i = 0; i < 16; ++i)
                 {
-                    components[i] = out.components[i];
+                    (*this)[i] = out[i];
                 }
 
                 return *this;
@@ -220,7 +229,7 @@ namespace nautical
 
             inline Matrix4<T>& operator=(const Matrix4<T>& rhs)
             {
-                memcpy(this->components, &rhs, sizeof(T) * 16);
+                memcpy(&m11, &rhs, sizeof(T) * 16);
                 return *this;
             }
 
@@ -228,7 +237,7 @@ namespace nautical
             {
                 for (int i = 0; i < 16; ++i)
                 {
-                    if (!tol(components[i], rhs.components[i]))
+                    if (!tol((*this)[i], rhs[i]))
                     {
                         return false;
                     }
@@ -347,7 +356,7 @@ namespace nautical
 
                 for (int i = 0; i < 16; ++i)
                 {
-                    inv.components[i] /= determinant;
+                    inv[i] /= determinant;
                 }
 
                 return inv;

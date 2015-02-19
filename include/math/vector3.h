@@ -10,26 +10,19 @@ namespace nautical
         class Vector3
         {
         public:
-            union
-            {
-                struct
-                {
-                    T x;
-                    T y;
-                    T z;
-                };
-                T components[3];
-            };
+            T x, y, z;
+
             Vector3() : x(0), y(0), z(0)
             {
             }
+
             Vector3(T x, T y, T z) : x(x), y(y), z(z)
             {
             }
 
             Vector3(T* data)
             {
-                memcpy(components, data, sizeof(T) * 3);
+                memcpy(&x, data, sizeof(T) * 3);
             }
 
             inline T lengthSquared() const
@@ -173,7 +166,7 @@ namespace nautical
 
             inline T operator[](const int& b)
             {
-                return components[b];
+                return (&x)[b];
             }
 
             inline operator T*()

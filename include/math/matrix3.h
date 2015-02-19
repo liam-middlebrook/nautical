@@ -12,15 +12,9 @@ namespace nautical
         template <typename T>
         class Matrix3
         {
+            T m11, m12, m13, m21, m22, m23, m31, m32, m33;
+
         public:
-            union
-            {
-                struct
-                {
-                    T m11, m12, m13, m21, m22, m23, m31, m32, m33;
-                };
-                T components[9];
-            };
             Matrix3()
                 : m11(1), m12(0), m13(0), m21(0), m22(1), m23(0), m31(0),
                   m32(0), m33(1)
@@ -35,12 +29,27 @@ namespace nautical
 
             Matrix3(T* data)
             {
-                memcpy(components, data, sizeof(T) * 9);
+                memcpy(&m11, data, sizeof(T) * 9);
             }
 
-            inline T operator[](const int& b)
+            inline T& operator[](int idx)
             {
-                return components[b];
+                return (&m11)[idx];
+            }
+
+            inline const T& operator[](int idx) const
+            {
+                return (&m11)[idx];
+            }
+
+            inline T& operator()(int row, int col)
+            {
+                return (&m11)[row * 3 + col];
+            }
+
+            inline const T& operator()(int row, int col) const
+            {
+                return (&m11)[row * 3 + col];
             }
 
             inline operator T*()
@@ -53,7 +62,7 @@ namespace nautical
                 Matrix3<T> out;
                 for (int i = 0; i < 9; ++i)
                 {
-                    out.components[i] = components[i] + b.components[i];
+                    out[i] = (*this)[i] + b[i];
                 }
                 return out;
             }
@@ -62,7 +71,7 @@ namespace nautical
             {
                 for (int i = 0; i < 9; ++i)
                 {
-                    components[i] += rhs.components[i];
+                    (*this)[i] += rhs[i];
                 }
                 return *this;
             }
@@ -72,7 +81,7 @@ namespace nautical
                 Matrix3<T> out;
                 for (int i = 0; i < 9; ++i)
                 {
-                    out.components[i] = components[i] - b.components[i];
+                    out[i] = this->operator[](i)-b[i];
                 }
                 return out;
             }
@@ -82,7 +91,7 @@ namespace nautical
                 Matrix3<T> out;
                 for (int i = 0; i < 9; ++i)
                 {
-                    components[i] -= rhs.components[i];
+                    (*this)[i] -= rhs[i];
                 }
                 return *this;
             }
@@ -130,7 +139,7 @@ namespace nautical
 
                 for (int i = 0; i < 9; ++i)
                 {
-                    components[i] = out.components[i];
+                    (*this)[i] = out[i];
                 }
 
                 return *this;
@@ -160,7 +169,7 @@ namespace nautical
 
             inline Matrix3<T>& operator=(const Matrix3<T>& rhs)
             {
-                memcpy(this->components, &rhs, sizeof(T) * 9);
+                memcpy(&m11, &rhs, sizeof(T) * 9);
                 return *this;
             }
 
@@ -168,7 +177,7 @@ namespace nautical
             {
                 for (int i = 0; i < 9; ++i)
                 {
-                    if (!tol(components[i], rhs.components[i]))
+                    if (!tol((*this)[i], rhs[i]))
                     {
                         return false;
                     }
@@ -219,7 +228,7 @@ namespace nautical
 
                 for (int i = 0; i < 9; ++i)
                 {
-                    inv.components[i] /= determinant;
+                    inv[i] /= determinant;
                 }
 
                 return inv;
