@@ -3,8 +3,13 @@
 #include "math/vector2.h"
 #include "math/matrix3.h"
 
+#define UNUSED (void)
+
 int main(int argc, char** argv)
 {
+    UNUSED argc;
+    UNUSED argv;
+
     nautical::math::Vector2<double> vector(4.0f, 3.0f);
 
     nautical::math::Vector2<double> b(7.0, 4.0);
