@@ -14,16 +14,10 @@ namespace nautical
         template <typename T>
         class Matrix4
         {
+            T m11, m12, m13, m14, m21, m22, m23, m24, m31, m32, m33, m34, m41,
+                m42, m43, m44;
+
         public:
-            union
-            {
-                struct
-                {
-                    T m11, m12, m13, m14, m21, m22, m23, m24, m31, m32, m33,
-                        m34, m41, m42, m43, m44;
-                };
-                T components[16];
-            };
             Matrix4()
                 : m11(1), m12(0), m13(0), m14(0), m21(0), m22(1), m23(0),
                   m24(0), m31(0), m32(0), m33(1), m34(0), m41(0), m42(0),
@@ -38,9 +32,9 @@ namespace nautical
             {
             }
 
-            Matrix4(T* data)
+            Matrix4(const T* data)
             {
-                memcpy(components, data, sizeof(T) * 16);
+                memcpy(&m11, data, sizeof(T) * 16);
             }
 
             Matrix4(const Matrix3<T>& m)
@@ -62,9 +56,24 @@ namespace nautical
                 m43 = 0;
             }
 
-            inline T operator[](const int& b)
+            inline T& operator[](int b)
             {
-                return components[b];
+                return (&m11)[b];
+            }
+
+            inline const T& operator[](int b) const
+            {
+                return (&m11)[b];
+            }
+
+            inline T& operator()(int row, int col)
+            {
+                return (&m11)[row * 4 + col];
+            }
+
+            inline const T& operator()(int row, int col) const
+            {
+                return (&m11)[row * 4 + col];
             }
 
             inline operator T*()
@@ -72,79 +81,42 @@ namespace nautical
                 return &m11;
             }
 
-            inline Matrix4<T> operator+(const Matrix4<T>& b) const
+            inline Matrix4 operator+(const Matrix4& b) const
             {
-                Matrix4<T> out;
-                for (int i = 0; i < 16; ++i)
-                {
-                    out.components[i] = components[i] + b.components[i];
-                }
-                return out;
+                return (Matrix4(*this) += b);
             }
 
-            inline Matrix4<T>& operator+=(const Matrix4<T>& rhs)
+            inline Matrix4& operator+=(const Matrix4& rhs)
             {
                 for (int i = 0; i < 16; ++i)
                 {
-                    components[i] += rhs.components[i];
+                    (*this)[i] += rhs[i];
                 }
                 return *this;
             }
 
-            inline Matrix4<T> operator-(const Matrix4<T>& b) const
+            inline Matrix4 operator-(const Matrix4& b) const
             {
-                Matrix4<T> out;
-                for (int i = 0; i < 16; ++i)
-                {
-                    out.components[i] = components[i] - b.components[i];
-                }
-                return out;
+                return (Matrix4(*this) -= b);
             }
 
-            inline Matrix4<T>& operator-=(const Matrix4<T>& rhs)
+            inline Matrix4& operator-=(const Matrix4& rhs)
             {
-                Matrix4<T> out;
                 for (int i = 0; i < 16; ++i)
                 {
-                    components[i] -= rhs.components[i];
+                    (*this)[i] -= rhs[i];
                 }
                 return *this;
             }
 
-            inline Matrix4<T> operator*(const Matrix4<T>& b) const
+            inline Matrix4 operator*(const Matrix4& b) const
             {
-                Matrix4<T> out;
-
-                // First column
-                out.m11 = m11 * b.m11 + m12 * b.m21 + m13 * b.m31 + m14 * b.m41;
-                out.m21 = m21 * b.m11 + m22 * b.m21 + m23 * b.m31 + m24 * b.m41;
-                out.m31 = m31 * b.m11 + m32 * b.m21 + m33 * b.m31 + m34 * b.m41;
-                out.m41 = m41 * b.m11 + m42 * b.m21 + m43 * b.m31 + m44 * b.m41;
-
-                // Second Column
-                out.m12 = m11 * b.m12 + m12 * b.m22 + m13 * b.m32 + m14 * b.m42;
-                out.m22 = m21 * b.m12 + m22 * b.m22 + m23 * b.m32 + m24 * b.m42;
-                out.m32 = m31 * b.m12 + m32 * b.m22 + m33 * b.m32 + m34 * b.m42;
-                out.m42 = m41 * b.m12 + m42 * b.m22 + m43 * b.m32 + m44 * b.m42;
-
-                // Third Column
-                out.m13 = m11 * b.m13 + m12 * b.m23 + m13 * b.m33 + m14 * b.m43;
-                out.m23 = m21 * b.m13 + m22 * b.m23 + m23 * b.m33 + m24 * b.m43;
-                out.m33 = m31 * b.m13 + m32 * b.m23 + m33 * b.m33 + m34 * b.m43;
-                out.m43 = m41 * b.m13 + m42 * b.m23 + m43 * b.m33 + m44 * b.m43;
-
-                // Fourth Column
-                out.m14 = m11 * b.m14 + m12 * b.m24 + m13 * b.m34 + m14 * b.m44;
-                out.m24 = m21 * b.m14 + m22 * b.m24 + m23 * b.m34 + m24 * b.m44;
-                out.m34 = m31 * b.m14 + m32 * b.m24 + m33 * b.m34 + m34 * b.m44;
-                out.m44 = m41 * b.m14 + m42 * b.m24 + m43 * b.m34 + m44 * b.m44;
-
-                return out;
+                return (Matrix4(*this) *= b);
             }
 
-            inline Matrix4<T>& operator*=(const Matrix4<T>& rhs)
+            inline Matrix4& operator*=(const Matrix4& rhs)
             {
-                Matrix4<T> out;
+                Matrix4 out;
 
                 // First column
                 out.m11 = m11 * rhs.m11 + m12 * rhs.m21 + m13 * rhs.m31 +
@@ -188,7 +160,7 @@ namespace nautical
 
                 for (int i = 0; i < 16; ++i)
                 {
-                    components[i] = out.components[i];
+                    (*this)[i] = out[i];
                 }
 
                 return *this;
@@ -196,17 +168,10 @@ namespace nautical
 
             inline Vector4<T> operator*(const Vector4<T>& b) const
             {
-                Vector4<T> out;
-
-                out.x = m11 * b.x + m12 * b.y + m13 * b.z + m14 * b.w;
-                out.y = m21 * b.x + m22 * b.y + m23 * b.z + m24 * b.w;
-                out.z = m31 * b.x + m32 * b.y + m33 * b.z + m34 * b.w;
-                out.w = m41 * b.x + m42 * b.y + m43 * b.z + m44 * b.w;
-
-                return out;
+                return (Matrix4(*this) *= b);
             }
 
-            inline Vector4<T>& operator*=(const Vector4<T>& rhs)
+            inline Vector4<T> operator*=(const Vector4<T>& rhs)
             {
                 Vector4<T> out;
 
@@ -215,20 +180,20 @@ namespace nautical
                 out.z = m31 * rhs.x + m32 * rhs.y + m33 * rhs.z + m34 * rhs.w;
                 out.w = m41 * rhs.x + m42 * rhs.y + m43 * rhs.z + m44 * rhs.w;
 
-                return Vector4<T>(&out);
+                return out;
             }
 
-            inline Matrix4<T>& operator=(const Matrix4<T>& rhs)
+            inline Matrix4& operator=(const Matrix4& rhs)
             {
-                memcpy(this->components, &rhs, sizeof(T) * 16);
+                memcpy(&m11, &rhs, sizeof(T) * 16);
                 return *this;
             }
 
-            inline bool operator==(const Matrix4<T>& rhs) const
+            inline bool operator==(const Matrix4& rhs) const
             {
                 for (int i = 0; i < 16; ++i)
                 {
-                    if (!tol(components[i], rhs.components[i]))
+                    if (!tol((*this)[i], rhs[i]))
                     {
                         return false;
                     }
@@ -236,22 +201,25 @@ namespace nautical
                 return true;
             }
 
-            inline bool operator!=(const Matrix4<T>& rhs) const
+            inline bool operator!=(const Matrix4& rhs) const
             {
                 return !(*this == rhs);
             }
 
-            inline Matrix4<T> transpose()
+            inline void transpose()
             {
-                Matrix4<T> out = Matrix4<T>((T*)this);
+                swap(m12, m21);
+                swap(m13, m31);
+                swap(m14, m41);
+                swap(m23, m32);
+                swap(m24, m42);
+                swap(m34, m43);
+            }
 
-                swap(out.m12, out.m21);
-                swap(out.m13, out.m31);
-                swap(out.m14, out.m41);
-                swap(out.m23, out.m32);
-                swap(out.m24, out.m42);
-                swap(out.m34, out.m43);
-
+            inline Matrix4 transposed() const
+            {
+                Matrix4 out = Matrix4(*this);
+                out.transpose();
                 return out;
             }
 
@@ -271,11 +239,11 @@ namespace nautical
                        m41 * m22 * m33 * m14 - m41 * m32 * m13 * m24;
             }
 
-            inline Matrix4<T> inverse()
+            inline Matrix4 inverse()
             {
                 T determinant = this->determinant();
 
-                Matrix4<T> inv;
+                Matrix4 inv;
 
                 // Row 1
                 inv.m11 = (m22 * m33 * m44) + (m23 * m34 * m42) +
@@ -347,27 +315,26 @@ namespace nautical
 
                 for (int i = 0; i < 16; ++i)
                 {
-                    inv.components[i] /= determinant;
+                    inv[i] /= determinant;
                 }
 
                 return inv;
             }
 
-            inline static Matrix4<T> scale(const Vector3<T> scaleVector)
+            inline static Matrix4 scale(const Vector3<T>& scaleVector)
             {
-                Matrix4<T> out;
+                Matrix4 out;
                 out.m11 = scaleVector.x;
                 out.m22 = scaleVector.y;
                 out.m33 = scaleVector.z;
                 return out;
             }
 
-            inline static Matrix4<T> rotate(const Vector3<T>& axis,
-                                            const T& angle)
+            inline static Matrix4 rotate(const Vector3<T>& axis, const T& angle)
             {
-                Vector3<T> a = ((Vector3<T>)axis).normalized();
+                Vector3<T> a = axis.normalized();
 
-                Matrix4<T> out;
+                Matrix4 out;
 
                 T c = cos(angle);
                 T s = sin(angle);
@@ -393,16 +360,16 @@ namespace nautical
                 return out;
             }
 
-            inline static Matrix4<T> translate(const Vector3<T> transVector)
+            inline static Matrix4 translate(const Vector3<T>& transVector)
             {
-                Matrix4<T> out;
+                Matrix4 out;
                 out.m14 = transVector.x;
                 out.m24 = transVector.y;
                 out.m34 = transVector.z;
                 return out;
             }
 
-            const static Matrix4<T> identity;
+            const static Matrix4 identity;
         };
 
         template <typename T>

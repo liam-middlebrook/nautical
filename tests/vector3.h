@@ -13,7 +13,7 @@ void test_vector3_dot(void);
 void test_vector3_cross(void);
 void test_vector3_normalize(void);
 
-static TestDef tests_vector3[] = {
+static const TestDef tests_vector3[] = {
     {"Test Vector3 Add", test_vector3_add},
     {"Test Vector3 Subtract", test_vector3_subtract},
     {"Test Vector3 Multiply", test_vector3_multiply},
@@ -22,8 +22,7 @@ static TestDef tests_vector3[] = {
     {"Test Vector3 Dot Product", test_vector3_dot},
     {"Test Vector3 Cross Product", test_vector3_cross},
     {"Test Vector3 Normalization", test_vector3_normalize},
+    {nullptr, nullptr},
 };
-
-static size_t tests_vector3_count = 8;
 
 #endif

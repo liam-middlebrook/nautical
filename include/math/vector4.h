@@ -10,27 +10,29 @@ namespace nautical
         class Vector4
         {
         public:
-            union
-            {
-                struct
-                {
-                    T x;
-                    T y;
-                    T z;
-                    T w;
-                };
-                T components[4];
-            };
+            T x, y, z, w;
+
             Vector4() : x(0), y(0), z(0), w(0)
             {
             }
+
             Vector4(T x, T y, T z, T w) : x(x), y(y), z(z), w(w)
             {
             }
 
-            Vector4(T* data)
+            Vector4(const T* data)
             {
-                memcpy(components, data, sizeof(T) * 4);
+                memcpy(&x, data, sizeof(T) * 4);
+            }
+
+            inline T& operator[](int b)
+            {
+                return (&x)[b];
+            }
+
+            inline const T& operator[](const int& b) const
+            {
+                return (&x)[b];
             }
 
             inline T lengthSquared() const
@@ -43,17 +45,12 @@ namespace nautical
                 return sqrt(lengthSquared());
             }
 
-            inline Vector4<T> operator+(const Vector4<T>& b) const
+            inline Vector4 operator+(const Vector4& b) const
             {
-                Vector4<T> out;
-                out.x = x + b.x;
-                out.y = y + b.y;
-                out.z = z + b.z;
-                out.w = w + b.w;
-                return out;
+                return (Vector4(*this) += b);
             }
 
-            inline Vector4<T>& operator+=(const Vector4<T>& rhs)
+            inline Vector4& operator+=(const Vector4& rhs)
             {
                 this->x += rhs.x;
                 this->y += rhs.y;
@@ -62,9 +59,9 @@ namespace nautical
                 return *this;
             }
 
-            inline Vector4<T> operator-() const
+            inline Vector4 operator-() const
             {
-                Vector4<T> out;
+                Vector4 out;
                 out.x = -x;
                 out.y = -y;
                 out.z = -z;
@@ -72,17 +69,12 @@ namespace nautical
                 return out;
             }
 
-            inline Vector4<T> operator-(const Vector4<T>& b) const
+            inline Vector4 operator-(const Vector4& b) const
             {
-                Vector4<T> out;
-                out.x = x - b.x;
-                out.y = y - b.y;
-                out.z = z - b.z;
-                out.w = w - b.w;
-                return out;
+                return (Vector4(*this) -= b);
             }
 
-            inline Vector4<T>& operator-=(const Vector4<T>& rhs)
+            inline Vector4& operator-=(const Vector4& rhs)
             {
                 this->x -= rhs.x;
                 this->y -= rhs.y;
@@ -91,17 +83,12 @@ namespace nautical
                 return *this;
             }
 
-            inline Vector4<T> operator*(const Vector4<T>& b) const
+            inline Vector4 operator*(const Vector4& b) const
             {
-                Vector4<T> out;
-                out.x = x * b.x;
-                out.y = y * b.y;
-                out.z = z * b.z;
-                out.w = w * b.w;
-                return out;
+                return (Vector4(*this) *= b);
             }
 
-            inline Vector4<T>& operator*=(const Vector4<T>& rhs)
+            inline Vector4& operator*=(const Vector4& rhs)
             {
                 this->x *= rhs.x;
                 this->y *= rhs.y;
@@ -110,17 +97,12 @@ namespace nautical
                 return *this;
             }
 
-            inline Vector4<T> operator/(const Vector4<T>& b) const
+            inline Vector4 operator/(const Vector4& b) const
             {
-                Vector4<T> out;
-                out.x = x / b.x;
-                out.y = y / b.y;
-                out.z = z / b.z;
-                out.w = w / b.w;
-                return out;
+                return (Vector4(*this) /= b);
             }
 
-            inline Vector4<T>& operator/=(const Vector4<T>& rhs)
+            inline Vector4& operator/=(const Vector4& rhs)
             {
                 this->x /= rhs.x;
                 this->y /= rhs.y;
@@ -129,17 +111,12 @@ namespace nautical
                 return *this;
             }
 
-            inline Vector4<T> operator*(const T& b) const
+            inline Vector4 operator*(const T& b) const
             {
-                Vector4<T> out;
-                out.x = x * b;
-                out.y = y * b;
-                out.z = z * b;
-                out.w = w * b;
-                return out;
+                return (Vector4(*this) *= b);
             }
 
-            inline Vector4<T>& operator*=(const T& rhs)
+            inline Vector4& operator*=(const T& rhs)
             {
                 this->x *= rhs;
                 this->y *= rhs;
@@ -148,17 +125,12 @@ namespace nautical
                 return *this;
             }
 
-            inline Vector4<T> operator/(const T& b) const
+            inline Vector4 operator/(const T& b) const
             {
-                Vector4<T> out;
-                out.x = x / b;
-                out.y = y / b;
-                out.z = z / b;
-                out.w = w / b;
-                return out;
+                return (Vector4(*this) /= b);
             }
 
-            inline Vector4<T>& operator/=(const T& rhs)
+            inline Vector4& operator/=(const T& rhs)
             {
                 this->x /= rhs;
                 this->y /= rhs;
@@ -167,7 +139,7 @@ namespace nautical
                 return *this;
             }
 
-            inline Vector4<T>& operator=(const Vector4<T>& rhs)
+            inline Vector4& operator=(const Vector4& rhs)
             {
                 this->x = rhs.x;
                 this->y = rhs.y;
@@ -176,20 +148,15 @@ namespace nautical
                 return *this;
             }
 
-            inline bool operator==(const Vector4<T>& rhs) const
+            inline bool operator==(const Vector4& rhs) const
             {
                 return this->x == rhs.x && this->y == rhs.y &&
                        this->z == rhs.z && this->w == rhs.w;
             }
 
-            inline bool operator!=(const Vector4<T>& rhs) const
+            inline bool operator!=(const Vector4& rhs) const
             {
                 return !(*this == rhs);
-            }
-
-            inline T operator[](const int& b)
-            {
-                return components[b];
             }
 
             inline operator T*()
@@ -197,34 +164,34 @@ namespace nautical
                 return &x;
             }
 
-            inline Vector4<T> normalized()
+            inline Vector4 normalized() const
             {
                 if (lengthSquared() == 0)
                 {
-                    return Vector4<T>::zero;
+                    return Vector4::zero;
                 }
                 return *this / length();
             }
 
             inline void normalize()
             {
-                Vector4<T> temp = normalized();
+                Vector4 temp = normalized();
                 this->x = temp.x;
                 this->y = temp.y;
                 this->z = temp.z;
                 this->w = temp.w;
             }
 
-            inline T dot(Vector4<T>& b)
+            inline T dot(const Vector4& b)
             {
                 return x * b.x + y * b.y + z * b.z + w * b.w;
             }
 
-            const static Vector4<T> zero;
-            const static Vector4<T> one;
-            const static Vector4<T> right;
-            const static Vector4<T> up;
-            const static Vector4<T> forward;
+            const static Vector4 zero;
+            const static Vector4 one;
+            const static Vector4 right;
+            const static Vector4 up;
+            const static Vector4 forward;
         };
 
         template <typename T>
