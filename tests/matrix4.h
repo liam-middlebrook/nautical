@@ -15,7 +15,7 @@ void test_matrix4_translate(void);
 void test_matrix4_determinant(void);
 void test_matrix4_inverse(void);
 
-static TestDef tests_matrix4[] = {
+static const TestDef tests_matrix4[] = {
     {"Test Matrix4 Add", test_matrix4_add},
     {"Test Matrix4 Subtract", test_matrix4_subtract},
     {"Test Matrix4 Multiply", test_matrix4_multiply},
@@ -26,8 +26,7 @@ static TestDef tests_matrix4[] = {
     {"Test Matrix4 Translate", test_matrix4_translate},
     {"Test Matrix4 Determinant", test_matrix4_determinant},
     {"Test Matrix4 Inverse", test_matrix4_inverse},
+    {nullptr, nullptr},
 };
-
-static size_t tests_matrix4_count = 10;
 
 #endif
