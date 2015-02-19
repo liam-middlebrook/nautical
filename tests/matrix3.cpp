@@ -139,7 +139,7 @@ void test_matrix3_transpose(void)
     Matrix3<float> answer;
     answer(1, 0) = 5.0f;
 
-    CU_ASSERT(mat.transpose() == answer);
+    CU_ASSERT(mat.transposed() == answer);
 }
 
 void test_matrix3_scale(void)

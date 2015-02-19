@@ -57,17 +57,12 @@ namespace nautical
                 return &m11;
             }
 
-            inline Matrix3<T> operator+(const Matrix3<T>& b) const
+            inline Matrix3 operator+(const Matrix3& b) const
             {
-                Matrix3<T> out;
-                for (int i = 0; i < 9; ++i)
-                {
-                    out[i] = (*this)[i] + b[i];
-                }
-                return out;
+                return (Matrix3(*this) += b);
             }
 
-            inline Matrix3<T>& operator+=(const Matrix3<T>& rhs)
+            inline Matrix3 operator+=(const Matrix3& rhs)
             {
                 for (int i = 0; i < 9; ++i)
                 {
@@ -76,19 +71,13 @@ namespace nautical
                 return *this;
             }
 
-            inline Matrix3<T> operator-(const Matrix3<T>& b) const
+            inline Matrix3 operator-(const Matrix3& b) const
             {
-                Matrix3<T> out;
-                for (int i = 0; i < 9; ++i)
-                {
-                    out[i] = this->operator[](i)-b[i];
-                }
-                return out;
+                return (Matrix3(*this) -= b);
             }
 
-            inline Matrix3<T>& operator-=(const Matrix3<T>& rhs)
+            inline Matrix3 operator-=(const Matrix3& rhs)
             {
-                Matrix3<T> out;
                 for (int i = 0; i < 9; ++i)
                 {
                     (*this)[i] -= rhs[i];
@@ -96,31 +85,14 @@ namespace nautical
                 return *this;
             }
 
-            inline Matrix3<T> operator*(const Matrix3<T>& b) const
+            inline Matrix3 operator*(const Matrix3& b) const
             {
-                Matrix3<T> out;
-
-                // First column
-                out.m11 = m11 * b.m11 + m12 * b.m21 + m13 * b.m31;
-                out.m21 = m21 * b.m11 + m22 * b.m21 + m23 * b.m31;
-                out.m31 = m31 * b.m11 + m32 * b.m21 + m33 * b.m31;
-
-                // Second Column
-                out.m12 = m11 * b.m12 + m12 * b.m22 + m13 * b.m32;
-                out.m22 = m21 * b.m12 + m22 * b.m22 + m23 * b.m32;
-                out.m32 = m31 * b.m12 + m32 * b.m22 + m33 * b.m32;
-
-                // Third Column
-                out.m13 = m11 * b.m13 + m12 * b.m23 + m13 * b.m33;
-                out.m23 = m21 * b.m13 + m22 * b.m23 + m23 * b.m33;
-                out.m33 = m31 * b.m13 + m32 * b.m23 + m33 * b.m33;
-
-                return out;
+                return (Matrix3(*this) *= b);
             }
 
-            inline Matrix3<T>& operator*=(const Matrix3<T>& rhs)
+            inline Matrix3 operator*=(const Matrix3& rhs)
             {
-                Matrix3<T> out;
+                Matrix3 out;
 
                 // First column
                 out.m11 = m11 * rhs.m11 + m12 * rhs.m21 + m13 * rhs.m31;
@@ -147,16 +119,10 @@ namespace nautical
 
             inline Vector3<T> operator*(const Vector3<T>& b) const
             {
-                Vector3<T> out;
-
-                out.x = m11 * b.x + m12 * b.y + m13 * b.z;
-                out.y = m21 * b.x + m22 * b.y + m23 * b.z;
-                out.z = m31 * b.x + m32 * b.y + m33 * b.z;
-
-                return out;
+                return (Matrix3(*this) *= b);
             }
 
-            inline Vector3<T>& operator*=(const Vector3<T>& rhs)
+            inline Vector3<T> operator*=(const Vector3<T>& rhs)
             {
                 Vector3<T> out;
 
@@ -164,16 +130,16 @@ namespace nautical
                 out.y = m21 * rhs.x + m22 * rhs.y + m23 * rhs.z;
                 out.z = m31 * rhs.x + m32 * rhs.y + m33 * rhs.z;
 
-                return Vector3<T>(&out);
+                return out;
             }
 
-            inline Matrix3<T>& operator=(const Matrix3<T>& rhs)
+            inline Matrix3 operator=(const Matrix3& rhs)
             {
                 memcpy(&m11, &rhs, sizeof(T) * 9);
                 return *this;
             }
 
-            inline bool operator==(const Matrix3<T>& rhs) const
+            inline bool operator==(const Matrix3& rhs) const
             {
                 for (int i = 0; i < 9; ++i)
                 {
@@ -185,34 +151,37 @@ namespace nautical
                 return true;
             }
 
-            inline bool operator!=(const Matrix3<T>& rhs) const
+            inline bool operator!=(const Matrix3& rhs) const
             {
                 return !(*this == rhs);
             }
 
-            inline Matrix3<T> transpose()
+            inline void transpose()
             {
-                Matrix3<T> out = Matrix3<T>((T*)this);
+                swap(m12, m21);
+                swap(m13, m31);
+                swap(m23, m32);
+            }
 
-                swap(out.m12, out.m21);
-                swap(out.m13, out.m31);
-                swap(out.m23, out.m32);
-
+            inline Matrix3 transposed() const
+            {
+                Matrix3 out = Matrix3(*this);
+                out.transpose();
                 return out;
             }
 
-            inline T determinant()
+            inline T determinant() const
             {
                 return m11 * ((m22 * m33) - (m23 * m32)) -
                        m12 * ((m21 * m33) - (m23 * m31)) +
                        m13 * ((m21 * m32) - (m22 * m31));
             }
 
-            inline Matrix3<T> inverse()
+            inline Matrix3 inverse() const
             {
-                T determinant = this->determinant();
+                T det = determinant();
 
-                Matrix3<T> inv;
+                Matrix3 inv;
 
                 inv.m11 = (m22 * m33) - (m23 * m32);
                 inv.m12 = (m13 * m32) - (m12 * m33);
@@ -228,23 +197,23 @@ namespace nautical
 
                 for (int i = 0; i < 9; ++i)
                 {
-                    inv[i] /= determinant;
+                    inv[i] /= det;
                 }
 
                 return inv;
             }
 
-            inline static Matrix3<T> scale(const Vector2<T> scaleVector)
+            inline static Matrix3<T> scale(const Vector2<T>& scaleVector)
             {
-                Matrix3<T> out;
+                Matrix3 out;
                 out.m11 = scaleVector.x;
                 out.m22 = scaleVector.y;
                 return out;
             }
 
-            inline static Matrix3<T> rotate(const T& angle)
+            inline static Matrix3 rotate(const T& angle)
             {
-                Matrix3<T> out;
+                Matrix3 out;
                 out.m11 = cos(angle);
                 out.m12 = -sin(angle);
                 out.m21 = -out.m12;
@@ -252,15 +221,15 @@ namespace nautical
                 return out;
             }
 
-            inline static Matrix3<T> translate(const Vector2<T> transVector)
+            inline static Matrix3 translate(const Vector2<T> transVector)
             {
-                Matrix3<T> out;
+                Matrix3 out;
                 out.m13 = transVector.x;
                 out.m23 = transVector.y;
                 return out;
             }
 
-            const static Matrix3<T> identity;
+            const static Matrix3 identity;
         };
 
         template <typename T>

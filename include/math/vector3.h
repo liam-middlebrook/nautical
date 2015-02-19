@@ -35,16 +35,12 @@ namespace nautical
                 return sqrt(lengthSquared());
             }
 
-            inline Vector3<T> operator+(const Vector3<T>& b) const
+            inline Vector3 operator+(const Vector3& b) const
             {
-                Vector3<T> out;
-                out.x = x + b.x;
-                out.y = y + b.y;
-                out.z = z + b.z;
-                return out;
+                return (Vector3(*this) += b);
             }
 
-            inline Vector3<T>& operator+=(const Vector3<T>& rhs)
+            inline Vector3& operator+=(const Vector3& rhs)
             {
                 this->x += rhs.x;
                 this->y += rhs.y;
@@ -52,25 +48,21 @@ namespace nautical
                 return *this;
             }
 
-            inline Vector3<T> operator-() const
+            inline Vector3 operator-() const
             {
-                Vector3<T> out;
+                Vector3 out;
                 out.x = -x;
                 out.y = -y;
                 out.z = -z;
                 return out;
             }
 
-            inline Vector3<T> operator-(const Vector3<T>& b) const
+            inline Vector3 operator-(const Vector3& b) const
             {
-                Vector3<T> out;
-                out.x = x - b.x;
-                out.y = y - b.y;
-                out.z = z - b.z;
-                return out;
+                return (Vector3(*this) -= b);
             }
 
-            inline Vector3<T>& operator-=(const Vector3<T>& rhs)
+            inline Vector3& operator-=(const Vector3& rhs)
             {
                 this->x -= rhs.x;
                 this->y -= rhs.y;
@@ -78,16 +70,12 @@ namespace nautical
                 return *this;
             }
 
-            inline Vector3<T> operator*(const Vector3<T>& b) const
+            inline Vector3 operator*(const Vector3& b) const
             {
-                Vector3<T> out;
-                out.x = x * b.x;
-                out.y = y * b.y;
-                out.z = z * b.z;
-                return out;
+                return (Vector3(*this) *= b);
             }
 
-            inline Vector3<T>& operator*=(const Vector3<T>& rhs)
+            inline Vector3& operator*=(const Vector3& rhs)
             {
                 this->x *= rhs.x;
                 this->y *= rhs.y;
@@ -95,16 +83,12 @@ namespace nautical
                 return *this;
             }
 
-            inline Vector3<T> operator/(const Vector3<T>& b) const
+            inline Vector3 operator/(const Vector3& b) const
             {
-                Vector3<T> out;
-                out.x = x / b.x;
-                out.y = y / b.y;
-                out.z = z / b.z;
-                return out;
+                return (Vector3(*this) /= b);
             }
 
-            inline Vector3<T>& operator/=(const Vector3<T>& rhs)
+            inline Vector3& operator/=(const Vector3& rhs)
             {
                 this->x /= rhs.x;
                 this->y /= rhs.y;
@@ -112,16 +96,16 @@ namespace nautical
                 return *this;
             }
 
-            inline Vector3<T> operator*(const T& b) const
+            inline Vector3 operator*(const T& b) const
             {
-                Vector3<T> out;
+                Vector3 out;
                 out.x = x * b;
                 out.y = y * b;
                 out.z = z * b;
                 return out;
             }
 
-            inline Vector3<T>& operator*=(const T& rhs)
+            inline Vector3& operator*=(const T& rhs)
             {
                 this->x *= rhs;
                 this->y *= rhs;
@@ -129,16 +113,12 @@ namespace nautical
                 return *this;
             }
 
-            inline Vector3<T> operator/(const T& b) const
+            inline Vector3 operator/(const T& b) const
             {
-                Vector3<T> out;
-                out.x = x / b;
-                out.y = y / b;
-                out.z = z / b;
-                return out;
+                return (Vector3(*this) /= b);
             }
 
-            inline Vector3<T>& operator/=(const T& rhs)
+            inline Vector3& operator/=(const T& rhs)
             {
                 this->x /= rhs;
                 this->y /= rhs;
@@ -146,7 +126,7 @@ namespace nautical
                 return *this;
             }
 
-            inline Vector3<T>& operator=(const Vector3<T>& rhs)
+            inline Vector3& operator=(const Vector3& rhs)
             {
                 this->x = rhs.x;
                 this->y = rhs.y;
@@ -154,12 +134,12 @@ namespace nautical
                 return *this;
             }
 
-            inline bool operator==(const Vector3<T>& rhs) const
+            inline bool operator==(const Vector3& rhs) const
             {
                 return this->x == rhs.x && this->y == rhs.y && this->z == rhs.z;
             }
 
-            inline bool operator!=(const Vector3<T>& rhs) const
+            inline bool operator!=(const Vector3& rhs) const
             {
                 return !(*this == rhs);
             }
@@ -174,42 +154,42 @@ namespace nautical
                 return &x;
             }
 
-            inline Vector3<T> normalized()
+            inline Vector3 normalized() const
             {
                 if (lengthSquared() == 0)
                 {
-                    return Vector3<T>::zero;
+                    return Vector3::zero;
                 }
                 return *this / length();
             }
 
             inline void normalize()
             {
-                Vector3<T> temp = normalized();
+                Vector3 temp = normalized();
                 this->x = temp.x;
                 this->y = temp.y;
                 this->z = temp.z;
             }
 
-            inline T dot(Vector3<T>& b)
+            inline T dot(const Vector3& b)
             {
                 return x * b.x + y * b.y + z * b.z;
             }
 
-            inline Vector3<T> cross(const Vector3<T>& rhs) const
+            inline Vector3 cross(const Vector3& rhs) const
             {
-                Vector3<T> out;
+                Vector3 out;
                 out.x = y * rhs.z - z * rhs.y;
                 out.y = z * rhs.x - x * rhs.z;
                 out.z = x * rhs.y - y * rhs.x;
                 return out;
             }
 
-            const static Vector3<T> zero;
-            const static Vector3<T> one;
-            const static Vector3<T> right;
-            const static Vector3<T> up;
-            const static Vector3<T> forward;
+            const static Vector3 zero;
+            const static Vector3 one;
+            const static Vector3 right;
+            const static Vector3 up;
+            const static Vector3 forward;
         };
 
         template <typename T>
