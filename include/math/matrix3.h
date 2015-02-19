@@ -203,7 +203,7 @@ namespace nautical
                 return inv;
             }
 
-            inline static Matrix3<T> scale(const Vector2<T>& scaleVector)
+            inline static Matrix3 scale(const Vector2<T>& scaleVector)
             {
                 Matrix3 out;
                 out.m11 = scaleVector.x;
