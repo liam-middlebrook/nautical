@@ -27,7 +27,7 @@ namespace nautical
             {
             }
 
-            Matrix3(T* data)
+            Matrix3(const T* data)
             {
                 memcpy(&m11, data, sizeof(T) * 9);
             }

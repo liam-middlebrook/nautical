@@ -20,7 +20,7 @@ namespace nautical
             {
             }
 
-            Vector2(T* data)
+            Vector2(const T* data)
             {
                 memcpy(&x, data, sizeof(T) * 2);
             }
