@@ -173,10 +173,10 @@ namespace nautical
                 return x * b.x + y * b.y;
             }
 
-            const static Vector2 zero;
-            const static Vector2 one;
-            const static Vector2 right;
-            const static Vector2 up;
+            static const Vector2 zero;
+            static const Vector2 one;
+            static const Vector2 right;
+            static const Vector2 up;
         };
 
         template <typename T>

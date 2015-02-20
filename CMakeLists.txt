@@ -27,6 +27,11 @@ set(h_files
 set(libraries X11 glfw GL GLEW m stdc++)
 
 #####
+# SWIG libraries
+
+add_subdirectory(bindings)
+
+#####
 # Main executable
 
 add_executable(nautical
