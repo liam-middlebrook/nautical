@@ -25,6 +25,16 @@ namespace nautical
                 memcpy(&x, data, sizeof(T) * 3);
             }
 
+            inline T& operator[](int b)
+            {
+                return (&x)[b];
+            }
+
+            inline const T& operator[](int b) const
+            {
+                return (&x)[b];
+            }
+
             inline T lengthSquared() const
             {
                 return x * x + y * y + z * z;
@@ -144,11 +154,6 @@ namespace nautical
                 return !(*this == rhs);
             }
 
-            inline T operator[](const int& b)
-            {
-                return (&x)[b];
-            }
-
             inline operator T*()
             {
                 return &x;
@@ -185,11 +190,11 @@ namespace nautical
                 return out;
             }
 
-            const static Vector3 zero;
-            const static Vector3 one;
-            const static Vector3 right;
-            const static Vector3 up;
-            const static Vector3 forward;
+            static const Vector3 zero;
+            static const Vector3 one;
+            static const Vector3 right;
+            static const Vector3 up;
+            static const Vector3 forward;
         };
 
         template <typename T>

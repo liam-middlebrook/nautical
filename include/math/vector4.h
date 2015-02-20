@@ -187,11 +187,11 @@ namespace nautical
                 return x * b.x + y * b.y + z * b.z + w * b.w;
             }
 
-            const static Vector4 zero;
-            const static Vector4 one;
-            const static Vector4 right;
-            const static Vector4 up;
-            const static Vector4 forward;
+            static const Vector4 zero;
+            static const Vector4 one;
+            static const Vector4 right;
+            static const Vector4 up;
+            static const Vector4 forward;
         };
 
         template <typename T>
