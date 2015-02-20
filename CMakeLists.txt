@@ -33,7 +33,8 @@ set(libraries X11 glfw GL GLEW m stdc++)
 
 add_executable(nautical
 	${h_files}
-	"src/main.cpp"
+    "src/main.cpp"
+    "src/gameobject.cpp"
 )
 
 #####
