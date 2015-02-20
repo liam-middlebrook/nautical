@@ -9,17 +9,22 @@ namespace nautical
     {
     public:
         Transform()
+        {
+        }
+
         math::Vector3<T> position;
         math::Vector3<T> rotation;
         math::Vector3<T> scale;
 
-        inline Matrix4<T> getMatrix()
+        inline math::Matrix4<T> getMatrix()
         {
-            return Matrix4<T>::scale(scale) *
-                   Matrix4<T>::rotate(Vector3<T>::right, rotation.x) *
-                   Matrix4<T>::rotate(Vector3<T>::up, rotation.y) *
-                   Matrix4<T>::rotate(Vector3<T>::forward, rotation.z) *
-                   Matrix4<T>::translate(position);
+            return math::Matrix4<T>::scale(scale) *
+                   math::Matrix4<T>::rotate(math::Vector3<T>::right,
+                                            rotation.x) *
+                   math::Matrix4<T>::rotate(math::Vector3<T>::up, rotation.y) *
+                   math::Matrix4<T>::rotate(math::Vector3<T>::forward,
+                                            rotation.z) *
+                   math::Matrix4<T>::translate(position);
         }
     };
 }
