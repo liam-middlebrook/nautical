@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cmath>
+#include <ostream>
 
 namespace nautical
 {
@@ -173,22 +174,48 @@ namespace nautical
                 return x * b.x + y * b.y;
             }
 
+            friend std::ostream& operator<<(std::ostream& os, const Vector2& v)
+            {
+                return os << "<" << v.x << ", " << v.y << ">";
+            }
+
+#ifndef SWIG
             static const Vector2 zero;
             static const Vector2 one;
             static const Vector2 right;
             static const Vector2 up;
+#endif
+
+            static constexpr Vector2 ZERO()
+            {
+                return Vector2(0, 0);
+            }
+            static constexpr Vector2 ONE()
+            {
+                return Vector2(1, 1);
+            }
+            static constexpr Vector2 RIGHT()
+            {
+                return Vector2(1, 0);
+            }
+            static constexpr Vector2 UP()
+            {
+                return Vector2(0, 1);
+            }
         };
 
+#ifndef SWIG
         template <typename T>
-        const Vector2<T> Vector2<T>::zero = Vector2<T>(0, 0);
+        const Vector2<T> Vector2<T>::zero = Vector2<T>::ZERO();
 
         template <typename T>
-        const Vector2<T> Vector2<T>::one = Vector2<T>(1, 1);
+        const Vector2<T> Vector2<T>::one = Vector2<T>::ONE();
 
         template <typename T>
-        const Vector2<T> Vector2<T>::right = Vector2<T>(1, 0);
+        const Vector2<T> Vector2<T>::right = Vector2<T>::RIGHT();
 
         template <typename T>
-        const Vector2<T> Vector2<T>::up = Vector2<T>(0, 1);
+        const Vector2<T> Vector2<T>::up = Vector2<T>::UP();
+#endif
     }
 }

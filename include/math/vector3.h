@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cmath>
+#include <ostream>
 
 namespace nautical
 {
@@ -190,26 +191,56 @@ namespace nautical
                 return out;
             }
 
+            friend std::ostream& operator<<(std::ostream& os, const Vector3& v)
+            {
+                return os << "<" << v.x << ", " << v.y << ", " << v.z << ">";
+            }
+
+#ifndef SWIG
             static const Vector3 zero;
             static const Vector3 one;
             static const Vector3 right;
             static const Vector3 up;
             static const Vector3 forward;
+#endif
+
+            static const Vector3 ZERO()
+            {
+                return Vector3(0, 0, 0);
+            }
+            static const Vector3 ONE()
+            {
+                return Vector3(1, 1, 1);
+            }
+            static const Vector3 RIGHT()
+            {
+                return Vector3(1, 0, 0);
+            }
+            static const Vector3 UP()
+            {
+                return Vector3(0, 1, 0);
+            }
+            static const Vector3 FORWARD()
+            {
+                return Vector3(0, 0, 1);
+            }
         };
 
+#ifndef SWIG
         template <typename T>
-        const Vector3<T> Vector3<T>::zero = Vector3<T>(0, 0, 0);
+        const Vector3<T> Vector3<T>::zero = Vector3<T>::ZERO();
 
         template <typename T>
-        const Vector3<T> Vector3<T>::one = Vector3<T>(1, 1, 1);
+        const Vector3<T> Vector3<T>::one = Vector3<T>::ONE();
 
         template <typename T>
-        const Vector3<T> Vector3<T>::right = Vector3<T>(1, 0, 0);
+        const Vector3<T> Vector3<T>::right = Vector3<T>::RIGHT();
 
         template <typename T>
-        const Vector3<T> Vector3<T>::up = Vector3<T>(0, 1, 0);
+        const Vector3<T> Vector3<T>::up = Vector3<T>::UP();
 
         template <typename T>
-        const Vector3<T> Vector3<T>::forward = Vector3<T>(0, 0, 1);
+        const Vector3<T> Vector3<T>::forward = Vector3<T>::FORWARD();
+#endif
     }
 }
