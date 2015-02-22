@@ -1,14 +1,13 @@
 // vim: ft=swig
 %module nauticalua
-%extend nautical::math::Vector2 {
-    %ignore operator T*;
-}
-%extend nautical::math::Vector3 {
-    %ignore operator T*;
-}
-%extend nautical::math::Vector4 {
-    %ignore operator T*;
-}
-%include "../vector2.i"
-%include "../vector3.i"
-%include "../vector4.i"
+
+%define nautical_lang_accessors
+    T& __setitem__(int i, const T& val) {
+        return ((*$self)[i] = val);
+    }
+    T __getitem__(int i) const {
+        return (*$self)[i];
+    }
+%enddef
+
+%include "../nautical.i"
