@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cmath>
+#include "math/vector2.h"
 
 namespace nautical
 {
@@ -17,6 +17,10 @@ namespace nautical
             }
 
             Vector3(T x, T y, T z) : x(x), y(y), z(z)
+            {
+            }
+
+            Vector3(const Vector2<T>& rval) : Vector3(rval.x, rval.y, 0)
             {
             }
 
