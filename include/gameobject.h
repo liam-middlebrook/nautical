@@ -1,7 +1,6 @@
 #pragma once
 
 #include "transform.h"
-#include <vector>
 #include <unordered_map>
 
 namespace nautical
@@ -13,38 +12,21 @@ namespace nautical
 
         GameObject(char* name);
 
-        static GameObject* GetById(int id);
+        virtual ~GameObject();
 
-        static void GetChildByName(GameObject* parent, char* name,
-                                        std::vector<GameObject*>& retList,
-                                        bool recursive);
+        virtual void update();
 
-        static void GetByName(char* name,
-                                            std::vector<GameObject*> retList);
+        virtual void lateUpdate();
 
-        inline int getId()
-        {
-            return _id;
-        }
+        void addComponent(char* name, GameComponent* component);
 
-        inline const char* getName()
-        {
-            return _name;
-        }
-
-    protected:
-        virtual void update() = 0;
-
-        virtual void lateUpdate() = 0;
-
-        virtual void render() = 0;
+        GameComponent* getComponent(char* name);
 
     private:
-        char* _name;
-        int _id;
-        std::vector<GameObject*> _children;
-
-        static std::unordered_map<char*, int> _objectsStr;
-        static std::unordered_map<int, GameObject*> _objectsID;
+        const char* _name;
+        std::hash<char*> _hashAlg;
+        std::unordered_map<size_t, GameObject*> _children;
+        std::unordered_map<size_t, NauticalScript*> _scripts;
+        std::unordered_map<size_t, GameComponent*> _components;
     };
 }

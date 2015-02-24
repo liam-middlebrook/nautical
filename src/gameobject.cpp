@@ -1,61 +1,37 @@
 #include "gameobject.h"
-#include <cstring>
-#include <functional>
-#include <time.h>
 
 using namespace nautical;
 
-std::unordered_map<char*, int> GameObject::_objectsStr;
-std::unordered_map<int, GameObject*> GameObject::_objectsID;
-
-GameObject::GameObject(char* name)
+GameObject::GameObject(char* name) : _name(name)
 {
-    this->_name = name;
-    this->_id = std::hash<char*>()(name) * time_t(nullptr);
-
-    GameObject::_objectsID.insert(std::make_pair(this->_id, this));
-    GameObject::_objectsStr.insert(std::make_pair(this->_name, this->_id));
+    // Do Constructor Stuff
 }
 
-void GameObject::GetChildByName(GameObject* parent, char* name,
-                                std::vector<GameObject*>& retList,
-                                bool recursive)
+GameObject::~GameObject()
 {
-    if(recursive)
-    {
-        // Iterate through any children
-        std::vector<GameObject*>& list = (parent->_children);
-        for(auto itr : list)
-        {
-            GameObject::GetChildByName(itr, name, retList, true);
-        }
-    }
-
-    if (!strcmp(parent->getName(), name))
-    {
-        retList.push_back(parent);
-    }
+    // Unload Constructor Stuff
 }
 
-void GameObject::GetByName(char* name, std::vector<GameObject*> retList)
+void GameObject::update()
 {
-    for(auto& itr : GameObject::_objectsStr)
-    {
-        if(!strcmp(itr.first, name))
-        {
-            retList.push_back(GameObject::_objectsID.at(itr.second));
-        }
-    }
+    // Update all scripts
+    // Update all components
+    // Update all children
 }
 
-GameObject* GameObject::GetById(int id)
+void GameObject::lateUpdate()
 {
-    for(auto& itr : GameObject::_objectsID)
-    {
-        if(itr.first == id)
-        {
-            return itr.second;
-        }
-    }
-    return nullptr;
+    // Update all scripts
+    // Update all children
+}
+
+void GameObject::addComponent(char* name, GameComponent* component)
+{
+    // Insert component into dictionary with name (hashed)
+    _components.insert(std::make_pair(_hashAlg(name), component));
+}
+
+GameComponent* GameObject::getComponent(char* name)
+{
+    return _components.at(_hashAlg(name));
 }
