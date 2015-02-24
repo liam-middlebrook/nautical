@@ -1,5 +1,6 @@
 #pragma once
 
+#include "gamecomponent.h"
 #include "transform.h"
 #include <unordered_map>
 

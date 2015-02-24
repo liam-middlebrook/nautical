@@ -2,7 +2,7 @@
 
 using namespace nautical;
 
-GameObject::GameObject(char* name) : _name(name)
+GameObject::GameObject(char* name) : _name{name}
 {
     // Do Constructor Stuff
 }
