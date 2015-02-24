@@ -17,7 +17,9 @@ if(NOT MSVC)
 endif()
 
 set(h_files
+    "include/gamecomponent.h"
     "include/gameobject.h"
+    "include/nauticalscript.h"
     "include/transform.h"
 	"include/util.h"
 	"include/math/matrix3.h"

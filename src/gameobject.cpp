@@ -1,5 +1,8 @@
 #include "gameobject.h"
 
+#include "gamecomponent.h"
+#include "nauticalscript.h"
+
 using namespace nautical;
 
 GameObject::GameObject(char* name) : _name{name}
@@ -17,19 +20,19 @@ void GameObject::init()
     // Init all scripts
     for(auto& script : _scripts)
     {
-        script.init();
+        script.second->init();
     }
 
     // Init all components
     for(auto& component : _components)
     {
-        component.init();
+        component.second->init();
     }
 
     // Init all children
     for(auto& child : _children)
     {
-        child.init();
+        child.second->init();
     }
 }
 
@@ -38,19 +41,19 @@ void GameObject::update()
     // Update all scripts
     for(auto& script : _scripts)
     {
-        script.update();
+        script.second->update();
     }
 
     // Update all components
     for(auto& component : _components)
     {
-        component.update();
+        component.second->update();
     }
 
     // Update all children
     for(auto& child : _children)
     {
-        child.update();
+        child.second->update();
     }
 }
 
@@ -59,13 +62,13 @@ void GameObject::lateUpdate()
     // Update all scripts
     for(auto& script : _scripts)
     {
-        script.lateUpdate();
+        script.second->lateUpdate();
     }
 
     // Update all children
     for(auto& child : _children)
     {
-        child.lateUpdate();
+        child.second->lateUpdate();
     }
 }
 

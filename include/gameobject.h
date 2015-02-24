@@ -1,11 +1,13 @@
 #pragma once
 
-#include "gamecomponent.h"
 #include "transform.h"
 #include <unordered_map>
 
 namespace nautical
 {
+    class GameComponent;
+    class NauticalScript;
+
     class GameObject
     {
     public:
