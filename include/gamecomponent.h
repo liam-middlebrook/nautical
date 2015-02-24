@@ -8,7 +8,9 @@ namespace nautical
     {
     public:
         // Create a component that will be unique to a host obj
-        GameComponent(GameObject* hostObj) : _hostObj{hostObj} {}
+        GameComponent(GameObject* hostObj) : _hostObj{hostObj}
+        {
+        }
 
         virtual ~GameComponent() = 0;
 

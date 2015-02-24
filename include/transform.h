@@ -4,7 +4,7 @@
 
 namespace nautical
 {
-    template<typename T>
+    template <typename T>
     class Transform
     {
     public:
