@@ -12,8 +12,7 @@ typedef struct
 typedef struct
 {
     const char* name;
-    TestDef* tests;
-    size_t count;
+    const TestDef* tests;
 } SuiteDef;
 
 #endif

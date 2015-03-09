@@ -10,26 +10,29 @@ namespace nautical
         class Vector2
         {
         public:
-            union
-            {
-                struct
-                {
-                    T x;
-                    T y;
-                };
-                T components[2];
-            };
+            T x, y;
 
-            Vector2() : x(0), y(0)
-            {
-            }
-            Vector2(T x, T y) : x(x), y(y)
+            Vector2() : Vector2{0, 0}
             {
             }
 
-            Vector2(T* data)
+            Vector2(T x, T y) : x{x}, y{y}
             {
-                memcpy(components, data, sizeof(T) * 2);
+            }
+
+            Vector2(const T* data)
+            {
+                memcpy(&x, data, sizeof(T) * 2);
+            }
+
+            inline T& operator[](int b)
+            {
+                return (&x)[b];
+            }
+
+            inline const T& operator[](int b) const
+            {
+                return (&x)[b];
             }
 
             inline T lengthSquared() const
@@ -47,124 +50,101 @@ namespace nautical
                 return atan2(y, x);
             }
 
-            inline Vector2<T> operator+(const Vector2<T>& b) const
+            inline Vector2 operator+(const Vector2& b) const
             {
-                Vector2<T> out;
-                out.x = x + b.x;
-                out.y = y + b.y;
-                return out;
+                return (Vector2(*this) += b);
             }
 
-            inline Vector2<T>& operator+=(const Vector2<T>& rhs)
+            inline Vector2& operator+=(const Vector2& rhs)
             {
                 this->x += rhs.x;
                 this->y += rhs.y;
                 return *this;
             }
 
-            inline Vector2<T> operator-() const
+            inline Vector2 operator-() const
             {
-                Vector2<T> out;
+                Vector2 out;
                 out.x = -x;
                 out.y = -y;
                 return out;
             }
 
-            inline Vector2<T> operator-(const Vector2<T>& b) const
+            inline Vector2 operator-(const Vector2& b) const
             {
-                Vector2<T> out;
-                out.x = x - b.x;
-                out.y = y - b.y;
-                return out;
+                return (Vector2(*this) -= b);
             }
 
-            inline Vector2<T>& operator-=(const Vector2<T>& rhs)
+            inline Vector2& operator-=(const Vector2& rhs)
             {
                 this->x -= rhs.x;
                 this->y -= rhs.y;
                 return *this;
             }
 
-            inline Vector2<T> operator*(const Vector2<T>& b) const
+            inline Vector2 operator*(const Vector2& b) const
             {
-                Vector2<T> out;
-                out.x = x * b.x;
-                out.y = y * b.y;
-                return out;
+                return (Vector2(*this) *= b);
             }
 
-            inline Vector2<T>& operator*=(const Vector2<T>& rhs)
+            inline Vector2& operator*=(const Vector2& rhs)
             {
                 this->x *= rhs.x;
                 this->y *= rhs.y;
                 return *this;
             }
 
-            inline Vector2<T> operator/(const Vector2<T>& b) const
+            inline Vector2 operator/(const Vector2& b) const
             {
-                Vector2<T> out;
-                out.x = x / b.x;
-                out.y = y / b.y;
-                return out;
+                return (Vector2(*this) /= b);
             }
 
-            inline Vector2<T>& operator/=(const Vector2<T>& rhs)
+            inline Vector2& operator/=(const Vector2& rhs)
             {
                 this->x /= rhs.x;
                 this->y /= rhs.y;
                 return *this;
             }
 
-            inline Vector2<T> operator*(const T& b) const
+            inline Vector2 operator*(const T& b) const
             {
-                Vector2<T> out;
-                out.x = x * b;
-                out.y = y * b;
-                return out;
+                return (Vector2(*this) *= b);
             }
 
-            inline Vector2<T>& operator*=(const T& rhs)
+            inline Vector2& operator*=(const T& rhs)
             {
                 this->x *= rhs;
                 this->y *= rhs;
                 return *this;
             }
 
-            inline Vector2<T> operator/(const T& b) const
+            inline Vector2 operator/(const T& b) const
             {
-                Vector2<T> out;
-                out.x = x / b;
-                out.y = y / b;
-                return out;
+                return (Vector2(*this) /= b);
             }
 
-            inline Vector2<T>& operator/=(const T& rhs)
+            inline Vector2& operator/=(const T& rhs)
             {
                 this->x /= rhs;
                 this->y /= rhs;
                 return *this;
             }
 
-            inline Vector2<T>& operator=(const Vector2<T>& rhs)
+            inline Vector2& operator=(const Vector2& rhs)
             {
                 this->x = rhs.x;
                 this->y = rhs.y;
                 return *this;
             }
 
-            inline bool operator==(const Vector2<T>& rhs) const
+            inline bool operator==(const Vector2& rhs) const
             {
                 return this->x == rhs.x && this->y == rhs.y;
             }
 
-            inline bool operator!=(const Vector2<T>& rhs) const
+            inline bool operator!=(const Vector2& rhs) const
             {
                 return !(*this == rhs);
-            }
-
-            inline T operator[](const int& b)
-            {
-                return components[b];
             }
 
             inline operator T*()
@@ -172,31 +152,31 @@ namespace nautical
                 return &x;
             }
 
-            inline Vector2<T> normalized()
+            inline Vector2 normalized() const
             {
                 if (lengthSquared() == 0)
                 {
-                    return Vector2<T>::zero;
+                    return Vector2::zero;
                 }
                 return *this / length();
             }
 
             inline void normalize()
             {
-                Vector2<T> temp = normalized();
+                Vector2 temp = normalized();
                 this->x = temp.x;
                 this->y = temp.y;
             }
 
-            inline T dot(Vector2<T>& b)
+            inline T dot(const Vector2& b)
             {
                 return x * b.x + y * b.y;
             }
 
-            const static Vector2<T> zero;
-            const static Vector2<T> one;
-            const static Vector2<T> right;
-            const static Vector2<T> up;
+            const static Vector2 zero;
+            const static Vector2 one;
+            const static Vector2 right;
+            const static Vector2 up;
         };
 
         template <typename T>

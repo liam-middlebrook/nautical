@@ -8,26 +8,26 @@ using std::string;
 
 int main(int argc, char** argv)
 {
-	map<string, CU_pSuite> suitemap;
+    map<string, CU_pSuite> suitemap;
 
-    if(CUE_SUCCESS != CU_initialize_registry())
+    if (CUE_SUCCESS != CU_initialize_registry())
     {
         return CU_get_error();
     }
 
-    for(size_t i = 0; i < suite_count; ++i)
+    for (const SuiteDef* sp{suites}; sp->name != nullptr; ++sp)
     {
-        CU_pSuite suite = CU_add_suite(suites[i].name, NULL, NULL);
-        if(suite == NULL)
+        CU_pSuite suite = CU_add_suite(sp->name, nullptr, nullptr);
+        if (suite == nullptr)
         {
             CU_cleanup_registry();
             return CU_get_error();
         }
-		suitemap[suites[i].name] = suite;
+        suitemap[sp->name] = suite;
 
-        for(size_t j = 0; j < suites[i].count; ++j)
+        for (const TestDef* tst{sp->tests}; tst->name != nullptr; ++tst)
         {
-            if(CU_add_test(suite, suites[i].tests[j].name, suites[i].tests[j].func) == NULL)
+            if (CU_add_test(suite, tst->name, tst->func) == nullptr)
             {
                 CU_cleanup_registry();
                 return CU_get_error();
@@ -36,14 +36,17 @@ int main(int argc, char** argv)
     }
 
     CU_basic_set_mode(CU_BRM_VERBOSE);
-	if(argc > 1) {
-		for(int i=1; i<argc; i++)
-		{
-			CU_basic_run_suite(suitemap[argv[i]]);
-		}
-	} else {
+    if (argc > 1)
+    {
+        for (int i = 1; i < argc; i++)
+        {
+            CU_basic_run_suite(suitemap[argv[i]]);
+        }
+    }
+    else
+    {
         CU_basic_run_tests();
-	}
+    }
 
     int errCode = CU_get_number_of_tests_failed();
     CU_cleanup_registry();
