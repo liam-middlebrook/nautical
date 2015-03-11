@@ -19,7 +19,7 @@ install:
     - cd ..
     - wget http://ndevilla.free.fr/iniparser/iniparser-3.1.tar.gz
     - tar -xzf iniparser-3.1.tar.gz
-    - cd iniparser-3.1
+    - cd iniparser
     - make
     - sudo cp libiniparser.so.0 /usr/lib/libiniparser.so.0
     - sudo cp iniparser.h dictionary.h /usr/include/
