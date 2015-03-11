@@ -18,7 +18,7 @@ int main(int argc, char** argv)
 
     if(!does_file_exist("config.ini"))
     {
-        printf("config.ini not found! Creating default config.ini now!");
+        printf("config.ini not found!\nCreating default config.ini now!\n");
 
         // write default config file to disk
         const char* defaultINI =
