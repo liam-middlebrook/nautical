@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.0.2)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_LIST_DIR}/CMake)
 find_package(CUnit REQUIRED)
+find_package(IniParser REQUIRED)
+find_package(PkgConfig REQUIRED)
+pkg_search_module(GLFW REQUIRED glfw3)
 
 include_directories(
     "include"
@@ -28,7 +31,7 @@ set(h_files
     "include/math/vector3.h"
     "include/math/vector4.h"
 )
-set(libraries X11 glfw GL GLEW m stdc++)
+set(libraries X11 glfw GL GLEW m stdc++ iniparser)
 
 #####
 # Main executable
@@ -37,6 +40,8 @@ add_executable(nautical
     ${h_files}
     "src/main.cpp"
     "src/gameobject.cpp"
+    "src/util.cpp"
+    "src/graphics/window.cpp"
 )
 
 #####
@@ -62,7 +67,10 @@ add_executable(nautical-tests
 target_include_directories(nautical-tests
     PUBLIC tests ${CUNIT_INCLUDE_DIRS}
 )
-
+target_link_libraries(nautical
+    ${GLFW_LIBRARIES}
+    ${INIPARSER_LIBRARIES}
+)
 target_link_libraries(nautical-tests ${CUNIT_LIBRARY})
 
 enable_testing()
