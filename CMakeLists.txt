@@ -20,16 +20,20 @@ if(NOT MSVC)
 endif()
 
 set(h_files
+    "include/engine.h"
     "include/gamecomponent.h"
     "include/gameobject.h"
     "include/nauticalscript.h"
     "include/transform.h"
     "include/util.h"
+    "include/components/rendercomponent.h"
+    "include/graphics/window.h"
     "include/math/matrix3.h"
     "include/math/matrix4.h"
     "include/math/vector2.h"
     "include/math/vector3.h"
     "include/math/vector4.h"
+    "include/systems/renderer.h"
 )
 set(libraries X11 glfw GL GLEW m stdc++ iniparser)
 
@@ -39,9 +43,12 @@ set(libraries X11 glfw GL GLEW m stdc++ iniparser)
 add_executable(nautical
     ${h_files}
     "src/main.cpp"
+    "src/engine.cpp"
     "src/gameobject.cpp"
     "src/util.cpp"
+    "src/components/rendercomponent.cpp"
     "src/graphics/window.cpp"
+    "src/systems/renderer.cpp"
 )
 
 #####

@@ -7,6 +7,7 @@ namespace nautical
 {
     class GameComponent;
     class NauticalScript;
+    class Engine;
 
     class GameObject
     {
@@ -14,18 +15,14 @@ namespace nautical
         // World Transformation for GameObject
         Transform<float> transform;
 
-        GameObject(char* name);
-
-        virtual ~GameObject();
-
         // Init Function (called at object creation)
-        virtual void init();
+        void init();
 
         // Update Function (called once per gameloop)
-        virtual void update();
+        void update();
 
         // LateUpdate function (called once per gameloop)
-        virtual void lateUpdate();
+        void lateUpdate();
 
         // Adds a component with the specified name to the object
         void addComponent(char* name, GameComponent* component);
@@ -33,14 +30,26 @@ namespace nautical
         // Adds a script with the specified name to the object
         void addScript(char* name, NauticalScript* script);
 
+        // createa a new child gameobject
+        // This is *essentially* it's constructor
+        GameObject* addChild(char* name);
+
         // Retrives a component from the gameobject
         GameComponent* getComponent(char* name);
 
+        NauticalScript* getScript(char* name);
+
     private:
+        GameObject(char* name, Engine* engine);
+        ~GameObject();
+
+        Engine* _engine;
         const char* _name;
         std::hash<char*> _hashAlg;
         std::unordered_map<size_t, GameObject*> _children;
         std::unordered_map<size_t, NauticalScript*> _scripts;
         std::unordered_map<size_t, GameComponent*> _components;
+
+        friend class GameComponent;
     };
 }
