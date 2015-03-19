@@ -43,8 +43,8 @@ namespace nautical
         GameObject(char* name, Engine* engine);
         ~GameObject();
 
-        Engine* _engine;
         const char* _name;
+        Engine* _engine;
         std::hash<char*> _hashAlg;
         std::unordered_map<size_t, GameObject*> _children;
         std::unordered_map<size_t, NauticalScript*> _scripts;
