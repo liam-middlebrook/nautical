@@ -60,6 +60,15 @@ void Engine::run()
     width = iniparser_getint(nautical_config, "window:width", 0);
     height = iniparser_getint(nautical_config, "window:height", 0);
     title = iniparser_getstring(nautical_config, "window:title", (char*)"Nautical Game");
+
+    float clearColor[4]
+    {
+        iniparser_getdouble(nautical_config, "window:clearR", 0.0f),
+        iniparser_getdouble(nautical_config, "window:clearG", 0.0f),
+        iniparser_getdouble(nautical_config, "window:clearB", 0.0f),
+        iniparser_getdouble(nautical_config, "window:clearA", 0.0f),
+    };
+
     nautical::graphics::Window window(width, height, title);
 
     glewExperimental = GL_TRUE;
@@ -71,7 +80,7 @@ void Engine::run()
 
     window.setActive();
 
-    glClearColor(0,0,1,1);
+    glClearColor(clearColor[0], clearColor[1], clearColor[2], clearColor[3]);
     while(!window.shouldClose())
     {
         glClear(GL_COLOR_BUFFER_BIT);
