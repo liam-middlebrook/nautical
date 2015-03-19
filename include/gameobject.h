@@ -39,6 +39,11 @@ namespace nautical
 
         NauticalScript* getScript(char* name);
 
+        inline Engine* getEngine()
+        {
+            return _engine;
+        }
+
     private:
         GameObject(char* name, Engine* engine);
         ~GameObject();

@@ -3,6 +3,7 @@
 #include "math/matrix4.h"
 
 #include <vector>
+#include <GL/glew.h>
 #include <GL/gl.h>
 
 namespace nautical
@@ -16,6 +17,7 @@ namespace nautical
     {
         class DrawParams
         {
+        public:
             GLuint texture;
             math::Matrix4<float> transform;
             // add a color for tinting and stuff 
@@ -40,7 +42,7 @@ namespace nautical
 
             std::vector<graphics::DrawParams> drawQueue;
 
-            friend class RenderComponent;
+            friend class components::RenderComponent;
         };
     }
 }

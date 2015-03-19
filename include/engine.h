@@ -1,6 +1,7 @@
 #pragma once
 
 #include "systems/renderer.h"
+#include "components/rendercomponent.h"
 
 namespace nautical
 {
@@ -17,5 +18,7 @@ namespace nautical
 
     private:
         systems::Renderer _renderer;
+
+        friend class components::RenderComponent;
     };
 }

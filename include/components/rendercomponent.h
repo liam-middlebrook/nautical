@@ -1,6 +1,8 @@
 #pragma once
 
 #include "gamecomponent.h"
+#include "gameobject.h"
+#include "engine.h"
 #include "systems/renderer.h"
 
 namespace nautical
@@ -16,6 +18,10 @@ namespace nautical
             void init();
 
             void update();
+
+        private:
+            GLuint vao;
+            GLuint vbo;
         };
     }
 }
