@@ -9,7 +9,7 @@ before_install:
     - chmod +x cmake-3.1.2-Linux-x86_64.sh
     - mkdir cmake
 install:
-    - sudo apt-get install -y -qq libcunit1 libcunit1-dev libglfw-dev libglew-dev xorg-dev gcc-4.8 g++-4.8
+    - sudo apt-get install -y -qq libcunit1 libcunit1-dev libglfw-dev libglew-dev libfreeimage-dev xorg-dev gcc-4.8 g++-4.8
     - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 90
 # libglfw3 isn't up to date in apt with precise
     - wget 'http://sourceforge.net/projects/glfw/files/glfw/3.0.4/glfw-3.0.4.zip'
