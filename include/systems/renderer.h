@@ -42,6 +42,9 @@ namespace nautical
 
             std::vector<graphics::DrawParams> drawQueue;
 
+            GLuint vao;
+            GLuint vbo;
+
             friend class components::RenderComponent;
         };
     }

@@ -56,5 +56,6 @@ namespace nautical
         std::unordered_map<size_t, GameComponent*> _components;
 
         friend class GameComponent;
+        friend class Engine;
     };
 }

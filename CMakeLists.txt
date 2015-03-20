@@ -29,6 +29,7 @@ set(h_files
     "include/transform.h"
     "include/util.h"
     "include/components/rendercomponent.h"
+    "include/graphics/shaderloader.h"
     "include/graphics/window.h"
     "include/math/matrix3.h"
     "include/math/matrix4.h"
@@ -49,6 +50,7 @@ add_executable(nautical
     "src/gameobject.cpp"
     "src/util.cpp"
     "src/components/rendercomponent.cpp"
+    "src/graphics/shaderloader.cpp"
     "src/graphics/window.cpp"
     "src/systems/renderer.cpp"
 )

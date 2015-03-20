@@ -19,9 +19,6 @@ namespace nautical
 
             void update();
 
-        private:
-            GLuint vao;
-            GLuint vbo;
         };
     }
 }

@@ -71,20 +71,40 @@ void Engine::run()
 
     nautical::graphics::Window window(width, height, title);
 
+    window.setActive();
+
     glewExperimental = GL_TRUE;
-    if(!glewInit())
+    if(glewInit() != GLEW_OK)
     {
         printf("GLEW Not Initialized!\n");
         return;
     }
 
-    window.setActive();
+    _renderer = new systems::Renderer();
+    _shaderLoader = new graphics::ShaderLoader();
+
+
+    glUseProgram(_shaderLoader->loadShader("vert.glsl", "frag.glsl"));
 
     glClearColor(clearColor[0], clearColor[1], clearColor[2], clearColor[3]);
+
+    GameObject world("world", this);
+
+    world.addComponent("renderer", new components::RenderComponent(&world));
+
+    world.init();
+
     while(!window.shouldClose())
     {
         glClear(GL_COLOR_BUFFER_BIT);
         glfwPollEvents();
+
+        world.update();
+
+        world.lateUpdate();
+
+        _renderer->render();
+
         window.render();
     }
 

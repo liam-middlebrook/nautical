@@ -1,5 +1,6 @@
 #pragma once
 
+#include "graphics/shaderloader.h"
 #include "systems/renderer.h"
 #include "components/rendercomponent.h"
 
@@ -17,7 +18,8 @@ namespace nautical
         void run();
 
     private:
-        systems::Renderer _renderer;
+        systems::Renderer* _renderer;
+        graphics::ShaderLoader* _shaderLoader;
 
         friend class components::RenderComponent;
     };
