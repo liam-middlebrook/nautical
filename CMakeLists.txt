@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.0.2)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_LIST_DIR}/CMake)
 find_package(CUnit REQUIRED)
+find_package(FreeImage REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(IniParser REQUIRED)
 find_package(OpenGL REQUIRED)
@@ -30,6 +31,7 @@ set(h_files
     "include/util.h"
     "include/components/rendercomponent.h"
     "include/graphics/shaderloader.h"
+    "include/graphics/textureloader.h"
     "include/graphics/window.h"
     "include/math/matrix3.h"
     "include/math/matrix4.h"
@@ -51,6 +53,7 @@ add_executable(nautical
     "src/util.cpp"
     "src/components/rendercomponent.cpp"
     "src/graphics/shaderloader.cpp"
+    "src/graphics/textureloader.cpp"
     "src/graphics/window.cpp"
     "src/systems/renderer.cpp"
 )
@@ -81,6 +84,7 @@ target_include_directories(nautical-tests
 target_link_libraries(nautical
     ${GLEW_LIBRARIES}
     ${GLFW_LIBRARIES}
+    ${FREEIMAGE_LIBRARIES}
     ${OPENGL_LIBRARIES}
     ${INIPARSER_LIBRARIES}
 )

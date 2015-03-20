@@ -59,6 +59,8 @@ void Renderer::render()
     // draw shit
     for(auto& draw : drawQueue)
     {
+        glBindTexture(GL_TEXTURE_2D, draw.texture);
+
         glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
     }
 

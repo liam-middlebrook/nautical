@@ -21,7 +21,7 @@ void RenderComponent::update()
     // add to render system's drawQueue
     graphics::DrawParams sprite;
 
-    sprite.texture = 0;
+    sprite.texture = texture;
 
     sprite.transform = math::Matrix4<float>::identity;
 

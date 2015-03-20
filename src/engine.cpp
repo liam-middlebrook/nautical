@@ -82,15 +82,23 @@ void Engine::run()
 
     _renderer = new systems::Renderer();
     _shaderLoader = new graphics::ShaderLoader();
+    _textureLoader = new graphics::TextureLoader();
 
+    GLuint shader = _shaderLoader->loadShader("vert.glsl", "frag.glsl");
 
-    glUseProgram(_shaderLoader->loadShader("vert.glsl", "frag.glsl"));
+    glUseProgram(shader);
+
+    glUniform1i(glGetUniformLocation(shader, "tex"), 0);
 
     glClearColor(clearColor[0], clearColor[1], clearColor[2], clearColor[3]);
+
+    GLuint tex = _textureLoader->loadTexture("image.png");
 
     GameObject world("world", this);
 
     world.addComponent("renderer", new components::RenderComponent(&world));
+
+    static_cast<components::RenderComponent*>(world.getComponent("renderer"))->texture = tex;
 
     world.init();
 

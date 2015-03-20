@@ -1,6 +1,7 @@
 #pragma once
 
 #include "graphics/shaderloader.h"
+#include "graphics/textureloader.h"
 #include "systems/renderer.h"
 #include "components/rendercomponent.h"
 
@@ -20,6 +21,7 @@ namespace nautical
     private:
         systems::Renderer* _renderer;
         graphics::ShaderLoader* _shaderLoader;
+        graphics::TextureLoader* _textureLoader;
 
         friend class components::RenderComponent;
     };

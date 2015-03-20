@@ -19,6 +19,7 @@ namespace nautical
 
             void update();
 
+            GLuint texture;
         };
     }
 }
