@@ -63,10 +63,10 @@ void Engine::run()
 
     float clearColor[4]
     {
-        iniparser_getdouble(nautical_config, "window:clearR", 0.0f),
-        iniparser_getdouble(nautical_config, "window:clearG", 0.0f),
-        iniparser_getdouble(nautical_config, "window:clearB", 0.0f),
-        iniparser_getdouble(nautical_config, "window:clearA", 0.0f),
+        static_cast<float>(iniparser_getdouble(nautical_config, "window:clearR", 0.0f)),
+        static_cast<float>(iniparser_getdouble(nautical_config, "window:clearG", 0.0f)),
+        static_cast<float>(iniparser_getdouble(nautical_config, "window:clearB", 0.0f)),
+        static_cast<float>(iniparser_getdouble(nautical_config, "window:clearA", 0.0f)),
     };
 
     nautical::graphics::Window window(width, height, title);
