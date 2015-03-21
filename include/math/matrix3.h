@@ -124,9 +124,9 @@ namespace nautical
             {
                 Vector3<T> out;
 
-                out.x = m11 * rhs.x + m12 * rhs.y + m13 * rhs.z;
-                out.y = m21 * rhs.x + m22 * rhs.y + m23 * rhs.z;
-                out.z = m31 * rhs.x + m32 * rhs.y + m33 * rhs.z;
+                out.x = m11 * rhs.x + m21 * rhs.y + m31 * rhs.z;
+                out.y = m12 * rhs.x + m22 * rhs.y + m32 * rhs.z;
+                out.z = m13 * rhs.x + m23 * rhs.y + m33 * rhs.z;
 
                 return out;
             }
@@ -213,8 +213,8 @@ namespace nautical
             {
                 Matrix3 out;
                 out.m11 = cos(angle);
-                out.m12 = -sin(angle);
-                out.m21 = -out.m12;
+                out.m21 = -sin(angle);
+                out.m12 = -out.m12;
                 out.m22 = out.m11;
                 return out;
             }
@@ -222,8 +222,8 @@ namespace nautical
             inline static Matrix3 translate(const Vector2<T> transVector)
             {
                 Matrix3 out;
-                out.m13 = transVector.x;
-                out.m23 = transVector.y;
+                out.m31 = transVector.x;
+                out.m32 = transVector.y;
                 return out;
             }
 
