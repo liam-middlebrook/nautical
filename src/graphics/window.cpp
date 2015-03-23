@@ -1,5 +1,7 @@
 #include "graphics/window.h"
 
+#include <GLFW/glfw3.h>
+
 using namespace nautical;
 using namespace nautical::graphics;
 
