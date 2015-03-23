@@ -41,7 +41,6 @@ set(h_files
     "include/math/vector4.h"
     "include/systems/renderer.h"
 )
-set(libraries X11 glfw GL GLEW m stdc++ iniparser)
 
 #####
 # Main executable
