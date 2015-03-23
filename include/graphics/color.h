@@ -16,7 +16,22 @@ namespace nautical
 
         namespace Colors
         {
+            static constexpr Color White = Color(1.0f, 1.0f, 1.0f);
+            static constexpr Color Black = Color(0.0f, 0.0f, 0.0f);
+            static constexpr Color Gray = Color(0.5f, 0.5f, 0.5f);
+            static constexpr Color Silver = Color(0.75f, 0.75f, 0.75f);
+            static constexpr Color Maroon = Color(0.5f, 0.0f, 0.0f);
             static constexpr Color Red = Color(1.0f, 0.0f, 0.0f);
+            static constexpr Color Olive = Color(0.5f, 0.5f, 0.0f);
+            static constexpr Color Yellow = Color(1.0f, 1.0f, 0.0f);
+            static constexpr Color Green = Color(0.0f, 0.5f, 0.0f);
+            static constexpr Color Lime = Color(0.0f, 1.0f, 0.0f);
+            static constexpr Color Teal = Color(0.0f, 0.5f, 0.5f);
+            static constexpr Color Aqua = Color(0.0f, 1.0f, 1.0f);
+            static constexpr Color Navy = Color(0.0f, 0.0f, 0.5f);
+            static constexpr Color Blue = Color(0.0f, 0.0f, 1.0f);
+            static constexpr Color Purple = Color(0.5f, 0.0f, 0.5f);
+            static constexpr Color Fuchsia = Color(1.0f, 0.0f, 1.0f);
         }
     }
 }
