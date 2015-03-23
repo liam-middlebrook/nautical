@@ -27,5 +27,7 @@ void RenderComponent::update()
 
     sprite.transform = _hostObj->getMatrix();
 
+    sprite.tint = tint;
+
     _hostObj->getEngine()->_renderer->addSpriteToRenderBatch(sprite);
 }

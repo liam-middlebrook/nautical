@@ -4,6 +4,7 @@
 #include "gameobject.h"
 #include "engine.h"
 #include "systems/renderer.h"
+#include "graphics/color.h"
 
 namespace nautical
 {
@@ -22,6 +23,8 @@ namespace nautical
             GLuint texture;
 
             GLuint shader;
+
+            graphics::Color tint;
         };
     }
 }

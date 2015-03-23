@@ -78,6 +78,9 @@ void Renderer::render()
         //math::Matrix4<float> transform(modelViewMatrix * draw.transform);
         math::Matrix4<float> transform(draw.transform * modelViewMatrix);
 
+        glUniform4f(glGetUniformLocation(draw.shader, "tint"),
+                    draw.tint.r, draw.tint.g, draw.tint.b, draw.tint.a);
+
         glUniformMatrix4fv(glGetUniformLocation(draw.shader, "transform"), 1,
                            GL_FALSE, (float *)transform);
 

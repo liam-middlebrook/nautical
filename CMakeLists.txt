@@ -30,6 +30,7 @@ set(h_files
     "include/transform.h"
     "include/util.h"
     "include/components/rendercomponent.h"
+    "include/graphics/color.h"
     "include/graphics/shaderloader.h"
     "include/graphics/textureloader.h"
     "include/graphics/window.h"
