@@ -30,8 +30,13 @@ namespace nautical
         // Adds a script with the specified name to the object
         void addScript(const char* name, NauticalScript* script);
 
+        // Gets the Transformation Matrix of the Game Object in absolute
+        // coordinates (this factors in the local transformation and it's
+        // parents' transformation)
         math::Matrix4<float> getMatrix();
 
+        // Gets a pointer to the parent Game Object
+        // If a parent doesn't exist, returns null
         GameObject* getParent();
 
         // createa a new child gameobject
@@ -41,8 +46,10 @@ namespace nautical
         // Retrives a component from the gameobject
         GameComponent* getComponent(const char* name);
 
+        // Retrives a script from the gameobject
         NauticalScript* getScript(const char* name);
 
+        // Gets the engine instance that this object was created in
         inline Engine* getEngine()
         {
             return _engine;
