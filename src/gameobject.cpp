@@ -6,7 +6,7 @@
 
 using namespace nautical;
 
-GameObject::GameObject(char* name, Engine* engine, GameObject* parent)
+GameObject::GameObject(const char* name, Engine* engine, GameObject* parent)
     : _name{name}, _engine{engine}, _parent{parent}
 {
     // Do Constructor Stuff
@@ -74,19 +74,19 @@ void GameObject::lateUpdate()
     }
 }
 
-void GameObject::addComponent(char* name, GameComponent* component)
+void GameObject::addComponent(const char* name, GameComponent* component)
 {
     // Insert component into dictionary with name (hashed)
     _components.insert(std::make_pair(_hashAlg(name), component));
 }
 
-void GameObject::addScript(char* name, NauticalScript* script)
+void GameObject::addScript(const char* name, NauticalScript* script)
 {
     // Insert script into dictionary with name (hashed)
     _scripts.insert(std::make_pair(_hashAlg(name), script));
 }
 
-GameObject* GameObject::addChild(char* name)
+GameObject* GameObject::addChild(const char* name)
 {
     GameObject* newObject = new GameObject(name, _engine, this);
 
@@ -95,12 +95,12 @@ GameObject* GameObject::addChild(char* name)
     return newObject;
 }
 
-GameComponent* GameObject::getComponent(char* name)
+GameComponent* GameObject::getComponent(const char* name)
 {
     return _components.at(_hashAlg(name));
 }
 
-NauticalScript* GameObject::getScript(char* name)
+NauticalScript* GameObject::getScript(const char* name)
 {
     return _scripts.at(_hashAlg(name));
 }

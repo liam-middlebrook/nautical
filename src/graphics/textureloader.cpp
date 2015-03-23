@@ -40,4 +40,6 @@ GLuint TextureLoader::loadTexture(const char* fileLoc)
 
     FreeImage_Unload(image);
     FreeImage_Unload(bitmap);
+
+    return texture;
 }

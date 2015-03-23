@@ -107,9 +107,8 @@ void Engine::run()
 
     world.init();
 
-    //world.transform.rotation.z = 3.14159f/4.0f;
     child->transform.scale = math::Vector3<float>(64.0f, 64.0f, 1.0f);
-    child->transform.position = math::Vector3<float>(0.0f, 100.f, 1.0);
+    //child->transform.position = math::Vector3<float>(0.0f, 100.f, 1.0);
 
 
     int w, h;

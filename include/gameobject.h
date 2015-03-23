@@ -25,10 +25,10 @@ namespace nautical
         void lateUpdate();
 
         // Adds a component with the specified name to the object
-        void addComponent(char* name, GameComponent* component);
+        void addComponent(const char* name, GameComponent* component);
 
         // Adds a script with the specified name to the object
-        void addScript(char* name, NauticalScript* script);
+        void addScript(const char* name, NauticalScript* script);
 
         math::Matrix4<float> getMatrix();
 
@@ -36,12 +36,12 @@ namespace nautical
 
         // createa a new child gameobject
         // This is *essentially* it's constructor
-        GameObject* addChild(char* name);
+        GameObject* addChild(const char* name);
 
         // Retrives a component from the gameobject
-        GameComponent* getComponent(char* name);
+        GameComponent* getComponent(const char* name);
 
-        NauticalScript* getScript(char* name);
+        NauticalScript* getScript(const char* name);
 
         inline Engine* getEngine()
         {
@@ -49,13 +49,13 @@ namespace nautical
         }
 
     private:
-        GameObject(char* name, Engine* engine, GameObject* parent);
+        GameObject(const char* name, Engine* engine, GameObject* parent);
         ~GameObject();
 
         const char* _name;
-        GameObject* _parent;
         Engine* _engine;
-        std::hash<char*> _hashAlg;
+        GameObject* _parent;
+        std::hash<const char*> _hashAlg;
         std::unordered_map<size_t, GameObject*> _children;
         std::unordered_map<size_t, NauticalScript*> _scripts;
         std::unordered_map<size_t, GameComponent*> _components;
