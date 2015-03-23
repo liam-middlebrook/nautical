@@ -11,22 +11,19 @@ namespace nautical
         public:
             Window(int width, int height, char* title);
 
-            inline virtual ~Window() { glfwDestroyWindow(_window); }
+            virtual ~Window();
 
-            inline GLFWwindow* getWindow() { return _window; }
+            GLFWwindow* getWindow();
 
-            inline void getSize(int& w, int& h) { w = _w; h = _h; }
+            void getSize(int& w, int& h);
 
-            inline bool shouldClose() { return glfwWindowShouldClose(_window); }
+            bool shouldClose();
 
-            inline void setActive() { glfwMakeContextCurrent(_window); }
+            void setActive();
 
-            inline void render() { glfwSwapBuffers(_window); }
+            void render();
 
-            inline static bool init()
-            {
-                return glfwInit();
-            }
+            static bool init();
 
         private:
             GLFWwindow* _window;

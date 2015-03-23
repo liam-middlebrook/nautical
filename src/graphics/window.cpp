@@ -12,3 +12,39 @@ Window::Window(int width, int height, char* title) : _w{width}, _h{height}
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     _window = glfwCreateWindow(width, height, title, NULL, NULL);
 }
+
+Window::~Window()
+{
+    glfwDestroyWindow(_window);
+}
+
+GLFWwindow* Window::getWindow()
+{
+    return _window;
+}
+
+void Window::getSize(int& w, int& h)
+{
+    w = _w;
+    h = _h;
+}
+
+bool Window::shouldClose()
+{
+    return glfwWindowShouldClose(_window);
+}
+
+void Window::setActive()
+{
+    glfwMakeContextCurrent(_window);
+}
+
+void Window::render()
+{
+    glfwSwapBuffers(_window);
+}
+
+bool Window::init()
+{
+    return glfwInit();
+}
