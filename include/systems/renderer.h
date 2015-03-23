@@ -19,6 +19,7 @@ namespace nautical
         {
         public:
             GLuint texture;
+            GLuint shader;
             math::Matrix4<float> transform;
             // add a color for tinting and stuff 
         };

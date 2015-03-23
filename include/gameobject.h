@@ -30,6 +30,10 @@ namespace nautical
         // Adds a script with the specified name to the object
         void addScript(char* name, NauticalScript* script);
 
+        math::Matrix4<float> getMatrix();
+
+        GameObject* getParent();
+
         // createa a new child gameobject
         // This is *essentially* it's constructor
         GameObject* addChild(char* name);
@@ -45,10 +49,11 @@ namespace nautical
         }
 
     private:
-        GameObject(char* name, Engine* engine);
+        GameObject(char* name, Engine* engine, GameObject* parent);
         ~GameObject();
 
         const char* _name;
+        GameObject* _parent;
         Engine* _engine;
         std::hash<char*> _hashAlg;
         std::unordered_map<size_t, GameObject*> _children;

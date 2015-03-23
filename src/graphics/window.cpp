@@ -3,7 +3,7 @@
 using namespace nautical;
 using namespace nautical::graphics;
 
-Window::Window(int width, int height, char* title)
+Window::Window(int width, int height, char* title) : _w{width}, _h{height}
 {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);

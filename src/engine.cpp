@@ -94,13 +94,30 @@ void Engine::run()
 
     GLuint tex = _textureLoader->loadTexture("image.png");
 
-    GameObject world("world", this);
+    GameObject world("world", this, NULL);
 
-    world.addComponent("renderer", new components::RenderComponent(&world));
+    GameObject* child = world.addChild("remyd");
+    components::RenderComponent* worldRenderer = new components::RenderComponent(child);
 
-    static_cast<components::RenderComponent*>(world.getComponent("renderer"))->texture = tex;
+    child->addComponent("renderer", worldRenderer);
+
+
+    worldRenderer->texture = tex;
+    worldRenderer->shader = shader;
 
     world.init();
+
+    //world.transform.rotation.z = 3.14159f/4.0f;
+    child->transform.scale = math::Vector3<float>(64.0f, 64.0f, 1.0f);
+    child->transform.position = math::Vector3<float>(0.0f, 100.f, 1.0);
+
+
+    int w, h;
+
+    window.getSize(w, h);
+
+    world.transform.position.x = w / 2.0f;
+    world.transform.position.y = h / 2.0f;
 
     while(!window.shouldClose())
     {
@@ -110,6 +127,9 @@ void Engine::run()
         world.update();
 
         world.lateUpdate();
+
+        world.transform.rotation.z += 0.01f;
+        child->transform.rotation.z += 0.01f;
 
         _renderer->render();
 

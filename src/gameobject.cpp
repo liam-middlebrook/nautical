@@ -6,8 +6,8 @@
 
 using namespace nautical;
 
-GameObject::GameObject(char* name, Engine* engine)
-    : _name{name}, _engine{engine}
+GameObject::GameObject(char* name, Engine* engine, GameObject* parent)
+    : _name{name}, _engine{engine}, _parent{parent}
 {
     // Do Constructor Stuff
 }
@@ -88,7 +88,7 @@ void GameObject::addScript(char* name, NauticalScript* script)
 
 GameObject* GameObject::addChild(char* name)
 {
-    GameObject* newObject = new GameObject(name, _engine);
+    GameObject* newObject = new GameObject(name, _engine, this);
 
     _children.insert(std::make_pair(_hashAlg(name), newObject));
 
@@ -103,4 +103,19 @@ GameComponent* GameObject::getComponent(char* name)
 NauticalScript* GameObject::getScript(char* name)
 {
     return _scripts.at(_hashAlg(name));
+}
+
+GameObject* GameObject::getParent()
+{
+    return _parent;
+}
+
+math::Matrix4<float> GameObject::getMatrix()
+{
+    if(_parent != nullptr)
+    {
+        return transform.getMatrix() * _parent->getMatrix();
+    }
+
+    return transform.getMatrix();
 }

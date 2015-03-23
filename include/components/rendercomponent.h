@@ -20,6 +20,8 @@ namespace nautical
             void update();
 
             GLuint texture;
+
+            GLuint shader;
         };
     }
 }

@@ -23,7 +23,9 @@ void RenderComponent::update()
 
     sprite.texture = texture;
 
-    sprite.transform = math::Matrix4<float>::identity;
+    sprite.shader = shader;
+
+    sprite.transform = _hostObj->getMatrix();
 
     _hostObj->getEngine()->_renderer->addSpriteToRenderBatch(sprite);
 }

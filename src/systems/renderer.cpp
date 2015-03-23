@@ -39,6 +39,19 @@ Renderer::Renderer()
     // disable
     glDisableVertexAttribArray(1);
     glDisableVertexAttribArray(0);
+
+
+    float l, r, t, b, f, n;
+    l = 1.0f;
+    r = 640.0f - 1.0f;
+    t = 480.0f - 1.0f;
+    b = 1.0f;
+    f = 1.0f;
+    n = -1.0f;
+
+    // hacky ortho projection matrix for now 640,480 enforced
+    float data[] = {2/(r-l), 0.0f, 0.0f, -(r+l)/(r-l), 0.0f, 2/(t-b), 0.0f, -(t+b)/(t-b), 0.0f, 0.0f, -2/(f-n), -(f+n)/(f-n), 0.0f, 0.0f, 0.0f, 1.0f};
+    modelViewMatrix = math::Matrix4<float>(data).transposed();
 }
 
 Renderer::~Renderer()
@@ -59,6 +72,15 @@ void Renderer::render()
     // draw shit
     for(auto& draw : drawQueue)
     {
+
+        glUseProgram(draw.shader);
+
+        //math::Matrix4<float> transform(modelViewMatrix * draw.transform);
+        math::Matrix4<float> transform(draw.transform * modelViewMatrix);
+
+        glUniformMatrix4fv(glGetUniformLocation(draw.shader, "transform"), 1,
+                           GL_FALSE, (float *)transform);
+
         glBindTexture(GL_TEXTURE_2D, draw.texture);
 
         glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
