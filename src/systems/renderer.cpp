@@ -14,6 +14,7 @@ Renderer::Renderer(float width, float height)
 
     glGenBuffers(1, &this->vbo);
 
+    // clang-format off
     GLfloat vertices[] = 
     {
         // x y u v
@@ -22,6 +23,7 @@ Renderer::Renderer(float width, float height)
          0.5f,  0.5f, 1.0f, 1.0f,
          0.5f, -0.5f, 1.0f, 0.0f
     };
+    // clang-format on
 
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
