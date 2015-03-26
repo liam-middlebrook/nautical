@@ -98,4 +98,11 @@ foreach(tst Vector2 Vector3 Vector4 Matrix3 Matrix4)
         COMMAND nautical-tests ${tst}
     )
 endforeach()
+
+file(COPY
+    "resources/vert.glsl"
+    "resources/frag.glsl"
+    "resources/config.ini"
+     DESTINATION ${CMAKE_BINARY_DIR})
+
 # vim: ts=4 sw=4 et
