@@ -2,7 +2,7 @@
 
 #include <math.h>
 
-static constexpr double PI =  acos(-1.0);
+static constexpr double PI = 3.1415926535897932;
 
 template <typename T>
 inline bool tol(const T& a, const T& b, const T& tol = 0.00001)
