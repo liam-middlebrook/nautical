@@ -81,43 +81,47 @@ void Engine::run()
         return;
     }
 
-    _renderer = new systems::Renderer();
-    _shaderLoader = new graphics::ShaderLoader();
-    _textureLoader = new graphics::TextureLoader();
 
-    GLuint shader = _shaderLoader->loadShader("vert.glsl", "frag.glsl");
+    GameObject world("world", *this, NULL);
 
-    glUseProgram(shader);
-
-    glUniform1i(glGetUniformLocation(shader, "tex"), 0);
-
-    glClearColor(clearColor[0], clearColor[1], clearColor[2], clearColor[3]);
-
-    GLuint tex = _textureLoader->loadTexture("image.png");
-
-    GameObject world("world", this, NULL);
-
-    GameObject* child = world.addChild("remyd");
-    components::RenderComponent* worldRenderer = new components::RenderComponent(child);
-
-    child->addComponent("renderer", worldRenderer);
-
-
-    worldRenderer->texture = tex;
-    worldRenderer->shader = shader;
-
-    world.init();
-
-    child->transform.scale = math::Vector3<float>(64.0f, 64.0f, 1.0f);
-    //child->transform.position = math::Vector3<float>(0.0f, 100.f, 1.0);
-
-
+    // Center world inside of window
     int w, h;
 
     window.getSize(w, h);
 
     world.transform.position.x = w / 2.0f;
     world.transform.position.y = h / 2.0f;
+
+    // Setup subsystems
+    _renderer = new systems::Renderer(w, h);
+    _shaderLoader = new graphics::ShaderLoader();
+    _textureLoader = new graphics::TextureLoader();
+
+    // Set clear color to what config states
+    glClearColor(clearColor[0], clearColor[1], clearColor[2], clearColor[3]);
+
+
+
+    // BEGIN TESTCODE
+
+    std::string shaderN = loadShader("name", "vert.glsl", "frag.glsl");
+
+    loadTexture("remyd", "image.png");
+
+    GameObject* child = world.addChild("remyd");
+    components::RenderComponent* childRenderer = new components::RenderComponent(child);
+
+    child->addComponent("renderer", childRenderer);
+
+    childRenderer->texture = "remyd";
+    childRenderer->shader = shaderN;
+    childRenderer->tint = graphics::Colors::Red;
+
+    child->transform.scale = math::Vector3<float>(64.0f, 64.0f, 1.0f);
+
+    // END TESTCODE
+
+    world.init();
 
     while(!window.shouldClose())
     {
@@ -128,17 +132,18 @@ void Engine::run()
 
         world.lateUpdate();
 
-        world.transform.rotation.z += 0.01f;
-        child->transform.rotation.z += 0.01f;
-
         _renderer->render();
 
         window.render();
     }
+}
 
-    // loop until close
- 
-        // update game object and systems
+std::string Engine::loadShader(std::string name, const char* vertLoc, const char* fragLoc)
+{
+    return _shaderLoader->loadShader(name, vertLoc, fragLoc);
+}
 
-    // subsystem destruct
+std::string Engine::loadTexture(std::string name, const char* fileLoc)
+{
+    return _textureLoader->loadTexture(name, fileLoc);
 }

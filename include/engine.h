@@ -18,6 +18,10 @@ namespace nautical
         // through individual properties
         void run();
 
+        std::string loadShader(std::string name, const char* vertLoc, const char* fragLoc);
+
+        std::string loadTexture(std::string name, const char* fileLoc);
+
     private:
         systems::Renderer* _renderer;
         graphics::ShaderLoader* _shaderLoader;
