@@ -21,13 +21,15 @@ void RenderComponent::update()
     // add to render system's drawQueue
     graphics::DrawParams sprite;
 
-    sprite.texture = texture;
+    Engine& engine = _hostObj->getEngine();
 
-    sprite.shader = shader;
+    sprite.texture = engine._textureLoader->getTexture(texture);
+
+    sprite.shader = engine._shaderLoader->getShader(shader);
 
     sprite.transform = _hostObj->getMatrix();
 
     sprite.tint = tint;
 
-    _hostObj->getEngine()->_renderer->addSpriteToRenderBatch(sprite);
+    engine._renderer->addSpriteToRenderBatch(sprite);
 }

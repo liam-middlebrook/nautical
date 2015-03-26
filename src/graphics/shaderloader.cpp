@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <string.h>
 
 using namespace nautical;
 using namespace nautical::graphics;
@@ -16,10 +17,9 @@ ShaderLoader::~ShaderLoader()
 {
 }
 
-GLuint ShaderLoader::loadShader(const char* vertLoc, const char* fragLoc)
+std::string ShaderLoader::loadShader(std::string name, const char* vertLoc, const char* fragLoc)
 {
     // Load shader and shit
-
     std::ifstream vertIn(vertLoc);
     std::string vertexStr((std::istreambuf_iterator<char>(vertIn)),
                             std::istreambuf_iterator<char>());
@@ -54,5 +54,12 @@ GLuint ShaderLoader::loadShader(const char* vertLoc, const char* fragLoc)
     glGetShaderiv(shaderProg, GL_LINK_STATUS, &status);
     printf("Shader Link Status %d\n", status);
 
-    return shaderProg;
+    if(_dict.find(name) != _dict.end())
+    {
+        return nullptr;
+    }
+
+    _dict[name] = shaderProg;
+
+    return name;
 }

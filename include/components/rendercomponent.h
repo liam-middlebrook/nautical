@@ -20,9 +20,9 @@ namespace nautical
 
             void update();
 
-            GLuint texture;
+            std::string texture;
 
-            GLuint shader;
+            std::string shader;
 
             graphics::Color tint;
         };

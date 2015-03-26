@@ -15,7 +15,7 @@ TextureLoader::~TextureLoader()
     // not doing the dictionary for now
 }
 
-GLuint TextureLoader::loadTexture(const char* fileLoc)
+std::string TextureLoader::loadTexture(std::string name, const char* fileLoc)
 {
     FIBITMAP* bitmap =
         FreeImage_Load(FreeImage_GetFileType(fileLoc, 0), fileLoc);
@@ -41,5 +41,12 @@ GLuint TextureLoader::loadTexture(const char* fileLoc)
     FreeImage_Unload(image);
     FreeImage_Unload(bitmap);
 
-    return texture;
+    if(_dict.find(name) != _dict.end())
+    {
+        return nullptr;
+    }
+
+    _dict[name] = texture;
+
+    return name;
 }
