@@ -17,12 +17,13 @@ ShaderLoader::~ShaderLoader()
 {
 }
 
-std::string ShaderLoader::loadShader(std::string name, const char* vertLoc, const char* fragLoc)
+std::string ShaderLoader::loadShader(std::string name, const char* vertLoc,
+                                     const char* fragLoc)
 {
     // Load shader and shit
     std::ifstream vertIn(vertLoc);
     std::string vertexStr((std::istreambuf_iterator<char>(vertIn)),
-                            std::istreambuf_iterator<char>());
+                          std::istreambuf_iterator<char>());
 
     const char* vertexChars = vertexStr.c_str();
 
@@ -36,7 +37,7 @@ std::string ShaderLoader::loadShader(std::string name, const char* vertLoc, cons
 
     std::ifstream fragIn(fragLoc);
     std::string fragStr((std::istreambuf_iterator<char>(fragIn)),
-                            std::istreambuf_iterator<char>());
+                        std::istreambuf_iterator<char>());
     const char* fragmentChars = fragStr.c_str();
 
     GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -54,7 +55,7 @@ std::string ShaderLoader::loadShader(std::string name, const char* vertLoc, cons
     glGetShaderiv(shaderProg, GL_LINK_STATUS, &status);
     printf("Shader Link Status %d\n", status);
 
-    if(_dict.find(name) != _dict.end())
+    if (_dict.find(name) != _dict.end())
     {
         return "";
     }

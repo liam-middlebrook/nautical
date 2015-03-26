@@ -20,19 +20,19 @@ GameObject::~GameObject()
 void GameObject::init()
 {
     // Init all scripts
-    for(auto& script : _scripts)
+    for (auto& script : _scripts)
     {
         script.second->init();
     }
 
     // Init all components
-    for(auto& component : _components)
+    for (auto& component : _components)
     {
         component.second->init();
     }
 
     // Init all children
-    for(auto& child : _children)
+    for (auto& child : _children)
     {
         child.second->init();
     }
@@ -41,19 +41,19 @@ void GameObject::init()
 void GameObject::update()
 {
     // Update all scripts
-    for(auto& script : _scripts)
+    for (auto& script : _scripts)
     {
         script.second->update();
     }
 
     // Update all components
-    for(auto& component : _components)
+    for (auto& component : _components)
     {
         component.second->update();
     }
 
     // Update all children
-    for(auto& child : _children)
+    for (auto& child : _children)
     {
         child.second->update();
     }
@@ -62,13 +62,13 @@ void GameObject::update()
 void GameObject::lateUpdate()
 {
     // Update all scripts
-    for(auto& script : _scripts)
+    for (auto& script : _scripts)
     {
         script.second->lateUpdate();
     }
 
     // Update all children
-    for(auto& child : _children)
+    for (auto& child : _children)
     {
         child.second->lateUpdate();
     }
@@ -112,7 +112,7 @@ GameObject* GameObject::getParent()
 
 math::Matrix4<float> GameObject::getMatrix()
 {
-    if(_parent != nullptr)
+    if (_parent != nullptr)
     {
         return transform.getMatrix() * _parent->getMatrix();
     }

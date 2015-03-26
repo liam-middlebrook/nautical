@@ -41,7 +41,7 @@ std::string TextureLoader::loadTexture(std::string name, const char* fileLoc)
     FreeImage_Unload(image);
     FreeImage_Unload(bitmap);
 
-    if(_dict.find(name) != _dict.end())
+    if (_dict.find(name) != _dict.end())
     {
         return "";
     }

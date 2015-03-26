@@ -17,37 +17,34 @@ using namespace nautical;
 
 Engine::Engine()
 {
-
 }
 
 Engine::~Engine()
 {
-
 }
 
 void Engine::run()
 {
     // subsystems init
-    if(!does_file_exist("config.ini"))
+    if (!does_file_exist("config.ini"))
     {
         printf("config.ini not found!\nCreating default config.ini now!\n");
 
         // write default config file to disk
-        const char* defaultINI =
-        "[window]\n"
-        "width = 640\n"
-        "height = 480\n"
-        "title = Nautical Game\n"
-        "[game]\n"
-        "file=main.py\n"
-        "class=MainClass\n";
+        const char* defaultINI = "[window]\n"
+                                 "width = 640\n"
+                                 "height = 480\n"
+                                 "title = Nautical Game\n"
+                                 "[game]\n"
+                                 "file=main.py\n"
+                                 "class=MainClass\n";
 
         write_string_to_file("config.ini", defaultINI);
     }
 
     nautical_config = iniparser_load("config.ini");
 
-    if(!nautical::graphics::Window::init())
+    if (!nautical::graphics::Window::init())
     {
         printf("Error Window System Not Inited!");
         return;
@@ -58,14 +55,18 @@ void Engine::run()
 
     width = iniparser_getint(nautical_config, "window:width", 0);
     height = iniparser_getint(nautical_config, "window:height", 0);
-    title = iniparser_getstring(nautical_config, "window:title", (char*)"Nautical Game");
+    title = iniparser_getstring(nautical_config, "window:title",
+                                (char*)"Nautical Game");
 
-    float clearColor[4]
-    {
-        static_cast<float>(iniparser_getdouble(nautical_config, "window:clearR", 0.0f)),
-        static_cast<float>(iniparser_getdouble(nautical_config, "window:clearG", 0.0f)),
-        static_cast<float>(iniparser_getdouble(nautical_config, "window:clearB", 0.0f)),
-        static_cast<float>(iniparser_getdouble(nautical_config, "window:clearA", 0.0f)),
+    float clearColor[4]{
+        static_cast<float>(
+            iniparser_getdouble(nautical_config, "window:clearR", 0.0f)),
+        static_cast<float>(
+            iniparser_getdouble(nautical_config, "window:clearG", 0.0f)),
+        static_cast<float>(
+            iniparser_getdouble(nautical_config, "window:clearB", 0.0f)),
+        static_cast<float>(
+            iniparser_getdouble(nautical_config, "window:clearA", 0.0f)),
     };
 
     nautical::graphics::Window window(width, height, title);
@@ -73,12 +74,11 @@ void Engine::run()
     window.setActive();
 
     glewExperimental = GL_TRUE;
-    if(glewInit() != GLEW_OK)
+    if (glewInit() != GLEW_OK)
     {
         printf("GLEW Not Initialized!\n");
         return;
     }
-
 
     GameObject world("world", *this, NULL);
 
@@ -98,8 +98,6 @@ void Engine::run()
     // Set clear color to what config states
     glClearColor(clearColor[0], clearColor[1], clearColor[2], clearColor[3]);
 
-
-
     // BEGIN TESTCODE
 
     std::string shaderN = loadShader("name", "vert.glsl", "frag.glsl");
@@ -107,7 +105,8 @@ void Engine::run()
     loadTexture("remyd", "image.png");
 
     GameObject* child = world.addChild("remyd");
-    components::RenderComponent* childRenderer = new components::RenderComponent(child);
+    components::RenderComponent* childRenderer =
+        new components::RenderComponent(child);
 
     child->addComponent("renderer", childRenderer);
 
@@ -121,7 +120,7 @@ void Engine::run()
 
     world.init();
 
-    while(!window.shouldClose())
+    while (!window.shouldClose())
     {
         glClear(GL_COLOR_BUFFER_BIT);
         glfwPollEvents();
@@ -136,7 +135,8 @@ void Engine::run()
     }
 }
 
-std::string Engine::loadShader(std::string name, const char* vertLoc, const char* fragLoc)
+std::string Engine::loadShader(std::string name, const char* vertLoc,
+                               const char* fragLoc)
 {
     return _shaderLoader->loadShader(name, vertLoc, fragLoc);
 }

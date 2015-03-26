@@ -24,7 +24,7 @@ namespace nautical
             GLuint shader;
             math::Matrix4<float> transform;
             graphics::Color tint;
-            // add a color for tinting and stuff 
+            // add a color for tinting and stuff
         };
     }
 

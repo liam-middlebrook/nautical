@@ -14,7 +14,8 @@ namespace nautical
             ShaderLoader();
             ~ShaderLoader();
 
-            std::string loadShader(std::string name, const char* vertLoc, const char* fragLoc);
+            std::string loadShader(std::string name, const char* vertLoc,
+                                   const char* fragLoc);
 
             inline GLuint getShader(std::string name)
             {
