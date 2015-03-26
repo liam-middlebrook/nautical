@@ -7,7 +7,7 @@ int main(int argc, char** argv)
     UNUSED argc;
     UNUSED argv;
 
-    nautical::Engine engine();
+    nautical::Engine engine = nautical::Engine();
 
     engine.run();
 
