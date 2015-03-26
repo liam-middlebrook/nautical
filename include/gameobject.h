@@ -50,24 +50,23 @@ namespace nautical
         NauticalScript* getScript(const char* name);
 
         // Gets the engine instance that this object was created in
-        inline Engine* getEngine()
+        inline Engine& getEngine()
         {
             return _engine;
         }
 
     private:
-        GameObject(const char* name, Engine* engine, GameObject* parent);
+        GameObject(const char* name, Engine& engine, GameObject* parent);
         ~GameObject();
 
         const char* _name;
-        Engine* _engine;
+        Engine& _engine;
         GameObject* _parent;
         std::hash<const char*> _hashAlg;
         std::unordered_map<size_t, GameObject*> _children;
         std::unordered_map<size_t, NauticalScript*> _scripts;
         std::unordered_map<size_t, GameComponent*> _components;
 
-        friend class GameComponent;
         friend class Engine;
     };
 }

@@ -6,7 +6,7 @@
 
 using namespace nautical;
 
-GameObject::GameObject(const char* name, Engine* engine, GameObject* parent)
+GameObject::GameObject(const char* name, Engine& engine, GameObject* parent)
     : _name{name}, _engine{engine}, _parent{parent}
 {
     // Do Constructor Stuff
