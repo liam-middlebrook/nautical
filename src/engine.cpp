@@ -15,8 +15,6 @@ extern "C" {
 
 using namespace nautical;
 
-static dictionary *nautical_config;
-
 Engine::Engine()
 {
 

@@ -5,6 +5,9 @@
 #include "systems/renderer.h"
 #include "components/rendercomponent.h"
 
+struct _dictionary_;
+typedef struct _dictionary_ dictionary;
+
 namespace nautical
 {
     class Engine
@@ -26,6 +29,8 @@ namespace nautical
         systems::Renderer* _renderer;
         graphics::ShaderLoader* _shaderLoader;
         graphics::TextureLoader* _textureLoader;
+
+        dictionary* nautical_config;
 
         friend class components::RenderComponent;
     };

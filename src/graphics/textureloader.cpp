@@ -43,7 +43,7 @@ std::string TextureLoader::loadTexture(std::string name, const char* fileLoc)
 
     if(_dict.find(name) != _dict.end())
     {
-        return nullptr;
+        return "";
     }
 
     _dict[name] = texture;

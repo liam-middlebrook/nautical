@@ -56,7 +56,7 @@ std::string ShaderLoader::loadShader(std::string name, const char* vertLoc, cons
 
     if(_dict.find(name) != _dict.end())
     {
-        return nullptr;
+        return "";
     }
 
     _dict[name] = shaderProg;
