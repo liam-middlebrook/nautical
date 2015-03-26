@@ -6,7 +6,7 @@
 using namespace nautical;
 using namespace nautical::systems;
 
-Renderer::Renderer()
+Renderer::Renderer(float width, float height)
 {
     // init opengl
     glGenVertexArrays(1, &this->vao);
@@ -40,18 +40,7 @@ Renderer::Renderer()
     glDisableVertexAttribArray(1);
     glDisableVertexAttribArray(0);
 
-
-    float l, r, t, b, f, n;
-    l = 1.0f;
-    r = 640.0f - 1.0f;
-    t = 480.0f - 1.0f;
-    b = 1.0f;
-    f = 1.0f;
-    n = -1.0f;
-
-    // hacky ortho projection matrix for now 640,480 enforced
-    float data[] = {2/(r-l), 0.0f, 0.0f, -(r+l)/(r-l), 0.0f, 2/(t-b), 0.0f, -(t+b)/(t-b), 0.0f, 0.0f, -2/(f-n), -(f+n)/(f-n), 0.0f, 0.0f, 0.0f, 1.0f};
-    modelViewMatrix = math::Matrix4<float>(data).transposed();
+    calculateViewProjectionMatrix(width, height);
 }
 
 Renderer::~Renderer()
@@ -86,6 +75,8 @@ void Renderer::render()
 
         glBindTexture(GL_TEXTURE_2D, draw.texture);
 
+        glUniform1i(glGetUniformLocation(draw.shader, "tex"), 0);
+
         glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
     }
 
@@ -100,4 +91,19 @@ void Renderer::render()
 void Renderer::addSpriteToRenderBatch(graphics::DrawParams spriteToAdd)
 {
     drawQueue.push_back(spriteToAdd);
+}
+
+void Renderer::calculateViewProjectionMatrix(float width, float height)
+{
+    float l, r, t, b, f, n;
+    l = 1.0f;
+    r = width - 1.0f;
+    t = height - 1.0f;
+    b = 1.0f;
+    f = 1.0f;
+    n = -1.0f;
+
+    // hacky ortho projection matrix for now 640,480 enforced
+    float data[] = {2/(r-l), 0.0f, 0.0f, -(r+l)/(r-l), 0.0f, 2/(t-b), 0.0f, -(t+b)/(t-b), 0.0f, 0.0f, -2/(f-n), -(f+n)/(f-n), 0.0f, 0.0f, 0.0f, 1.0f};
+    modelViewMatrix = math::Matrix4<float>(data).transposed();
 }

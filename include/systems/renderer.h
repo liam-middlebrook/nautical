@@ -33,11 +33,13 @@ namespace nautical
         class Renderer
         {
         public:
-            Renderer();
+            Renderer(float width, float height);
             ~Renderer();
 
             // loop through and render everything sent to the queue
             void render();
+
+            void calculateViewProjectionMatrix(float width, float height);
 
         private:
             void addSpriteToRenderBatch(graphics::DrawParams spriteToAdd);
