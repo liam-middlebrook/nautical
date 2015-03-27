@@ -4,7 +4,6 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_LIST_DIR}/CMake)
 find_package(CUnit REQUIRED)
 find_package(FreeImage REQUIRED)
 find_package(GLEW REQUIRED)
-find_package(IniParser REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(PkgConfig REQUIRED)
 pkg_search_module(GLFW REQUIRED glfw3)
@@ -86,7 +85,6 @@ target_link_libraries(nautical
     ${GLFW_LIBRARIES}
     ${FREEIMAGE_LIBRARIES}
     ${OPENGL_LIBRARIES}
-    ${INIPARSER_LIBRARIES}
 )
 target_link_libraries(nautical-tests ${CUNIT_LIBRARY})
 
