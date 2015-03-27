@@ -100,7 +100,7 @@ endforeach()
 file(COPY
     "resources/vert.glsl"
     "resources/frag.glsl"
-    "resources/config.ini"
+    "resources/config.json"
      DESTINATION ${CMAKE_BINARY_DIR})
 
 # vim: ts=4 sw=4 et
