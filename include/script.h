@@ -2,12 +2,12 @@
 
 namespace nautical
 {
-    class NauticalScript
+    class Script
     {
     public:
-        NauticalScript();
-
-        virtual ~NauticalScript();
+        virtual ~Script()
+        {
+        }
 
         // Initialization Logic for Script
         virtual void init() = 0;

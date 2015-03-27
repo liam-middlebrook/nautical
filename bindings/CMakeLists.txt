@@ -1,19 +1,21 @@
 find_package(SWIG)
+set(nautical_bind_libs)
 if(SWIG_FOUND)
 	include(UseSWIG)
 
-	set(interface_files
-		vector2.i
-	)
-set_source_files_properties(${interface_files} PROPERTIES CPLUSPLUS TRUE)
-	function(add_swig_language lang default)
+	file(GLOB interface_files "bindings/lib/*" nautical.i)
+	set_source_files_properties(${interface_files} PROPERTIES CPLUSPLUS TRUE)
+	set_source_files_properties(bindings/nautical.i PROPERTIES DEPENDS "${interface_files}")
+	macro(add_swig_language lang default)
 		string(TOUPPER "${lang}" upperlang)
 		string(TOLOWER "${lang}" lowerlang)
 		option(INTERFACE_${upperlang} "Enable ${lang} SWIG interface" ${default})
 		if(INTERFACE_${upperlang})
-			add_subdirectory(${lowerlang})
+			add_subdirectory(bindings/${lowerlang})
+            add_definitions(-DNAUTICAL_SWIG_${upperlang})
+            list(APPEND nautical_bind_libs "src/scripts/${lang}Loader.cpp")
 		endif()
-	endfunction()
+	endmacro()
 
 	add_swig_language(Lua TRUE)
 	add_swig_language(Perl FALSE)

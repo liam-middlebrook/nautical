@@ -1,5 +1,5 @@
 // vim: ft=swig
-%module nauticalpy
+%module(directors="1") nauticalpy
 %feature("autodoc", "2");
 
 %define nautical_lang_accessors
