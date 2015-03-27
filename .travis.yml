@@ -12,19 +12,18 @@ install:
     - sudo apt-get install -y -qq libcunit1 libcunit1-dev libglfw-dev libglew-dev libfreeimage-dev xorg-dev gcc-4.9 g++-4.9
     - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 90
 # libglfw3 isn't up to date in apt with precise
+    - sh cmake-3.1.2-Linux-x86_64.sh --skip-license --prefix=cmake --exclude-subdir
     - wget 'http://sourceforge.net/projects/glfw/files/glfw/3.0.4/glfw-3.0.4.zip'
     - unzip glfw-3.0.4.zip
     - cd glfw-3.0.4 && cmake -DBUILD_SHARED_LIBS=ON -G "Unix Makefiles" && make && sudo make install
     - sudo cp /usr/local/lib/libglfw* /usr/lib/ && sudo cp -R /usr/local/include/GLFW /usr/include/
     - cd ..
-    - wget http://ndevilla.free.fr/iniparser/iniparser-3.1.tar.gz
-    - tar -xzf iniparser-3.1.tar.gz
-    - cd iniparser
-    - make
-    - sudo cp libiniparser.so.0 /usr/lib/libiniparser.so
-    - sudo cp src/iniparser.h src/dictionary.h /usr/include/
-    - cd ..
-    - sh cmake-3.1.2-Linux-x86_64.sh --skip-license --prefix=cmake --exclude-subdir
+    - git clone git://github.com/miloyip/rapidjson.git
+    - cd rapidjson
+    - mkdir build; cd build
+    - cmake ..
+    - sudo make install
+    - cd ../..
 script:
     - cmake/bin/cmake .
     - make && make test

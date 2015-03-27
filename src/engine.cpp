@@ -9,9 +9,9 @@
 #include "util.h"
 #include "graphics/window.h"
 
-extern "C" {
-#include "iniparser.h"
-}
+#include <fstream>
+#include <iostream>
+#include <rapidjson/document.h>
 
 using namespace nautical;
 
@@ -26,23 +26,18 @@ Engine::~Engine()
 void Engine::run()
 {
     // subsystems init
-    if (!does_file_exist("config.ini"))
+    if (!does_file_exist("config.json"))
     {
-        printf("config.ini not found!\nCreating default config.ini now!\n");
-
-        // write default config file to disk
-        const char* defaultINI = "[window]\n"
-                                 "width = 640\n"
-                                 "height = 480\n"
-                                 "title = Nautical Game\n"
-                                 "[game]\n"
-                                 "file=main.py\n"
-                                 "class=MainClass\n";
-
-        write_string_to_file("config.ini", defaultINI);
+        printf("config.json not found!\nCreating default config.json now!\n");
+        return;
     }
 
-    nautical_config = iniparser_load("config.ini");
+    // Load config.json to memory
+    rapidjson::Document nautical_config;
+    std::ifstream configHandle("config.json");
+    std::string configString((std::istreambuf_iterator<char>(configHandle)),
+                          std::istreambuf_iterator<char>());
+    nautical_config.Parse(configString.c_str());
 
     if (!nautical::graphics::Window::init())
     {
@@ -51,23 +46,21 @@ void Engine::run()
     }
 
     int width, height;
-    char* title;
+    const char* title;
 
-    width = iniparser_getint(nautical_config, "window:width", 0);
-    height = iniparser_getint(nautical_config, "window:height", 0);
-    title = iniparser_getstring(nautical_config, "window:title",
-                                (char*)"Nautical Game");
+    width = nautical_config["window"]["width"].GetInt();
+    height = nautical_config["window"]["height"].GetInt();
 
-    float clearColor[4]{
-        static_cast<float>(
-            iniparser_getdouble(nautical_config, "window:clearR", 0.0f)),
-        static_cast<float>(
-            iniparser_getdouble(nautical_config, "window:clearG", 0.0f)),
-        static_cast<float>(
-            iniparser_getdouble(nautical_config, "window:clearB", 0.0f)),
-        static_cast<float>(
-            iniparser_getdouble(nautical_config, "window:clearA", 0.0f)),
-    };
+    printf("HERE\n");
+    title = nautical_config["window"]["title"].GetString();
+
+    GLfloat clearColor[4];
+
+    const rapidjson::Value& clear = nautical_config["window"]["clear"];
+    for(rapidjson::SizeType i = 0; i < clear.Size(); ++i)
+    {
+        clearColor[i] = static_cast<GLfloat>(clear[i].GetDouble());
+    }
 
     nautical::graphics::Window window(width, height, title);
 
