@@ -7,6 +7,7 @@ namespace nautical
 {
     class GameComponent;
     class NauticalScript;
+    class Engine;
 
     class GameObject
     {
@@ -14,33 +15,58 @@ namespace nautical
         // World Transformation for GameObject
         Transform<float> transform;
 
-        GameObject(char* name);
-
-        virtual ~GameObject();
-
         // Init Function (called at object creation)
-        virtual void init();
+        void init();
 
         // Update Function (called once per gameloop)
-        virtual void update();
+        void update();
 
         // LateUpdate function (called once per gameloop)
-        virtual void lateUpdate();
+        void lateUpdate();
 
         // Adds a component with the specified name to the object
-        void addComponent(char* name, GameComponent* component);
+        void addComponent(const char* name, GameComponent* component);
 
         // Adds a script with the specified name to the object
-        void addScript(char* name, NauticalScript* script);
+        void addScript(const char* name, NauticalScript* script);
+
+        // Gets the Transformation Matrix of the Game Object in absolute
+        // coordinates (this factors in the local transformation and it's
+        // parents' transformation)
+        math::Matrix4<float> getMatrix();
+
+        // Gets a pointer to the parent Game Object
+        // If a parent doesn't exist, returns null
+        GameObject* getParent();
+
+        // createa a new child gameobject
+        // This is *essentially* it's constructor
+        GameObject* addChild(const char* name);
 
         // Retrives a component from the gameobject
-        GameComponent* getComponent(char* name);
+        GameComponent* getComponent(const char* name);
+
+        // Retrives a script from the gameobject
+        NauticalScript* getScript(const char* name);
+
+        // Gets the engine instance that this object was created in
+        inline Engine& getEngine()
+        {
+            return _engine;
+        }
 
     private:
+        GameObject(const char* name, Engine& engine, GameObject* parent);
+        ~GameObject();
+
         const char* _name;
-        std::hash<char*> _hashAlg;
+        Engine& _engine;
+        GameObject* _parent;
+        std::hash<const char*> _hashAlg;
         std::unordered_map<size_t, GameObject*> _children;
         std::unordered_map<size_t, NauticalScript*> _scripts;
         std::unordered_map<size_t, GameComponent*> _components;
+
+        friend class Engine;
     };
 }

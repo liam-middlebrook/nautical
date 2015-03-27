@@ -1,6 +1,8 @@
 #pragma once
 
-#define PI acos(-1.0)
+#include <math.h>
+
+static constexpr double PI = 3.1415926535897932;
 
 template <typename T>
 inline bool tol(const T& a, const T& b, const T& tol = 0.00001)
@@ -27,3 +29,7 @@ inline T radiansToDegrees(const T& val)
 {
     return val * (180.0 / PI);
 }
+
+void write_string_to_file(const char* filename, const char* string);
+
+int does_file_exist(const char* filename);

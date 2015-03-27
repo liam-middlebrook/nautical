@@ -2,6 +2,12 @@ cmake_minimum_required(VERSION 3.0.2)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_LIST_DIR}/CMake)
 find_package(CUnit REQUIRED)
+find_package(FreeImage REQUIRED)
+find_package(GLEW REQUIRED)
+find_package(IniParser REQUIRED)
+find_package(OpenGL REQUIRED)
+find_package(PkgConfig REQUIRED)
+pkg_search_module(GLFW REQUIRED glfw3)
 
 include_directories(
     "include"
@@ -17,18 +23,24 @@ if(NOT MSVC)
 endif()
 
 set(h_files
+    "include/engine.h"
     "include/gamecomponent.h"
     "include/gameobject.h"
     "include/nauticalscript.h"
     "include/transform.h"
     "include/util.h"
+    "include/components/rendercomponent.h"
+    "include/graphics/color.h"
+    "include/graphics/shaderloader.h"
+    "include/graphics/textureloader.h"
+    "include/graphics/window.h"
     "include/math/matrix3.h"
     "include/math/matrix4.h"
     "include/math/vector2.h"
     "include/math/vector3.h"
     "include/math/vector4.h"
+    "include/systems/renderer.h"
 )
-set(libraries X11 glfw GL GLEW m stdc++)
 
 #####
 # SWIG libraries
@@ -41,7 +53,14 @@ add_subdirectory(bindings)
 add_executable(nautical
     ${h_files}
     "src/main.cpp"
+    "src/engine.cpp"
     "src/gameobject.cpp"
+    "src/util.cpp"
+    "src/components/rendercomponent.cpp"
+    "src/graphics/shaderloader.cpp"
+    "src/graphics/textureloader.cpp"
+    "src/graphics/window.cpp"
+    "src/systems/renderer.cpp"
 )
 
 #####
@@ -67,7 +86,13 @@ add_executable(nautical-tests
 target_include_directories(nautical-tests
     PUBLIC tests ${CUNIT_INCLUDE_DIRS}
 )
-
+target_link_libraries(nautical
+    ${GLEW_LIBRARIES}
+    ${GLFW_LIBRARIES}
+    ${FREEIMAGE_LIBRARIES}
+    ${OPENGL_LIBRARIES}
+    ${INIPARSER_LIBRARIES}
+)
 target_link_libraries(nautical-tests ${CUNIT_LIBRARY})
 
 enable_testing()
@@ -78,4 +103,11 @@ foreach(tst Vector2 Vector3 Vector4 Matrix3 Matrix4)
         COMMAND nautical-tests ${tst}
     )
 endforeach()
+
+file(COPY
+    "resources/vert.glsl"
+    "resources/frag.glsl"
+    "resources/config.ini"
+     DESTINATION ${CMAKE_BINARY_DIR})
+
 # vim: ts=4 sw=4 et

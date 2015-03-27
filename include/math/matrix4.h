@@ -172,10 +172,10 @@ namespace nautical
             {
                 Vector4<T> out;
 
-                out.x = m11 * rhs.x + m12 * rhs.y + m13 * rhs.z + m14 * rhs.w;
-                out.y = m21 * rhs.x + m22 * rhs.y + m23 * rhs.z + m24 * rhs.w;
-                out.z = m31 * rhs.x + m32 * rhs.y + m33 * rhs.z + m34 * rhs.w;
-                out.w = m41 * rhs.x + m42 * rhs.y + m43 * rhs.z + m44 * rhs.w;
+                out.x = m11 * rhs.x + m21 * rhs.y + m31 * rhs.z + m41 * rhs.w;
+                out.y = m12 * rhs.x + m22 * rhs.y + m32 * rhs.z + m42 * rhs.w;
+                out.z = m13 * rhs.x + m23 * rhs.y + m33 * rhs.z + m43 * rhs.w;
+                out.w = m14 * rhs.x + m24 * rhs.y + m34 * rhs.z + m44 * rhs.w;
 
                 return out;
             }
@@ -336,23 +336,23 @@ namespace nautical
                 T c = cos(angle);
                 T s = sin(angle);
                 out.m11 = c + a.x * a.x * (1.0 - c);
-                out.m12 = a.x * a.y * (1.0 - c) - a.z * s;
-                out.m13 = a.x * a.z * (1.0 - c) + a.y * s;
-                out.m14 = 0;
-
-                out.m21 = a.y * a.x * (1.0 - c) + a.z * s;
-                out.m22 = c + a.y * a.y * (1.0 - c);
-                out.m23 = a.y * a.z * (1.0 - c) - a.x * s;
-                out.m24 = 0;
-
-                out.m31 = a.z * a.x * (1.0 - c) - a.y * s;
-                out.m32 = a.z * a.y * (1.0 - c) + a.x * s;
-                out.m33 = c + a.z * a.z * (1.0 - c);
-                out.m34 = 0;
-
+                out.m21 = a.x * a.y * (1.0 - c) - a.z * s;
+                out.m31 = a.x * a.z * (1.0 - c) + a.y * s;
                 out.m41 = 0;
+
+                out.m12 = a.y * a.x * (1.0 - c) + a.z * s;
+                out.m22 = c + a.y * a.y * (1.0 - c);
+                out.m32 = a.y * a.z * (1.0 - c) - a.x * s;
                 out.m42 = 0;
+
+                out.m13 = a.z * a.x * (1.0 - c) - a.y * s;
+                out.m23 = a.z * a.y * (1.0 - c) + a.x * s;
+                out.m33 = c + a.z * a.z * (1.0 - c);
                 out.m43 = 0;
+
+                out.m14 = 0;
+                out.m24 = 0;
+                out.m34 = 0;
                 out.m44 = 1;
                 return out;
             }
@@ -360,9 +360,9 @@ namespace nautical
             inline static Matrix4 translate(const Vector3<T>& transVector)
             {
                 Matrix4 out;
-                out.m14 = transVector.x;
-                out.m24 = transVector.y;
-                out.m34 = transVector.z;
+                out.m41 = transVector.x;
+                out.m42 = transVector.y;
+                out.m43 = transVector.z;
                 return out;
             }
 

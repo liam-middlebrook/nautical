@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <ostream>
+#include <string.h>
 
 namespace nautical
 {
