@@ -39,6 +39,7 @@ set(h_files
     "include/math/vector2.h"
     "include/math/vector3.h"
     "include/math/vector4.h"
+    "include/systems/input.h"
     "include/systems/renderer.h"
 )
 
@@ -55,6 +56,7 @@ add_executable(nautical
     "src/graphics/shaderloader.cpp"
     "src/graphics/textureloader.cpp"
     "src/graphics/window.cpp"
+    "src/systems/input.cpp"
     "src/systems/renderer.cpp"
 )
 
