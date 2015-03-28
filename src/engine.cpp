@@ -50,7 +50,6 @@ void Engine::run()
     width = nautical_config["window"]["width"].GetInt();
     height = nautical_config["window"]["height"].GetInt();
 
-    printf("HERE\n");
     title = nautical_config["window"]["title"].GetString();
 
     GLfloat clearColor[4];
@@ -60,6 +59,7 @@ void Engine::run()
     {
         clearColor[i] = static_cast<GLfloat>(clear[i].GetDouble());
     }
+
 
     nautical::graphics::Window window(width, height, title);
 
@@ -91,12 +91,20 @@ void Engine::run()
     // Set clear color to what config states
     glClearColor(clearColor[0], clearColor[1], clearColor[2], clearColor[3]);
 
+    const rapidjson::Value& controls = nautical_config["controls"];
+    for(rapidjson::SizeType i = 0; i < controls.Size(); ++i)
+    {
+        const rapidjson::Value& control = controls[i];
+        _input->setKeyBinding(control["name"].GetString(), control["key"].GetInt());
+    }
     // BEGIN TESTCODE
 
+    /*
     _input->setKeyBinding("left", 263);
     _input->setKeyBinding("down", 264);
     _input->setKeyBinding("up", 265);
     _input->setKeyBinding("right", 262);
+    //*/
 
     std::string shaderN = loadShader("name", "vert.glsl", "frag.glsl");
 
