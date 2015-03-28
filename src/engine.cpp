@@ -25,7 +25,6 @@ Engine::~Engine()
 
 void Engine::run()
 {
-    // subsystems init
     if (!does_file_exist("config.json"))
     {
         printf("config.json not found!\nCreating default config.json now!\n");
@@ -84,6 +83,7 @@ void Engine::run()
     world.transform.position.y = h / 2.0f;
 
     // Setup subsystems
+    _input = new systems::Input(window.getWindow());
     _renderer = new systems::Renderer(w, h);
     _shaderLoader = new graphics::ShaderLoader();
     _textureLoader = new graphics::TextureLoader();
@@ -92,6 +92,11 @@ void Engine::run()
     glClearColor(clearColor[0], clearColor[1], clearColor[2], clearColor[3]);
 
     // BEGIN TESTCODE
+
+    _input->setKeyBinding("left", 263);
+    _input->setKeyBinding("down", 264);
+    _input->setKeyBinding("up", 265);
+    _input->setKeyBinding("right", 262);
 
     std::string shaderN = loadShader("name", "vert.glsl", "frag.glsl");
 
@@ -123,6 +128,23 @@ void Engine::run()
         world.lateUpdate();
 
         _renderer->render();
+
+        if(_input->keyPressed("left"))
+        {
+            child->transform.position += -math::Vector3<float>::right;
+        }
+        if(_input->keyPressed("right"))
+        {
+            child->transform.position += math::Vector3<float>::right;
+        }
+        if(_input->keyPressed("down"))
+        {
+            child->transform.position += -math::Vector3<float>::up;
+        }
+        if(_input->keyPressed("up"))
+        {
+            child->transform.position += math::Vector3<float>::up;
+        }
 
         window.render();
     }
