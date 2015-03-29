@@ -184,6 +184,7 @@ FakesAssemblies/
 
 # Vim Swapfiles
 *.swp
+*.swo
 
 # Intermediate Object Files
 *.o
