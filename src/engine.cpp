@@ -83,7 +83,7 @@ void Engine::run()
     world.transform.position.y = h / 2.0f;
 
     // Setup subsystems
-    _input = new systems::Input(window.getWindow());
+    _keyboard = new systems::input::Keyboard(window.getWindow());
     _renderer = new systems::Renderer(w, h);
     _shaderLoader = new graphics::ShaderLoader();
     _textureLoader = new graphics::TextureLoader();
@@ -95,15 +95,15 @@ void Engine::run()
     for(rapidjson::SizeType i = 0; i < controls.Size(); ++i)
     {
         const rapidjson::Value& control = controls[i];
-        _input->setKeyBinding(control["name"].GetString(), control["key"].GetInt());
+        _keyboard->setKeyBinding(control["name"].GetString(), control["key"].GetInt());
     }
     // BEGIN TESTCODE
 
     /*
-    _input->setKeyBinding("left", 263);
-    _input->setKeyBinding("down", 264);
-    _input->setKeyBinding("up", 265);
-    _input->setKeyBinding("right", 262);
+    _keyboard->setKeyBinding("left", 263);
+    _keyboard->setKeyBinding("down", 264);
+    _keyboard->setKeyBinding("up", 265);
+    _keyboard->setKeyBinding("right", 262);
     //*/
 
     std::string shaderN = loadShader("name", "vert.glsl", "frag.glsl");
@@ -137,19 +137,19 @@ void Engine::run()
 
         _renderer->render();
 
-        if(_input->keyPressed("left"))
+        if(_keyboard->keyPressed("left"))
         {
             child->transform.position += -math::Vector3<float>::right;
         }
-        if(_input->keyPressed("right"))
+        if(_keyboard->keyPressed("right"))
         {
             child->transform.position += math::Vector3<float>::right;
         }
-        if(_input->keyPressed("down"))
+        if(_keyboard->keyPressed("down"))
         {
             child->transform.position += -math::Vector3<float>::up;
         }
-        if(_input->keyPressed("up"))
+        if(_keyboard->keyPressed("up"))
         {
             child->transform.position += math::Vector3<float>::up;
         }
