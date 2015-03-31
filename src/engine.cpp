@@ -92,10 +92,9 @@ void Engine::run()
     glClearColor(clearColor[0], clearColor[1], clearColor[2], clearColor[3]);
 
     const rapidjson::Value& controls = nautical_config["controls"];
-    for(rapidjson::SizeType i = 0; i < controls.Size(); ++i)
+    for (rapidjson::Value::ConstMemberIterator itr = controls.MemberBegin(); itr != controls.MemberEnd(); ++itr)
     {
-        const rapidjson::Value& control = controls[i];
-        _keyboard->setKeyBinding(control["name"].GetString(), control["key"].GetInt());
+        _keyboard->setKeyBinding(itr->name.GetString(), itr->value.GetInt());
     }
     // BEGIN TESTCODE
 
