@@ -1,10 +1,10 @@
 {
-    "controls": [
-        {
-            "name": "left",
-            "key": 263
-        }
-    ],
+    "controls": {
+        "right": 262,
+        "left": 263,
+        "down": 264,
+        "up": 265
+    },
     "window": {
         "width": 640,
         "height": 480,
