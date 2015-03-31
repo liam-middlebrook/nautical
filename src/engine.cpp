@@ -25,7 +25,6 @@ Engine::~Engine()
 
 void Engine::run()
 {
-    // subsystems init
     if (!does_file_exist("config.json"))
     {
         printf("config.json not found!\nCreating default config.json now!\n");
@@ -51,7 +50,6 @@ void Engine::run()
     width = nautical_config["window"]["width"].GetInt();
     height = nautical_config["window"]["height"].GetInt();
 
-    printf("HERE\n");
     title = nautical_config["window"]["title"].GetString();
 
     GLfloat clearColor[4];
@@ -61,6 +59,7 @@ void Engine::run()
     {
         clearColor[i] = static_cast<GLfloat>(clear[i].GetDouble());
     }
+
 
     nautical::graphics::Window window(width, height, title);
 
@@ -84,6 +83,7 @@ void Engine::run()
     world.transform.position.y = h / 2.0f;
 
     // Setup subsystems
+    _keyboard = new systems::input::Keyboard(window.getWindow());
     _renderer = new systems::Renderer(w, h);
     _shaderLoader = new graphics::ShaderLoader();
     _textureLoader = new graphics::TextureLoader();
@@ -91,7 +91,19 @@ void Engine::run()
     // Set clear color to what config states
     glClearColor(clearColor[0], clearColor[1], clearColor[2], clearColor[3]);
 
+    const rapidjson::Value& controls = nautical_config["controls"];
+    for (rapidjson::Value::ConstMemberIterator itr = controls.MemberBegin(); itr != controls.MemberEnd(); ++itr)
+    {
+        _keyboard->setKeyBinding(itr->name.GetString(), itr->value.GetInt());
+    }
     // BEGIN TESTCODE
+
+    /*
+    _keyboard->setKeyBinding("left", 263);
+    _keyboard->setKeyBinding("down", 264);
+    _keyboard->setKeyBinding("up", 265);
+    _keyboard->setKeyBinding("right", 262);
+    //*/
 
     std::string shaderN = loadShader("name", "vert.glsl", "frag.glsl");
 
@@ -123,6 +135,23 @@ void Engine::run()
         world.lateUpdate();
 
         _renderer->render();
+
+        if(_keyboard->keyPressed("left"))
+        {
+            child->transform.position += -math::Vector3<float>::right;
+        }
+        if(_keyboard->keyPressed("right"))
+        {
+            child->transform.position += math::Vector3<float>::right;
+        }
+        if(_keyboard->keyPressed("down"))
+        {
+            child->transform.position += -math::Vector3<float>::up;
+        }
+        if(_keyboard->keyPressed("up"))
+        {
+            child->transform.position += math::Vector3<float>::up;
+        }
 
         window.render();
     }

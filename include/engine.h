@@ -2,6 +2,7 @@
 
 #include "graphics/shaderloader.h"
 #include "graphics/textureloader.h"
+#include "systems/input/keyboard.h"
 #include "systems/renderer.h"
 #include "components/rendercomponent.h"
 
@@ -24,6 +25,7 @@ namespace nautical
         std::string loadTexture(std::string name, const char* fileLoc);
 
     private:
+        systems::input::Keyboard* _keyboard;
         systems::Renderer* _renderer;
         graphics::ShaderLoader* _shaderLoader;
         graphics::TextureLoader* _textureLoader;
