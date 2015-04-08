@@ -6,8 +6,11 @@
 namespace nautical
 {
     class GameComponent;
-    class Script;
     class Engine;
+    namespace script
+    {
+        class Script;
+    }
 
     class GameObject
     {
@@ -28,7 +31,7 @@ namespace nautical
         void addComponent(const char* name, GameComponent* component);
 
         // Adds a script with the specified name to the object
-        void addScript(const char* name, Script* script);
+        void addScript(const char* name, script::Script* script);
 
         // Gets the Transformation Matrix of the Game Object in absolute
         // coordinates (this factors in the local transformation and it's
@@ -47,7 +50,7 @@ namespace nautical
         GameComponent* getComponent(const char* name);
 
         // Retrives a script from the gameobject
-        Script* getScript(const char* name);
+        script::Script* getScript(const char* name);
 
         // Gets the engine instance that this object was created in
         inline Engine& getEngine()
@@ -64,7 +67,7 @@ namespace nautical
         GameObject* _parent;
         std::hash<const char*> _hashAlg;
         std::unordered_map<size_t, GameObject*> _children;
-        std::unordered_map<size_t, Script*> _scripts;
+        std::unordered_map<size_t, script::Script*> _scripts;
         std::unordered_map<size_t, GameComponent*> _components;
 
         friend class Engine;

@@ -68,8 +68,10 @@ if(SWIG_FOUND)
 		option(INTERFACE_${upperlang} "Enable ${lang} SWIG interface" ${default})
 		if(INTERFACE_${upperlang})
             add_definitions("-DNAUTICAL_BIND_${upperlang}")
-            message(STATUS "-DNAUTICAL_BIND_${upperlang}")
-            include_directories(bindings/${lowerlang})
+            include_directories(
+                bindings/${lowerlang}
+                ${CMAKE_CURRENT_BINARY_DIR}/bindings/${lowerlang}
+            )
 			add_subdirectory(bindings/${lowerlang})
             list(APPEND nautical_bind_libs nsl_${lowerlang})
 		endif()

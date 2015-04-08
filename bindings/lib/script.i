@@ -2,9 +2,9 @@
 %{
 #include "script.h"
 %}
-%feature("director") nautical::Script;
+%feature("director") nautical::script::Script;
 %inline %{
-void testScript(nautical::Script& scr)
+void testScript(nautical::script::Script& scr)
 {
     printf("At the start of testScript\n");
     scr.init();

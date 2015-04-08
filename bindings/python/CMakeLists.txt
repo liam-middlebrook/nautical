@@ -8,11 +8,20 @@ include_directories(${PYTHON_INCLUDE_DIRS} ".")
 add_definitions(
 	"-Wno-unused-parameter"
 	"-Wno-unused-variable"
+	"-DSWIG_TYPE_TABLE=nauticalpy"
+)
+
+set(swig_runtime swigruntime.py.h)
+add_custom_command(
+	OUTPUT ${swig_runtime}
+	COMMAND
+		${SWIG_EXECUTABLE} -Wall -c++ -python -external-runtime ${swig_runtime}
 )
 
 
 SWIG_ADD_MODULE(nauticalpy python "nauticalpy.i")
 SWIG_LINK_LIBRARIES(nauticalpy ${PYTHON_LIBRARIES} nautical-base)
-add_library(nsl_python PythonLoader.cpp)
+add_library(nsl_python PythonLoader.cpp ${swig_runtime})
 target_link_libraries(nsl_python ${PYTHON_LIBRARIES} nautical-base)
+target_include_directories(nsl_python PUBLIC ${PYTHON_INCLUDE_DIRS} ".")
 

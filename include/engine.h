@@ -10,6 +10,11 @@ typedef struct _dictionary_ dictionary;
 
 namespace nautical
 {
+    namespace script
+    {
+        class ScriptFactory;
+    }
+
     class Engine
     {
     public:
@@ -30,6 +35,7 @@ namespace nautical
         systems::Renderer* _renderer;
         graphics::ShaderLoader* _shaderLoader;
         graphics::TextureLoader* _textureLoader;
+        script::ScriptFactory* _factory;
 
         dictionary* nautical_config;
 

@@ -2,20 +2,23 @@
 
 namespace nautical
 {
-    class Script
+    namespace script
     {
-    public:
-        virtual ~Script()
+        class Script
         {
-        }
+        public:
+            virtual ~Script()
+            {
+            }
 
-        // Initialization Logic for Script
-        virtual void init() = 0;
+            // Initialization Logic for Script
+            virtual void init() = 0;
 
-        // Update Logic for Script
-        virtual void update() = 0;
+            // Update Logic for Script
+            virtual void update() = 0;
 
-        // LateUpdate Logic for Script
-        virtual void lateUpdate() = 0;
-    };
+            // LateUpdate Logic for Script
+            virtual void lateUpdate() = 0;
+        };
+    }
 }

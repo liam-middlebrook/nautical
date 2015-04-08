@@ -6,6 +6,7 @@
 #include "script.h"
 
 using namespace nautical;
+using nautical::script::Script;
 
 GameObject::GameObject(const char* name, Engine& engine, GameObject* parent)
     : _name{name}, _engine{engine}, _parent{parent}

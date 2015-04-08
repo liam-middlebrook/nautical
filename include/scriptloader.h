@@ -6,53 +6,61 @@
 namespace nautical
 {
 
-    class Script;
-    class ScriptFactory;
-
-    struct ScriptLoader
+    namespace script
     {
-        virtual bool load(std::string) = 0;
-        virtual Script *script(std::string) = 0;
-        virtual ~ScriptLoader()
-        {
-        }
-    };
+        class Script;
+        class ScriptFactory;
 
-    class ScriptFactory
-    {
-    public:
-        Script *script(std::string name)
+        struct ScriptLoader
         {
-            for (auto &loader : loaders)
+            virtual bool load(std::string) = 0;
+            virtual Script *script(std::string) = 0;
+            virtual ~ScriptLoader()
             {
-                if (auto sc = loader->script(name))
+            }
+        };
+
+        class ScriptFactory
+        {
+        public:
+            void addLoader(ScriptLoader *loader)
+            {
+                loaders.push_back(loader);
+            }
+
+            Script *script(std::string name)
+            {
+                for (auto &loader : loaders)
                 {
-                    return sc;
+                    if (auto sc = loader->script(name))
+                    {
+                        return sc;
+                    }
+                }
+                return nullptr;
+            }
+
+            void load(std::string name)
+            {
+                for (auto &loader : loaders)
+                {
+                    if (loader->load(name))
+                    {
+                        return;
+                    }
                 }
             }
-            return nullptr;
-        }
 
-        void load(std::string name)
-        {
-            for (auto &loader : loaders)
+            ~ScriptFactory()
             {
-                if (loader->load(name))
+                for (auto &loader : loaders)
                 {
-                    return;
+                    delete loader;
                 }
             }
-        }
 
-        ~ScriptFactory()
-        {
-            for (auto &loader : loaders)
-            {
-                delete loader;
-            }
-        }
-
-    private:
-        std::vector<ScriptLoader *> loaders;
-    };
+        private:
+            std::vector<ScriptLoader *> loaders;
+        };
+    }
 }

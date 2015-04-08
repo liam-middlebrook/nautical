@@ -1,3 +1,4 @@
+#include "scripts/Loaders.h"
 #include "engine.h"
 
 #include <GL/glew.h>
