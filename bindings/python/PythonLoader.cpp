@@ -76,7 +76,7 @@ namespace nautical
             ++pos;
             string modn = fname.substr(pos, fname.find_last_of('.') - pos);
             auto mod = PyImport_ImportModule(modn.c_str());
-            auto modc = PyObject_Dir(mod);
+            auto modc = PyModule_GetDict(mod);
             auto itr = PyObject_GetIter(modc);
             while (auto funcname = PyIter_Next(itr))
             {
@@ -89,7 +89,6 @@ namespace nautical
                 Py_DECREF(funcname);
             }
             Py_DECREF(itr);
-            Py_DECREF(modc);
             return true;
         }
         Script *PythonScriptLoader::script(string funcname)
