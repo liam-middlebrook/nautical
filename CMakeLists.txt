@@ -96,6 +96,7 @@ add_executable(nautical
     "src/graphics/textureloader.cpp"
     "src/graphics/window.cpp"
     "src/systems/renderer.cpp"
+    "src/scripts/pythonscript.cpp"
     ${nautical_bind_files}
 )
 

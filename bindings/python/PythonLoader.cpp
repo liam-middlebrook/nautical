@@ -1,27 +1,23 @@
 #include <Python.h>
 #include "swigruntime.py.h"
 #include "scripts/PythonLoader.h"
+#include "scripts/pythonscript.h"
 #include <string>
 #include <algorithm>
 
 using std::string;
 using nautical::script::Script;
+using nautical::script::PythonScript;
 
 namespace
 {
     Script *pythonToScript(PyObject *obj)
     {
-        void *argp1 = 0;
-        swig_type_info *pTypeInfo =
-            SWIG_TypeQuery("nautical::script::Script *");
+        PythonScript* script = new PythonScript(obj);
 
-        const int res = SWIG_ConvertPtr(obj, &argp1, pTypeInfo, 0);
-        if (!SWIG_IsOK(res))
-        {
-            // abort();
-            return nullptr;
-        }
-        return reinterpret_cast<Script *>(argp1);
+        printf("made a script\n");
+
+        return script;
     }
     void addPythonModulePath(string p)
     {
@@ -98,7 +94,6 @@ namespace nautical
             printf("Is it a type? %d\n", PyType_Check(func));
             PyObject *sc = PyObject_CallFunctionObjArgs(func, nullptr);
             Script *ret = pythonToScript(sc);
-            Py_DECREF(sc);
             Py_DECREF(fs);
             return ret;
         }
