@@ -77,7 +77,7 @@ if(SWIG_FOUND)
 		endif()
 	endmacro()
 
-	add_swig_language(Lua TRUE)
+	add_swig_language(Lua FALSE)
 	add_swig_language(Perl FALSE)
 	add_swig_language(Python TRUE)
 endif()
