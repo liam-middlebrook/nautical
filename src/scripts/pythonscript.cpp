@@ -15,15 +15,18 @@ PythonScript::~PythonScript()
 
 void PythonScript::init()
 {
-    PyObject_CallMethod(_obj, "init", nullptr);
+    static char func[] = "init";
+    PyObject_CallMethod(_obj, func, nullptr);
 }
 
 void PythonScript::update()
 {
-    PyObject_CallMethod(_obj, "update", nullptr);
+    static char func[] = "update";
+    PyObject_CallMethod(_obj, func, nullptr);
 }
 
 void PythonScript::lateUpdate()
 {
-    PyObject_CallMethod(_obj, "lateUpdate", nullptr);
+    static char func[] = "lateUpdate";
+    PyObject_CallMethod(_obj, func, nullptr);
 }

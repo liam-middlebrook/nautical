@@ -11,14 +11,6 @@ using nautical::script::PythonScript;
 
 namespace
 {
-    Script *pythonToScript(PyObject *obj)
-    {
-        PythonScript* script = new PythonScript(obj);
-
-        printf("made a script\n");
-
-        return script;
-    }
     void addPythonModulePath(string p)
     {
         static char pthc[5] = "path";
@@ -91,9 +83,8 @@ namespace nautical
         {
             auto fs = PyString_FromString(funcname.c_str());
             PyObject *func = PyObject_GetAttr(context, fs);
-            printf("Is it a type? %d\n", PyType_Check(func));
             PyObject *sc = PyObject_CallFunctionObjArgs(func, nullptr);
-            Script *ret = pythonToScript(sc);
+            Script *ret = new PythonScript(sc);
             Py_DECREF(fs);
             return ret;
         }
