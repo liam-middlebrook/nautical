@@ -7,7 +7,7 @@ void write_string_to_file(const char* filename, const char* string)
 {
     FILE* fp = fopen(filename, "w");
 
-    fputs(fp, string);
+    fputs(string, fp);
 
     fclose(fp);
 }

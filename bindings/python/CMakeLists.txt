@@ -9,6 +9,7 @@ add_definitions(
 	"-Wno-unused-parameter"
 	"-Wno-unused-variable"
 	"-Wno-missing-field-initializers"
+	"-Wno-deprecated-register"
 	"-DSWIG_TYPE_TABLE=nauticalpy"
 )
 
