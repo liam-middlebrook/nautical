@@ -28,10 +28,10 @@ cd ..
 
 # RapidJSON
 git clone git://github.com/miloyip/rapidjson.git
-cd rapidjson
-mkdir build
-cd build
-cmake ..
-sudo make install
+mkdir -p rapidjson/build
+cd rapidjson/build
+	cmake ..
+	make
+	sudo make install
 cd ../..
 
