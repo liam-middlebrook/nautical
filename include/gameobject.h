@@ -36,7 +36,7 @@ namespace nautical
         // Gets the Transformation Matrix of the Game Object in absolute
         // coordinates (this factors in the local transformation and it's
         // parents' transformation)
-        math::Matrix4<float> getMatrix();
+        nautical::math::Matrix4<float> getMatrix();
 
         // Gets a pointer to the parent Game Object
         // If a parent doesn't exist, returns null
@@ -50,7 +50,7 @@ namespace nautical
         GameComponent* getComponent(const char* name);
 
         // Retrives a script from the gameobject
-        script::Script* getScript(const char* name);
+        nautical::script::Script* getScript(const char* name);
 
         // Gets the engine instance that this object was created in
         inline Engine& getEngine()

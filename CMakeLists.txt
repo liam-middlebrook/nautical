@@ -22,6 +22,8 @@ if(NOT MSVC)
     )
 endif()
 
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 set(h_files
     "include/engine.h"
     "include/gamecomponent.h"

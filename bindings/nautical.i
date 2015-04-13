@@ -15,7 +15,9 @@
     }
 %enddef
 
+%include "lib/engine.i"
+%include "lib/gameobject.i"
+%include "lib/script.i"
 %include "lib/vector2.i"
 %include "lib/vector3.i"
 %include "lib/vector4.i"
-%include "lib/script.i"
