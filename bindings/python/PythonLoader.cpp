@@ -1,13 +1,12 @@
 #include <Python.h>
 #include "swigruntime.py.h"
 #include "scripts/PythonLoader.h"
-#include "scripts/pythonscript.h"
+#include "script.h"
 #include <string>
 #include <algorithm>
 
 using std::string;
 using nautical::script::Script;
-using nautical::script::PythonScript;
 
 namespace
 {
@@ -38,7 +37,41 @@ namespace
     private:
         string str;
     };
+
+    class PythonScript : public Script
+    {
+    public:
+        PythonScript(PyObject *obj) : _obj{obj}
+        {
+        }
+        ~PythonScript()
+        {
+        }
+        void init()
+        {
+            static char func[] = "init";
+            call(func);
+        }
+        void update()
+        {
+            static char func[] = "update";
+            call(func);
+        }
+        void lateUpdate()
+        {
+            static char func[] = "lateUpdate";
+            call(func);
+        }
+
+    private:
+        void call(char *name)
+        {
+            PyObject_CallMethod(_obj, name, nullptr);
+        }
+        PyObject *_obj;
+    };
 }
+
 namespace nautical
 {
     namespace script
