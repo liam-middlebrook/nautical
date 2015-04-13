@@ -15,6 +15,7 @@
     }
 %enddef
 
+%include "lib/keyboard.i"
 %include "lib/engine.i"
 %include "lib/gameobject.i"
 %include "lib/script.i"

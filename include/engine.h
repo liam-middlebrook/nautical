@@ -29,6 +29,10 @@ namespace nautical
 
         std::string loadTexture(std::string name, const char* fileLoc);
 
+        inline systems::input::Keyboard* getKeyboard()
+        {
+            return _keyboard;
+        }
     private:
         systems::input::Keyboard* _keyboard;
         systems::Renderer* _renderer;
