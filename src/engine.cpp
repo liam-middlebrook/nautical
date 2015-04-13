@@ -1,4 +1,5 @@
 #include "scripts/Loaders.h"
+#include "script.h"
 #include "engine.h"
 
 #include <GL/glew.h>
@@ -88,6 +89,7 @@ void Engine::run()
     _renderer = new systems::Renderer(w, h);
     _shaderLoader = new graphics::ShaderLoader();
     _textureLoader = new graphics::TextureLoader();
+    _factory = new script::ScriptFactory();
 
     // Set clear color to what config states
     glClearColor(clearColor[0], clearColor[1], clearColor[2], clearColor[3]);
@@ -122,6 +124,12 @@ void Engine::run()
 
     child->transform.scale = math::Vector3<float>(64.0f, 64.0f, 1.0f);
 
+#ifdef NAUTICAL_BIND_PYTHON
+    _factory->addLoader(new script::PythonScriptLoader);
+    _factory->load("bindings/python/testing.py");
+    auto s = _factory->script("MyScript", child);
+    child->addScript("MyScript", s);
+#endif
     // END TESTCODE
 
     world.init();

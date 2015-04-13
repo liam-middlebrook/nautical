@@ -13,23 +13,6 @@ int main(int argc, char** argv)
 
     nautical::Engine engine = nautical::Engine();
 
-    ScriptFactory fac;
-#ifdef NAUTICAL_BIND_PYTHON
-    fac.addLoader(new PythonScriptLoader);
-    fac.load("bindings/python/testing.py");
-    printf("About to instantiate the script\n");
-    auto s = fac.script("MyScript", engine.world);
-    s->init();
-    for (int i = 0; i < 5; ++i)
-    {
-        s->update();
-        s->lateUpdate();
-    }
-#endif
-    /*
-     *
-     *    engine.run();
-     */
-
+    engine.run();
     return 0;
 }
