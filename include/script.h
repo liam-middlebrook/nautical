@@ -2,6 +2,7 @@
 
 namespace nautical
 {
+    class Engine;
     namespace script
     {
         class Script
@@ -19,6 +20,8 @@ namespace nautical
 
             // LateUpdate Logic for Script
             virtual void lateUpdate() = 0;
+
+            nautical::Engine* engine;
         };
     }
 }

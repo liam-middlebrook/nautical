@@ -6,6 +6,7 @@
 
 namespace nautical
 {
+    class GameObject;
     namespace script
     {
         class PythonScriptLoader : public ScriptLoader
@@ -14,7 +15,7 @@ namespace nautical
             PythonScriptLoader();
             ~PythonScriptLoader();
             virtual bool load(std::string);
-            virtual Script* script(std::string);
+            virtual Script* script(std::string, GameObject* gameObject);
 
         private:
             PyObject* context;

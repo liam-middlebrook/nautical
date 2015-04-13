@@ -5,7 +5,7 @@
 
 namespace nautical
 {
-
+    class GameObject;
     namespace script
     {
         class Script;
@@ -14,7 +14,7 @@ namespace nautical
         struct ScriptLoader
         {
             virtual bool load(std::string) = 0;
-            virtual Script *script(std::string) = 0;
+            virtual Script *script(std::string, GameObject*) = 0;
             virtual ~ScriptLoader()
             {
             }
@@ -28,11 +28,11 @@ namespace nautical
                 loaders.push_back(loader);
             }
 
-            Script *script(std::string name)
+            Script *script(std::string name, GameObject* gameObject)
             {
                 for (auto &loader : loaders)
                 {
-                    if (auto sc = loader->script(name))
+                    if (auto sc = loader->script(name, gameObject))
                     {
                         return sc;
                     }

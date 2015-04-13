@@ -11,12 +11,14 @@ int main(int argc, char** argv)
     UNUSED argc;
     UNUSED argv;
 
+    nautical::Engine engine = nautical::Engine();
+
     ScriptFactory fac;
 #ifdef NAUTICAL_BIND_PYTHON
     fac.addLoader(new PythonScriptLoader);
     fac.load("bindings/python/testing.py");
     printf("About to instantiate the script\n");
-    auto s = fac.script("MyScript");
+    auto s = fac.script("MyScript", engine.world);
     s->init();
     for (int i = 0; i < 5; ++i)
     {
@@ -25,7 +27,6 @@ int main(int argc, char** argv)
     }
 #endif
     /*
-     *    nautical::Engine engine = nautical::Engine();
      *
      *    engine.run();
      */

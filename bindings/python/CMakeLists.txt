@@ -1,7 +1,7 @@
 find_package(PythonLibs REQUIRED)
 set_source_files_properties("nauticalpy.i" PROPERTIES CPLUSPLUS TRUE)
 
-set(CMAKE_SWIG_FLAGS -builtin -O -modern -Wall)
+set(CMAKE_SWIG_FLAGS -O -modern -Wall)
 
 set(SWIG_MODULE_nauticalpy_EXTRA_DEPS ${interface_files})
 include_directories(${PYTHON_INCLUDE_DIRS} ".")

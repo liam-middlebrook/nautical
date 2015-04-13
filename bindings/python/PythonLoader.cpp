@@ -1,11 +1,12 @@
 #include <Python.h>
+#include "gameobject.h"
 #include "swigruntime.py.h"
 #include "scripts/PythonLoader.h"
 #include "script.h"
 #include <string>
 #include <algorithm>
-
 using std::string;
+using nautical::GameObject;
 using nautical::script::Script;
 
 namespace
@@ -41,8 +42,11 @@ namespace
     class PythonScript : public Script
     {
     public:
-        PythonScript(PyObject *obj) : _obj{obj}
+        PythonScript(PyObject *obj, GameObject* gameObject) : _obj{obj}
         {
+            auto type_info = SWIG_TypeQuery("nautical::GameObject *");
+            auto pyObject = SWIG_NewPointerObj(gameObject, type_info, 0);
+            PyObject_SetAttrString(obj, "gameobject", pyObject);
         }
         ~PythonScript()
         {
@@ -112,12 +116,12 @@ namespace nautical
             Py_DECREF(itr);
             return true;
         }
-        Script *PythonScriptLoader::script(string funcname)
+        Script *PythonScriptLoader::script(string funcname, nautical::GameObject* gameObject)
         {
             auto fs = PyString_FromString(funcname.c_str());
             PyObject *func = PyObject_GetAttr(context, fs);
             PyObject *sc = PyObject_CallFunctionObjArgs(func, nullptr);
-            Script *ret = new PythonScript(sc);
+            Script *ret = new PythonScript(sc, gameObject);
             Py_DECREF(fs);
             return ret;
         }
