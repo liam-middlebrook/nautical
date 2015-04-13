@@ -8,6 +8,7 @@ include_directories(${PYTHON_INCLUDE_DIRS} ".")
 add_definitions(
 	"-Wno-unused-parameter"
 	"-Wno-unused-variable"
+	"-Wno-missing-field-initializers"
 	"-DSWIG_TYPE_TABLE=nauticalpy"
 )
 
