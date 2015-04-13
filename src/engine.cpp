@@ -108,27 +108,31 @@ void Engine::run()
     _keyboard->setKeyBinding("right", 262);
     //*/
 
-    std::string shaderN = loadShader("name", "vert.glsl", "frag.glsl");
+    //std::string shaderN = loadShader("name", "vert.glsl", "frag.glsl");
 
-    loadTexture("remyd", "image.png");
+    //loadTexture("remyd", "image.png");
 
-    GameObject* child = world.addChild("remyd");
-    components::RenderComponent* childRenderer =
-        new components::RenderComponent(child);
+    //GameObject* child = world.addChild("remyd");
+    //components::RenderComponent* childRenderer =
+    //    new components::RenderComponent(child);
 
-    child->addComponent("renderer", childRenderer);
+    //child->addComponent("renderer", childRenderer);
 
-    childRenderer->texture = "remyd";
-    childRenderer->shader = shaderN;
-    childRenderer->tint = graphics::Colors::Red;
+    //childRenderer->texture = "remyd";
+    //childRenderer->shader = shaderN;
+    //childRenderer->tint = graphics::Colors::Red;
 
-    child->transform.scale = math::Vector3<float>(64.0f, 64.0f, 1.0f);
+    //child->transform.scale = math::Vector3<float>(64.0f, 64.0f, 1.0f);
 
 #ifdef NAUTICAL_BIND_PYTHON
     _factory->addLoader(new script::PythonScriptLoader);
-    _factory->load("bindings/python/testing.py");
-    auto s = _factory->script("MyScript", child);
-    child->addScript("MyScript", s);
+    printf("loading file %s\n", nautical_config["script"]["file"].GetString());
+    _factory->load(nautical_config["script"]["file"].GetString());
+    printf("file loaded\n");
+    auto s = _factory->script(nautical_config["script"]["class"].GetString(),
+                              &world);
+    printf("adding script to world\n");
+    world.addScript("script", s);
 #endif
     // END TESTCODE
 
@@ -145,22 +149,22 @@ void Engine::run()
 
         _renderer->render();
 
-        if(_keyboard->keyPressed("left"))
-        {
-            child->transform.position += -math::Vector3<float>::right;
-        }
-        if(_keyboard->keyPressed("right"))
-        {
-            child->transform.position += math::Vector3<float>::right;
-        }
-        if(_keyboard->keyPressed("down"))
-        {
-            child->transform.position += -math::Vector3<float>::up;
-        }
-        if(_keyboard->keyPressed("up"))
-        {
-            child->transform.position += math::Vector3<float>::up;
-        }
+        //if(_keyboard->keyPressed("left"))
+        //{
+        //    child->transform.position += -math::Vector3<float>::right;
+        //}
+        //if(_keyboard->keyPressed("right"))
+        //{
+        //    child->transform.position += math::Vector3<float>::right;
+        //}
+        //if(_keyboard->keyPressed("down"))
+        //{
+        //    child->transform.position += -math::Vector3<float>::up;
+        //}
+        //if(_keyboard->keyPressed("up"))
+        //{
+        //    child->transform.position += math::Vector3<float>::up;
+        //}
 
         window.render();
     }

@@ -5,6 +5,10 @@
         "down": 264,
         "up": 265
     },
+    "script": {
+        "file": "bindings/python/testing.py",
+        "class": "MyScript"
+    },
     "window": {
         "width": 640,
         "height": 480,

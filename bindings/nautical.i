@@ -21,3 +21,6 @@
 %include "lib/vector2.i"
 %include "lib/vector3.i"
 %include "lib/vector4.i"
+%include "lib/color.i"
+%include "lib/gamecomponent.i"
+%include "lib/rendercomponent.i"
