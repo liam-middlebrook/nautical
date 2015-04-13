@@ -4,9 +4,9 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_LIST_DIR}/CMake)
 find_package(CUnit REQUIRED)
 find_package(FreeImage REQUIRED)
 find_package(GLEW REQUIRED)
-find_package(IniParser REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(PkgConfig REQUIRED)
+find_package(rapidjson REQUIRED)
 pkg_search_module(GLFW REQUIRED glfw3)
 
 include_directories(
@@ -41,6 +41,7 @@ set(h_files
     "include/math/vector2.h"
     "include/math/vector3.h"
     "include/math/vector4.h"
+    "include/systems/input/keyboard.h"
     "include/systems/renderer.h"
 )
 
@@ -97,6 +98,7 @@ add_executable(nautical
     "src/graphics/shaderloader.cpp"
     "src/graphics/textureloader.cpp"
     "src/graphics/window.cpp"
+    "src/systems/input/keyboard.cpp"
     "src/systems/renderer.cpp"
     ${nautical_bind_files}
 )
@@ -134,7 +136,6 @@ target_link_libraries(nautical
     ${GLFW_LIBRARIES}
     ${FREEIMAGE_LIBRARIES}
     ${OPENGL_LIBRARIES}
-    ${INIPARSER_LIBRARIES}
 )
 target_link_libraries(nautical-tests ${CUNIT_LIBRARY})
 
@@ -150,7 +151,7 @@ endforeach()
 file(COPY
     "resources/vert.glsl"
     "resources/frag.glsl"
-    "resources/config.ini"
+    "resources/config.json"
      DESTINATION ${CMAKE_BINARY_DIR})
 
 # vim: ts=4 sw=4 et

@@ -13,8 +13,11 @@ N/A yet, still in the early architecture stage
 
 - A compiler that supports C++11
 - [CMake](http://www.cmake.org/) >= 3.0.2
-- [SWIG](http://www.swig.org/)
+- [FreeImage](http://freeimage.sourceforge.net/)
+- [GLEW](http://glew.sourceforge.net/)
+- [GLFW3](http://http://www.glfw.org/)
 - [RapidJSON](https://github.com/miloyip/rapidjson)
+- [SWIG](http://www.swig.org/)
 
 # Build instructions
 

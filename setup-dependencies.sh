@@ -26,12 +26,12 @@ cd swig-3.0.5
 	sudo make install
 cd ..
 
-# INI Parser
-wget http://ndevilla.free.fr/iniparser/iniparser-3.1.tar.gz
-tar -xzf iniparser-3.1.tar.gz
-cd iniparser
-	make
-	sudo cp libiniparser.so.0 /usr/lib/libiniparser.so
-	sudo cp src/iniparser.h src/dictionary.h /usr/include/
-cd ..
+# RapidJSON
+git clone git://github.com/miloyip/rapidjson.git
+cd rapidjson
+mkdir build
+cd build
+cmake ..
+sudo make install
+cd ../..
 

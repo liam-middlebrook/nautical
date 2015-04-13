@@ -10,9 +10,9 @@
 #include "util.h"
 #include "graphics/window.h"
 
-extern "C" {
-#include "iniparser.h"
-}
+#include <fstream>
+#include <iostream>
+#include <rapidjson/document.h>
 
 using namespace nautical;
 
@@ -26,24 +26,18 @@ Engine::~Engine()
 
 void Engine::run()
 {
-    // subsystems init
-    if (!does_file_exist("config.ini"))
+    if (!does_file_exist("config.json"))
     {
-        printf("config.ini not found!\nCreating default config.ini now!\n");
-
-        // write default config file to disk
-        const char* defaultINI = "[window]\n"
-                                 "width = 640\n"
-                                 "height = 480\n"
-                                 "title = Nautical Game\n"
-                                 "[game]\n"
-                                 "file=main.py\n"
-                                 "class=MainClass\n";
-
-        write_string_to_file("config.ini", defaultINI);
+        printf("config.json not found!\nCreating default config.json now!\n");
+        return;
     }
 
-    nautical_config = iniparser_load("config.ini");
+    // Load config.json to memory
+    rapidjson::Document nautical_config;
+    std::ifstream configHandle("config.json");
+    std::string configString((std::istreambuf_iterator<char>(configHandle)),
+                          std::istreambuf_iterator<char>());
+    nautical_config.Parse(configString.c_str());
 
     if (!nautical::graphics::Window::init())
     {
@@ -52,23 +46,21 @@ void Engine::run()
     }
 
     int width, height;
-    char* title;
+    const char* title;
 
-    width = iniparser_getint(nautical_config, "window:width", 0);
-    height = iniparser_getint(nautical_config, "window:height", 0);
-    title = iniparser_getstring(nautical_config, "window:title",
-                                (char*)"Nautical Game");
+    width = nautical_config["window"]["width"].GetInt();
+    height = nautical_config["window"]["height"].GetInt();
 
-    float clearColor[4]{
-        static_cast<float>(
-            iniparser_getdouble(nautical_config, "window:clearR", 0.0f)),
-        static_cast<float>(
-            iniparser_getdouble(nautical_config, "window:clearG", 0.0f)),
-        static_cast<float>(
-            iniparser_getdouble(nautical_config, "window:clearB", 0.0f)),
-        static_cast<float>(
-            iniparser_getdouble(nautical_config, "window:clearA", 0.0f)),
-    };
+    title = nautical_config["window"]["title"].GetString();
+
+    GLfloat clearColor[4];
+
+    const rapidjson::Value& clear = nautical_config["window"]["clear"];
+    for(rapidjson::SizeType i = 0; i < clear.Size(); ++i)
+    {
+        clearColor[i] = static_cast<GLfloat>(clear[i].GetDouble());
+    }
+
 
     nautical::graphics::Window window(width, height, title);
 
@@ -92,6 +84,7 @@ void Engine::run()
     world.transform.position.y = h / 2.0f;
 
     // Setup subsystems
+    _keyboard = new systems::input::Keyboard(window.getWindow());
     _renderer = new systems::Renderer(w, h);
     _shaderLoader = new graphics::ShaderLoader();
     _textureLoader = new graphics::TextureLoader();
@@ -99,7 +92,19 @@ void Engine::run()
     // Set clear color to what config states
     glClearColor(clearColor[0], clearColor[1], clearColor[2], clearColor[3]);
 
+    const rapidjson::Value& controls = nautical_config["controls"];
+    for (rapidjson::Value::ConstMemberIterator itr = controls.MemberBegin(); itr != controls.MemberEnd(); ++itr)
+    {
+        _keyboard->setKeyBinding(itr->name.GetString(), itr->value.GetInt());
+    }
     // BEGIN TESTCODE
+
+    /*
+    _keyboard->setKeyBinding("left", 263);
+    _keyboard->setKeyBinding("down", 264);
+    _keyboard->setKeyBinding("up", 265);
+    _keyboard->setKeyBinding("right", 262);
+    //*/
 
     std::string shaderN = loadShader("name", "vert.glsl", "frag.glsl");
 
@@ -131,6 +136,23 @@ void Engine::run()
         world.lateUpdate();
 
         _renderer->render();
+
+        if(_keyboard->keyPressed("left"))
+        {
+            child->transform.position += -math::Vector3<float>::right;
+        }
+        if(_keyboard->keyPressed("right"))
+        {
+            child->transform.position += math::Vector3<float>::right;
+        }
+        if(_keyboard->keyPressed("down"))
+        {
+            child->transform.position += -math::Vector3<float>::up;
+        }
+        if(_keyboard->keyPressed("up"))
+        {
+            child->transform.position += math::Vector3<float>::up;
+        }
 
         window.render();
     }
