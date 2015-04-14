@@ -180,3 +180,14 @@ std::string Engine::loadTexture(std::string name, const char* fileLoc)
 {
     return _textureLoader->loadTexture(name, fileLoc);
 }
+
+void Engine::loadScript(std::string file)
+{
+    printf("loading %s\n", file.c_str()); 
+    _factory->load(file);
+}
+
+void Engine::addScript(std::string className, GameObject* gameObject)
+{
+    gameObject->addScript(className.c_str(), _factory->script(className, gameObject));
+}

@@ -29,6 +29,10 @@ namespace nautical
 
         std::string loadTexture(std::string name, const char* fileLoc);
 
+        void loadScript(std::string file);
+
+        void addScript(std::string className, GameObject* gameObject);
+
         inline systems::input::Keyboard* getKeyboard()
         {
             return _keyboard;
