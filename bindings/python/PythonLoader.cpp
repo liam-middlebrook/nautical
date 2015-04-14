@@ -47,7 +47,6 @@ namespace
             auto type_info = SWIG_TypeQuery("nautical::GameObject *");
             auto pyObject = SWIG_NewPointerObj(gameObject, type_info, 0);
             int ret = PyObject_SetAttrString(obj, "gameobject", pyObject);
-            printf("Set the Attribute: gameobject | Status: %d", ret);
         }
         ~PythonScript()
         {

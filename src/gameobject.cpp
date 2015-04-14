@@ -21,19 +21,15 @@ GameObject::~GameObject()
 
 void GameObject::init()
 {
-    printf("\niniti\n");
     // Init all scripts
     for (auto& script : _scripts)
     {
         script.second->init();
     }
-    printf("\nasda\n");
-    printf("%d compeontents\n", _components.size());
+
     // Init all components
     for (auto& component : _components)
     {
-        printf("hey i am: %s I am gonna init components\n", this->_name);
-        printf("\nname %d\n", component.second);
         component.second->init();
     }
 
@@ -82,7 +78,6 @@ void GameObject::lateUpdate()
 
 void GameObject::addComponent(const char* name, GameComponent* component)
 {
-    printf("adding a componenetns: %d\n", component);
     // Insert component into dictionary with name (hashed)
     _components.insert(std::make_pair(_hashAlg(name), component));
 }

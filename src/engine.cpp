@@ -126,12 +126,9 @@ void Engine::run()
 
 #ifdef NAUTICAL_BIND_PYTHON
     _factory->addLoader(new script::PythonScriptLoader);
-    printf("loading file %s\n", nautical_config["script"]["file"].GetString());
     _factory->load(nautical_config["script"]["file"].GetString());
-    printf("file loaded\n");
     auto s = _factory->script(nautical_config["script"]["class"].GetString(),
                               &world);
-    printf("adding script to world\n");
     world.addScript("script", s);
 #endif
     // END TESTCODE
@@ -183,7 +180,6 @@ std::string Engine::loadTexture(std::string name, const char* fileLoc)
 
 void Engine::loadScript(std::string file)
 {
-    printf("loading %s\n", file.c_str()); 
     _factory->load(file);
 }
 

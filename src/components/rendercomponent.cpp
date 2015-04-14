@@ -6,7 +6,6 @@ using namespace nautical::components;
 RenderComponent::RenderComponent(GameObject* hostObj)
 {
     this->_hostObj = hostObj;
-    printf("I am alive!\n");
 }
 
 RenderComponent::~RenderComponent()
@@ -15,7 +14,6 @@ RenderComponent::~RenderComponent()
 
 void RenderComponent::init()
 {
-    printf("INITITITITIT\n");
 }
 
 void RenderComponent::update()
