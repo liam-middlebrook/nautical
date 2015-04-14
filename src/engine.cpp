@@ -99,30 +99,6 @@ void Engine::run()
     {
         _keyboard->setKeyBinding(itr->name.GetString(), itr->value.GetInt());
     }
-    // BEGIN TESTCODE
-
-    /*
-    _keyboard->setKeyBinding("left", 263);
-    _keyboard->setKeyBinding("down", 264);
-    _keyboard->setKeyBinding("up", 265);
-    _keyboard->setKeyBinding("right", 262);
-    //*/
-
-    //std::string shaderN = loadShader("name", "vert.glsl", "frag.glsl");
-
-    //loadTexture("remyd", "image.png");
-
-    //GameObject* child = world.addChild("remyd");
-    //components::RenderComponent* childRenderer =
-    //    new components::RenderComponent(child);
-
-    //child->addComponent("renderer", childRenderer);
-
-    //childRenderer->texture = "remyd";
-    //childRenderer->shader = shaderN;
-    //childRenderer->tint = graphics::Colors::Red;
-
-    //child->transform.scale = math::Vector3<float>(64.0f, 64.0f, 1.0f);
 
 #ifdef NAUTICAL_BIND_PYTHON
     _factory->addLoader(new script::PythonScriptLoader);
@@ -131,7 +107,6 @@ void Engine::run()
                               &world);
     world.addScript("script", s);
 #endif
-    // END TESTCODE
 
     world.init();
 
@@ -145,23 +120,6 @@ void Engine::run()
         world.lateUpdate();
 
         _renderer->render();
-
-        //if(_keyboard->keyPressed("left"))
-        //{
-        //    child->transform.position += -math::Vector3<float>::right;
-        //}
-        //if(_keyboard->keyPressed("right"))
-        //{
-        //    child->transform.position += math::Vector3<float>::right;
-        //}
-        //if(_keyboard->keyPressed("down"))
-        //{
-        //    child->transform.position += -math::Vector3<float>::up;
-        //}
-        //if(_keyboard->keyPressed("up"))
-        //{
-        //    child->transform.position += math::Vector3<float>::up;
-        //}
 
         window.render();
     }
