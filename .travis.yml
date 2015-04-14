@@ -12,7 +12,7 @@ addons:
       - g++-4.9
       - clang-3.7
 install:
-    - sudo apt-get install -qq x11proto-xf86vidmode-dev libcunit1-dev libglew-dev libglfw-dev libfreeimage-dev
+    - sudo apt-get install -qq xorg-dev libcunit1-dev libglew-dev libglfw-dev libfreeimage-dev
     - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 90
     - sh ./setup-dependencies.sh
 script:
