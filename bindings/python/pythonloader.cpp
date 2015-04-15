@@ -1,7 +1,7 @@
 #include <Python.h>
 #include "gameobject.h"
 #include "swigruntime.py.h"
-#include "scripts/PythonLoader.h"
+#include "scripts/pythonloader.h"
 #include "script.h"
 #include <string>
 #include <algorithm>
@@ -50,6 +50,7 @@ namespace
         }
         ~PythonScript()
         {
+			Py_DECREF(_obj);
         }
         void init()
         {

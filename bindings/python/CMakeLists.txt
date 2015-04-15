@@ -23,7 +23,7 @@ add_custom_command(
 
 SWIG_ADD_MODULE(nauticalpy python "nauticalpy.i")
 SWIG_LINK_LIBRARIES(nauticalpy ${PYTHON_LIBRARIES} nautical-base)
-add_library(nsl_python PythonLoader.cpp ${swig_runtime})
+add_library(nsl_python pythonloader.cpp ${swig_runtime})
 target_link_libraries(nsl_python ${PYTHON_LIBRARIES} nautical-base)
 target_include_directories(nsl_python PUBLIC ${PYTHON_INCLUDE_DIRS} ".")
 

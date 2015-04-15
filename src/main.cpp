@@ -1,10 +1,8 @@
-#include "scripts/Loaders.h"
+#include "scripts/loaders.h"
 #include "script.h"
 #include "engine.h"
 
 #define UNUSED (void)
-
-using namespace nautical::script;
 
 int main(int argc, char** argv)
 {

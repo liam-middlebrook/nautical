@@ -1,4 +1,4 @@
-#include "scripts/Loaders.h"
+#include "scripts/loaders.h"
 #include "script.h"
 #include "engine.h"
 
@@ -102,11 +102,11 @@ void Engine::run()
 
 #ifdef NAUTICAL_BIND_PYTHON
     _factory->addLoader(new script::PythonScriptLoader);
+#endif
     _factory->load(nautical_config["script"]["file"].GetString());
     auto s = _factory->script(nautical_config["script"]["class"].GetString(),
                               &world);
     world.addScript("script", s);
-#endif
 
     world.init();
 

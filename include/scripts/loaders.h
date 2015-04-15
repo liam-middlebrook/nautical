@@ -5,4 +5,4 @@
 #endif
 
 #include "scriptloader.h"
-#include "scripts/PythonLoader.h"
+#include "scripts/pythonloader.h"
