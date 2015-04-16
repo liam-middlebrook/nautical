@@ -1,3 +1,5 @@
+#include "scripts/loaders.h"
+#include "script.h"
 #include "engine.h"
 
 #include <GL/glew.h>
@@ -87,6 +89,7 @@ void Engine::run()
     _renderer = new systems::Renderer(w, h);
     _shaderLoader = new graphics::ShaderLoader();
     _textureLoader = new graphics::TextureLoader();
+    _factory = new script::ScriptFactory();
 
     // Set clear color to what config states
     glClearColor(clearColor[0], clearColor[1], clearColor[2], clearColor[3]);
@@ -96,32 +99,14 @@ void Engine::run()
     {
         _keyboard->setKeyBinding(itr->name.GetString(), itr->value.GetInt());
     }
-    // BEGIN TESTCODE
 
-    /*
-    _keyboard->setKeyBinding("left", 263);
-    _keyboard->setKeyBinding("down", 264);
-    _keyboard->setKeyBinding("up", 265);
-    _keyboard->setKeyBinding("right", 262);
-    //*/
-
-    std::string shaderN = loadShader("name", "vert.glsl", "frag.glsl");
-
-    loadTexture("remyd", "image.png");
-
-    GameObject* child = world.addChild("remyd");
-    components::RenderComponent* childRenderer =
-        new components::RenderComponent(child);
-
-    child->addComponent("renderer", childRenderer);
-
-    childRenderer->texture = "remyd";
-    childRenderer->shader = shaderN;
-    childRenderer->tint = graphics::Colors::Red;
-
-    child->transform.scale = math::Vector3<float>(64.0f, 64.0f, 1.0f);
-
-    // END TESTCODE
+#ifdef NAUTICAL_BIND_PYTHON
+    _factory->addLoader(new script::PythonScriptLoader);
+#endif
+    _factory->load(nautical_config["script"]["file"].GetString());
+    auto s = _factory->script(nautical_config["script"]["class"].GetString(),
+                              &world);
+    world.addScript("script", s);
 
     world.init();
 
@@ -136,23 +121,6 @@ void Engine::run()
 
         _renderer->render();
 
-        if(_keyboard->keyPressed("left"))
-        {
-            child->transform.position += -math::Vector3<float>::right;
-        }
-        if(_keyboard->keyPressed("right"))
-        {
-            child->transform.position += math::Vector3<float>::right;
-        }
-        if(_keyboard->keyPressed("down"))
-        {
-            child->transform.position += -math::Vector3<float>::up;
-        }
-        if(_keyboard->keyPressed("up"))
-        {
-            child->transform.position += math::Vector3<float>::up;
-        }
-
         window.render();
     }
 }
@@ -166,4 +134,14 @@ std::string Engine::loadShader(std::string name, const char* vertLoc,
 std::string Engine::loadTexture(std::string name, const char* fileLoc)
 {
     return _textureLoader->loadTexture(name, fileLoc);
+}
+
+void Engine::loadScript(std::string file)
+{
+    _factory->load(file);
+}
+
+void Engine::addScript(std::string className, GameObject* gameObject)
+{
+    gameObject->addScript(className.c_str(), _factory->script(className, gameObject));
 }

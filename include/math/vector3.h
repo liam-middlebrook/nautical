@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cmath>
+#include <ostream>
 #include "math/vector2.h"
 
 namespace nautical
@@ -27,6 +29,16 @@ namespace nautical
             Vector3(const T* data)
             {
                 memcpy(&x, data, sizeof(T) * 3);
+            }
+
+            inline T& operator[](int b)
+            {
+                return (&x)[b];
+            }
+
+            inline const T& operator[](int b) const
+            {
+                return (&x)[b];
             }
 
             inline T lengthSquared() const
@@ -148,11 +160,6 @@ namespace nautical
                 return !(*this == rhs);
             }
 
-            inline T operator[](const int& b)
-            {
-                return (&x)[b];
-            }
-
             inline operator T*()
             {
                 return &x;
@@ -189,26 +196,56 @@ namespace nautical
                 return out;
             }
 
-            const static Vector3 zero;
-            const static Vector3 one;
-            const static Vector3 right;
-            const static Vector3 up;
-            const static Vector3 forward;
+            friend std::ostream& operator<<(std::ostream& os, const Vector3& v)
+            {
+                return os << "<" << v.x << ", " << v.y << ", " << v.z << ">";
+            }
+
+#ifndef SWIG
+            static const Vector3 zero;
+            static const Vector3 one;
+            static const Vector3 right;
+            static const Vector3 up;
+            static const Vector3 forward;
+#endif
+
+            static const Vector3 ZERO()
+            {
+                return Vector3(0, 0, 0);
+            }
+            static const Vector3 ONE()
+            {
+                return Vector3(1, 1, 1);
+            }
+            static const Vector3 RIGHT()
+            {
+                return Vector3(1, 0, 0);
+            }
+            static const Vector3 UP()
+            {
+                return Vector3(0, 1, 0);
+            }
+            static const Vector3 FORWARD()
+            {
+                return Vector3(0, 0, 1);
+            }
         };
 
+#ifndef SWIG
         template <typename T>
-        const Vector3<T> Vector3<T>::zero = Vector3<T>(0, 0, 0);
+        const Vector3<T> Vector3<T>::zero = Vector3<T>::ZERO();
 
         template <typename T>
-        const Vector3<T> Vector3<T>::one = Vector3<T>(1, 1, 1);
+        const Vector3<T> Vector3<T>::one = Vector3<T>::ONE();
 
         template <typename T>
-        const Vector3<T> Vector3<T>::right = Vector3<T>(1, 0, 0);
+        const Vector3<T> Vector3<T>::right = Vector3<T>::RIGHT();
 
         template <typename T>
-        const Vector3<T> Vector3<T>::up = Vector3<T>(0, 1, 0);
+        const Vector3<T> Vector3<T>::up = Vector3<T>::UP();
 
         template <typename T>
-        const Vector3<T> Vector3<T>::forward = Vector3<T>(0, 0, 1);
+        const Vector3<T> Vector3<T>::forward = Vector3<T>::FORWARD();
+#endif
     }
 }

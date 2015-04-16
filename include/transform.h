@@ -15,11 +15,11 @@ namespace nautical
             scale = math::Vector3<T>::one;
         }
 
-        math::Vector3<T> position;
-        math::Vector3<T> rotation;
-        math::Vector3<T> scale;
+        nautical::math::Vector3<T> position;
+        nautical::math::Vector3<T> rotation;
+        nautical::math::Vector3<T> scale;
 
-        inline math::Matrix4<T> getMatrix()
+        inline nautical::math::Matrix4<T> getMatrix()
         {
             return math::Matrix4<T>::rotate(math::Vector3<T>::right,
                                             rotation.x) *

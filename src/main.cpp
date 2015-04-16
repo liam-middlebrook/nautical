@@ -1,3 +1,5 @@
+#include "scripts/loaders.h"
+#include "script.h"
 #include "engine.h"
 
 #define UNUSED (void)
@@ -10,6 +12,5 @@ int main(int argc, char** argv)
     nautical::Engine engine = nautical::Engine();
 
     engine.run();
-
     return 0;
 }

@@ -22,11 +22,13 @@ if(NOT MSVC)
     )
 endif()
 
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 set(h_files
     "include/engine.h"
     "include/gamecomponent.h"
     "include/gameobject.h"
-    "include/nauticalscript.h"
+    "include/script.h"
     "include/transform.h"
     "include/util.h"
     "include/components/rendercomponent.h"
@@ -44,6 +46,46 @@ set(h_files
 )
 
 #####
+# Core library
+
+add_library(nautical-base
+    ${h_files}
+    "src/gameobject.cpp"
+)
+
+#####
+# SWIG libraries
+
+find_package(SWIG)
+set(nautical_bind_libs)
+if(SWIG_FOUND)
+	include(UseSWIG)
+    add_definitions("-DNAUTICAL_SWIG")
+
+	file(GLOB interface_files "bindings/lib/*" nautical.i)
+	set_source_files_properties(${interface_files} PROPERTIES CPLUSPLUS TRUE)
+	set_source_files_properties(bindings/nautical.i PROPERTIES DEPENDS "${interface_files}")
+	macro(add_swig_language lang default)
+		string(TOUPPER "${lang}" upperlang)
+		string(TOLOWER "${lang}" lowerlang)
+		option(INTERFACE_${upperlang} "Enable ${lang} SWIG interface" ${default})
+		if(INTERFACE_${upperlang})
+            add_definitions("-DNAUTICAL_BIND_${upperlang}")
+            include_directories(
+                bindings/${lowerlang}
+                ${CMAKE_CURRENT_BINARY_DIR}/bindings/${lowerlang}
+            )
+			add_subdirectory(bindings/${lowerlang})
+            list(APPEND nautical_bind_libs nsl_${lowerlang})
+		endif()
+	endmacro()
+
+	#add_swig_language(Lua FALSE)
+	#add_swig_language(Perl FALSE)
+	add_swig_language(Python TRUE)
+endif()
+
+#####
 # Main executable
 
 add_executable(nautical
@@ -58,6 +100,12 @@ add_executable(nautical
     "src/graphics/window.cpp"
     "src/systems/input/keyboard.cpp"
     "src/systems/renderer.cpp"
+    ${nautical_bind_files}
+)
+
+target_link_libraries(nautical
+    nautical-base
+    ${nautical_bind_libs}
 )
 
 #####

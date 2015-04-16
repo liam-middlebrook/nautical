@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cmath>
+#include <ostream>
 #include "math/vector3.h"
 
 namespace nautical
@@ -195,26 +197,65 @@ namespace nautical
                 return x * b.x + y * b.y + z * b.z + w * b.w;
             }
 
-            const static Vector4 zero;
-            const static Vector4 one;
-            const static Vector4 right;
-            const static Vector4 up;
-            const static Vector4 forward;
+            friend std::ostream& operator<<(std::ostream& os, const Vector4& v)
+            {
+                return os << "<" << v.x << ", " << v.y << ", " << v.z << ", "
+                          << v.w << ">";
+            }
+
+#ifndef SWIG
+            static const Vector4 zero;
+            static const Vector4 one;
+            static const Vector4 right;
+            static const Vector4 up;
+            static const Vector4 forward;
+            static const Vector4 ana;
+#endif
+
+            static constexpr Vector4 ZERO()
+            {
+                return Vector4(0, 0, 0, 0);
+            };
+            static constexpr Vector4 ONE()
+            {
+                return Vector4(1, 1, 1, 1);
+            };
+            static constexpr Vector4 RIGHT()
+            {
+                return Vector4(1, 0, 0, 0);
+            };
+            static constexpr Vector4 UP()
+            {
+                return Vector4(0, 1, 0, 0);
+            };
+            static constexpr Vector4 FORWARD()
+            {
+                return Vector4(0, 0, 1, 0);
+            };
+            static constexpr Vector4 ANA()
+            {
+                return Vector4(0, 0, 0, 1);
+            };
         };
 
+#ifndef SWIG
         template <typename T>
-        const Vector4<T> Vector4<T>::zero = Vector4<T>(0, 0, 0, 0);
+        const Vector4<T> Vector4<T>::zero = Vector4<T>::ZERO();
 
         template <typename T>
-        const Vector4<T> Vector4<T>::one = Vector4<T>(1, 1, 1, 1);
+        const Vector4<T> Vector4<T>::one = Vector4<T>::ONE();
 
         template <typename T>
-        const Vector4<T> Vector4<T>::right = Vector4<T>(1, 0, 0, 0);
+        const Vector4<T> Vector4<T>::right = Vector4<T>::RIGHT();
 
         template <typename T>
-        const Vector4<T> Vector4<T>::up = Vector4<T>(0, 1, 0, 0);
+        const Vector4<T> Vector4<T>::up = Vector4<T>::UP();
 
         template <typename T>
-        const Vector4<T> Vector4<T>::forward = Vector4<T>(0, 0, 1, 0);
+        const Vector4<T> Vector4<T>::forward = Vector4<T>::FORWARD();
+
+        template <typename T>
+        const Vector4<T> Vector4<T>::ana = Vector4<T>::ANA();
+#endif
     }
 }

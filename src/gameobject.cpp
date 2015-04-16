@@ -2,9 +2,11 @@
 
 #include "engine.h"
 #include "gamecomponent.h"
-#include "nauticalscript.h"
+#include "scriptloader.h"
+#include "script.h"
 
 using namespace nautical;
+using nautical::script::Script;
 
 GameObject::GameObject(const char* name, Engine& engine, GameObject* parent)
     : _name{name}, _engine{engine}, _parent{parent}
@@ -80,7 +82,7 @@ void GameObject::addComponent(const char* name, GameComponent* component)
     _components.insert(std::make_pair(_hashAlg(name), component));
 }
 
-void GameObject::addScript(const char* name, NauticalScript* script)
+void GameObject::addScript(const char* name, Script* script)
 {
     // Insert script into dictionary with name (hashed)
     _scripts.insert(std::make_pair(_hashAlg(name), script));
@@ -100,7 +102,7 @@ GameComponent* GameObject::getComponent(const char* name)
     return _components.at(_hashAlg(name));
 }
 
-NauticalScript* GameObject::getScript(const char* name)
+Script* GameObject::getScript(const char* name)
 {
     return _scripts.at(_hashAlg(name));
 }

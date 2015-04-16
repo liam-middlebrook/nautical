@@ -8,6 +8,11 @@
 
 namespace nautical
 {
+    namespace script
+    {
+        class ScriptFactory;
+    }
+
     class Engine
     {
     public:
@@ -24,11 +29,20 @@ namespace nautical
 
         std::string loadTexture(std::string name, const char* fileLoc);
 
+        void loadScript(std::string file);
+
+        void addScript(std::string className, GameObject* gameObject);
+
+        inline systems::input::Keyboard* getKeyboard()
+        {
+            return _keyboard;
+        }
     private:
         systems::input::Keyboard* _keyboard;
         systems::Renderer* _renderer;
         graphics::ShaderLoader* _shaderLoader;
         graphics::TextureLoader* _textureLoader;
+        script::ScriptFactory* _factory;
 
         friend class components::RenderComponent;
     };
