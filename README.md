@@ -1,6 +1,8 @@
 # nautical
 A game engine written in C++ using OpenGL 3.3 as a graphics framework
 
+[![](https://scan.coverity.com/projects/5020/badge.svg)](https://scan.coverity.com/projects/5020)
+
 # License
 
 nautical is licensed under the [GNU GPLv3](http://www.gnu.org/copyleft/gpl.html)
