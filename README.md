@@ -1,6 +1,7 @@
 # nautical
 A game engine written in C++ using OpenGL 3.3 as a graphics framework
 
+[![Build Status](https://travis-ci.org/liam-middlebrook/nautical.svg?branch=master)](https://travis-ci.org/liam-middlebrook/nautical)
 [![](https://scan.coverity.com/projects/5020/badge.svg)](https://scan.coverity.com/projects/5020)
 
 # License
