@@ -17,7 +17,7 @@ set(swig_runtime swigruntime.py.h)
 add_custom_command(
 	OUTPUT ${swig_runtime}
 	COMMAND
-		${SWIG_EXECUTABLE} -Wall -c++ -python -external-runtime ${swig_runtime}
+	${SWIG_EXECUTABLE} -Wall -c++ -python -external-runtime ${swig_runtime}
 )
 
 

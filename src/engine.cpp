@@ -1,4 +1,4 @@
-#include "scripts/loaders.h"
+#include "scriptloader.h"
 #include "script.h"
 #include "engine.h"
 
@@ -100,9 +100,6 @@ void Engine::run()
         _keyboard->setKeyBinding(itr->name.GetString(), itr->value.GetInt());
     }
 
-#ifdef NAUTICAL_BIND_PYTHON
-    _factory->addLoader(new script::PythonScriptLoader);
-#endif
     _factory->load(nautical_config["script"]["file"].GetString());
     auto s = _factory->script(nautical_config["script"]["class"].GetString(),
                               &world);
@@ -123,6 +120,11 @@ void Engine::run()
 
         window.render();
     }
+}
+
+void Engine::addScriptLoader(nautical::script::ScriptLoader* loader)
+{
+	_factory->addLoader(loader);
 }
 
 std::string Engine::loadShader(std::string name, const char* vertLoc,
