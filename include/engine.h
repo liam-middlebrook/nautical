@@ -11,6 +11,7 @@ namespace nautical
     namespace script
     {
         class ScriptFactory;
+		class ScriptLoader;
     }
 
     class Engine
@@ -32,6 +33,8 @@ namespace nautical
         void loadScript(std::string file);
 
         void addScript(std::string className, GameObject* gameObject);
+
+		void addScriptLoader(nautical::script::ScriptLoader*);
 
         inline systems::input::Keyboard* getKeyboard()
         {

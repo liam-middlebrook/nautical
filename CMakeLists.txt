@@ -50,7 +50,16 @@ set(h_files
 
 add_library(nautical-base
     ${h_files}
+    "src/components/rendercomponent.cpp"
+    "src/engine.cpp"
     "src/gameobject.cpp"
+    "src/gameobject.cpp"
+    "src/graphics/shaderloader.cpp"
+    "src/graphics/textureloader.cpp"
+    "src/graphics/window.cpp"
+    "src/systems/input/keyboard.cpp"
+    "src/systems/renderer.cpp"
+    "src/util.cpp"
 )
 
 #####
@@ -80,7 +89,7 @@ if(SWIG_FOUND)
 		endif()
 	endmacro()
 
-	#add_swig_language(Lua FALSE)
+    add_swig_language(Lua FALSE)
 	#add_swig_language(Perl FALSE)
 	add_swig_language(Python TRUE)
 endif()
@@ -91,15 +100,6 @@ endif()
 add_executable(nautical
     ${h_files}
     "src/main.cpp"
-    "src/engine.cpp"
-    "src/gameobject.cpp"
-    "src/util.cpp"
-    "src/components/rendercomponent.cpp"
-    "src/graphics/shaderloader.cpp"
-    "src/graphics/textureloader.cpp"
-    "src/graphics/window.cpp"
-    "src/systems/input/keyboard.cpp"
-    "src/systems/renderer.cpp"
     ${nautical_bind_files}
 )
 
@@ -131,7 +131,7 @@ add_executable(nautical-tests
 target_include_directories(nautical-tests
     PUBLIC tests ${CUNIT_INCLUDE_DIRS}
 )
-target_link_libraries(nautical
+target_link_libraries(nautical-base
     ${GLEW_LIBRARIES}
     ${GLFW_LIBRARIES}
     ${FREEIMAGE_LIBRARIES}
