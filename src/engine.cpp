@@ -18,6 +18,8 @@
 using namespace nautical;
 
 Engine::Engine()
+    : _keyboard{nullptr}, _renderer{nullptr}, _shaderLoader{nullptr},
+      _textureLoader{nullptr}, _factory{new script::ScriptFactory()}
 {
 }
 
@@ -89,7 +91,6 @@ void Engine::run()
     _renderer = new systems::Renderer(w, h);
     _shaderLoader = new graphics::ShaderLoader();
     _textureLoader = new graphics::TextureLoader();
-    _factory = new script::ScriptFactory();
 
     // Set clear color to what config states
     glClearColor(clearColor[0], clearColor[1], clearColor[2], clearColor[3]);
