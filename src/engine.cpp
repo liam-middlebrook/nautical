@@ -16,6 +16,7 @@
 #include <rapidjson/document.h>
 
 using namespace nautical;
+using std::string;
 
 Engine::Engine()
     : _keyboard{nullptr}, _renderer{nullptr}, _shaderLoader{nullptr},
@@ -27,9 +28,24 @@ Engine::~Engine()
 {
 }
 
-void Engine::run()
+namespace {
+	string prepareDir(string dir)
+	{
+		if(dir == "") {
+			return ".";
+		}
+		while(dir[dir.length()-1] == '/') {
+			dir = dir.substr(0, dir.length()-1);
+		}
+		return dir;
+	}
+}
+
+void Engine::run(string dir=".")
 {
-    if (!does_file_exist("config.json"))
+	_directory = prepareDir(dir);
+	string configFilename = _directory + "/config.json";
+    if (!does_file_exist(configFilename.c_str()))
     {
         printf("config.json not found!\nCreating default config.json now!\n");
         return;
@@ -37,7 +53,7 @@ void Engine::run()
 
     // Load config.json to memory
     rapidjson::Document nautical_config;
-    std::ifstream configHandle("config.json");
+    std::ifstream configHandle(configFilename);
     std::string configString((std::istreambuf_iterator<char>(configHandle)),
                           std::istreambuf_iterator<char>());
     nautical_config.Parse(configString.c_str());
@@ -101,7 +117,7 @@ void Engine::run()
         _keyboard->setKeyBinding(itr->name.GetString(), itr->value.GetInt());
     }
 
-    _factory->load(nautical_config["script"]["file"].GetString());
+    _factory->load(gamefile(nautical_config["script"]["file"].GetString()));
     auto s = _factory->script(nautical_config["script"]["class"].GetString(),
                               &world);
     world.addScript("script", s);

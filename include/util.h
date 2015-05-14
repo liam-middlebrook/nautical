@@ -1,6 +1,7 @@
 #pragma once
 
 #include <math.h>
+#include <string>
 
 static constexpr double PI = 3.1415926535897932;
 
@@ -33,3 +34,5 @@ inline T radiansToDegrees(const T& val)
 void write_string_to_file(const char* filename, const char* string);
 
 int does_file_exist(const char* filename);
+
+std::string get_exe_location();

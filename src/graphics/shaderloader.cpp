@@ -5,6 +5,7 @@
 #include <fstream>
 #include <string>
 #include <string.h>
+#include "util.h"
 
 using namespace nautical;
 using namespace nautical::graphics;
@@ -21,6 +22,9 @@ std::string ShaderLoader::loadShader(std::string name, const char* vertLoc,
                                      const char* fragLoc)
 {
     // Load shader and shit
+	if(!does_file_exist(vertLoc)) {
+		vertLoc = (get_exe_location() + vertLoc).c_str();
+	}
     std::ifstream vertIn(vertLoc);
     std::string vertexStr((std::istreambuf_iterator<char>(vertIn)),
                           std::istreambuf_iterator<char>());
@@ -35,6 +39,9 @@ std::string ShaderLoader::loadShader(std::string name, const char* vertLoc,
     glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &status);
     printf("Vertex Shader Status %d\n", status);
 
+	if(!does_file_exist(fragLoc)) {
+		fragLoc = (get_exe_location() + fragLoc).c_str();
+	}
     std::ifstream fragIn(fragLoc);
     std::string fragStr((std::istreambuf_iterator<char>(fragIn)),
                         std::istreambuf_iterator<char>());
