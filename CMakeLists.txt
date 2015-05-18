@@ -49,11 +49,7 @@ set(h_files
 
 set(NAUTICAL_SHARE_BASE "share/nautical")
 set(NAUTICAL_SHARE_PATH "${CMAKE_INSTALL_PREFIX}/${NAUTICAL_SHARE_BASE}")
-configure_file(
-    "src/util.cpp.in"
-    "src/util.cpp"
-    @ONLY
-)
+configure_file("src/util.cpp.in" "src/util.cpp" @ONLY)
 
 #####
 # Core library
@@ -102,7 +98,6 @@ if(SWIG_FOUND)
     add_swig_language(Lua FALSE)
 	#add_swig_language(Perl FALSE)
 	add_swig_language(Python TRUE)
-    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/bindings/python/nauticalpy.py DESTINATION share/nautical/bindings/python)
 endif()
 
 #####
@@ -127,7 +122,6 @@ target_link_libraries(nautical
 #####
 # Packaging
 
-message(STATUS "Install location: ${CMAKE_INSTALL_PREFIX}")
 install(
     DIRECTORY resources
     DESTINATION share/nautical/
@@ -138,6 +132,7 @@ set(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README.md")
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
 set(CPACK_PACKAGE_VERSION "1.0.0")
 set(CPACK_RPM_PACKAGE_LICENSE "GPLv3")
+set(CPACK_PACKAGING_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 set(CPACK_GENERATOR "RPM;STGZ;TGZ;ZIP")
 
 include(CPack)

@@ -32,3 +32,8 @@ install(
 	DESTINATION ${NAUTICAL_SHARE_BASE}/bindings/python
 )
 
+install(
+	FILES ${CMAKE_CURRENT_BINARY_DIR}/nauticalpy.py
+	DESTINATION ${NAUTICAL_SHARE_BASE}/bindings/python
+)
+
