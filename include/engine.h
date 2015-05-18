@@ -23,7 +23,7 @@ namespace nautical
         // Not sure if I want settings to be sent through a struct in here
         // or if they should be several variables set in the constructor or
         // through individual properties
-        void run();
+        void run(std::string);
 
         std::string loadShader(std::string name, const char* vertLoc,
                                const char* fragLoc);
@@ -40,12 +40,22 @@ namespace nautical
         {
             return _keyboard;
         }
+
+		inline std::string directory() {
+			return _directory;
+		}
+
+		inline std::string gamefile(std::string fn) {
+			return _directory + "/" + fn;
+		}
     private:
         systems::input::Keyboard* _keyboard;
         systems::Renderer* _renderer;
         graphics::ShaderLoader* _shaderLoader;
         graphics::TextureLoader* _textureLoader;
         script::ScriptFactory* _factory;
+
+		std::string _directory;
 
         friend class components::RenderComponent;
     };

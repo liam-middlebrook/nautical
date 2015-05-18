@@ -20,7 +20,9 @@ namespace
         PyObject *path = PyString_FromString(p.c_str());
         if (path != NULL)
         {
-            PyList_Append(sys_path, path);
+            if(!PySequence_Contains(sys_path, path)) {
+                PyList_Append(sys_path, path);
+            }
             Py_DECREF(path);
         }
     }
@@ -50,7 +52,7 @@ namespace
         }
         ~PythonScript()
         {
-			Py_DECREF(_obj);
+            Py_DECREF(_obj);
         }
         void init()
         {
@@ -85,6 +87,7 @@ namespace nautical
         {
             Py_Initialize();
             context = PyImport_AddModule("__nautical_context__");
+            addPythonModulePath(get_exe_location() + "bindings/python");
         }
         PythonScriptLoader::~PythonScriptLoader()
         {
@@ -97,10 +100,14 @@ namespace nautical
             {
                 return false;
             }
-            auto pos = fname.find_last_of("\\/");
-            addPythonModulePath(fname.substr(0, pos));
-            ++pos;
-            string modn = fname.substr(pos, fname.find_last_of('.') - pos);
+            string modn = fname;
+            if(auto pos = fname.find_last_of("\\/")) {
+                addPythonModulePath(fname.substr(0, pos));
+                ++pos;
+                modn = fname.substr(pos, fname.find_last_of('.') - pos);
+            } else {
+                addPythonModulePath(".");
+            }
             auto mod = PyImport_ImportModule(modn.c_str());
             auto modc = PyModule_GetDict(mod);
             auto itr = PyObject_GetIter(modc);
@@ -128,3 +135,4 @@ namespace nautical
         }
     }
 }
+// vim: expandtab
