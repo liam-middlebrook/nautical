@@ -102,6 +102,7 @@ if(SWIG_FOUND)
     add_swig_language(Lua FALSE)
 	#add_swig_language(Perl FALSE)
 	add_swig_language(Python TRUE)
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/bindings/python/nauticalpy.py DESTINATION share/nautical/bindings/python)
 endif()
 
 #####
