@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.0.2)
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_LIST_DIR}/CMake)
+project(nautical)
+
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/CMake)
 find_package(CUnit REQUIRED)
 find_package(FreeImage REQUIRED)
 find_package(GLEW REQUIRED)
@@ -45,6 +47,14 @@ set(h_files
     "include/systems/renderer.h"
 )
 
+set(NAUTICAL_SHARE_BASE "share/nautical")
+set(NAUTICAL_SHARE_PATH "${CMAKE_INSTALL_PREFIX}/${NAUTICAL_SHARE_BASE}")
+configure_file(
+    "src/util.cpp.in"
+    "src/util.cpp"
+    @ONLY
+)
+
 #####
 # Core library
 
@@ -59,7 +69,7 @@ add_library(nautical-base
     "src/graphics/window.cpp"
     "src/systems/input/keyboard.cpp"
     "src/systems/renderer.cpp"
-    "src/util.cpp"
+    "${CMAKE_CURRENT_BINARY_DIR}/src/util.cpp"
 )
 
 #####
@@ -103,10 +113,33 @@ add_executable(nautical
     ${nautical_bind_files}
 )
 
+install(
+    TARGETS nautical
+    DESTINATION bin
+)
+
 target_link_libraries(nautical
     nautical-base
     ${nautical_bind_libs}
 )
+
+#####
+# Packaging
+
+message(STATUS "Install location: ${CMAKE_INSTALL_PREFIX}")
+install(
+    DIRECTORY resources
+    DESTINATION share/nautical/
+)
+
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Nautical game engine")
+set(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README.md")
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
+set(CPACK_PACKAGE_VERSION "1.0.0")
+set(CPACK_RPM_PACKAGE_LICENSE "GPLv3")
+set(CPACK_GENERATOR "RPM;STGZ;TGZ;ZIP")
+
+include(CPack)
 
 #####
 # Testing executable

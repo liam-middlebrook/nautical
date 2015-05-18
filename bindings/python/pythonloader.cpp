@@ -87,7 +87,7 @@ namespace nautical
         {
             Py_Initialize();
             context = PyImport_AddModule("__nautical_context__");
-            addPythonModulePath(get_exe_location() + "bindings/python");
+            addPythonModulePath(get_data_location() + "/bindings/python");
         }
         PythonScriptLoader::~PythonScriptLoader()
         {
@@ -108,30 +108,34 @@ namespace nautical
             } else {
                 addPythonModulePath(".");
             }
-            auto mod = PyImport_ImportModule(modn.c_str());
-            auto modc = PyModule_GetDict(mod);
-            auto itr = PyObject_GetIter(modc);
-            while (auto funcname = PyIter_Next(itr))
-            {
-                if (!PyObject_HasAttr(context, funcname))
+            if(auto mod = PyImport_ImportModule(modn.c_str())) {
+                auto modc = PyModule_GetDict(mod);
+                auto itr = PyObject_GetIter(modc);
+                while (auto funcname = PyIter_Next(itr))
                 {
-                    auto func = PyObject_GetAttr(mod, funcname);
-                    PyObject_SetAttr(context, funcname, func);
-                    Py_DECREF(func);
+                    if (!PyObject_HasAttr(context, funcname))
+                    {
+                        auto func = PyObject_GetAttr(mod, funcname);
+                        PyObject_SetAttr(context, funcname, func);
+                        Py_DECREF(func);
+                    }
+                    Py_DECREF(funcname);
                 }
-                Py_DECREF(funcname);
+                Py_DECREF(itr);
+                return true;
             }
-            Py_DECREF(itr);
-            return true;
+            return false;
         }
         Script *PythonScriptLoader::script(string funcname, nautical::GameObject* gameObject)
         {
             auto fs = PyString_FromString(funcname.c_str());
             PyObject *func = PyObject_GetAttr(context, fs);
-            PyObject *sc = PyObject_CallFunctionObjArgs(func, nullptr);
-            Script *ret = new PythonScript(sc, gameObject);
-            Py_DECREF(fs);
-            return ret;
+            if(PyObject *sc = PyObject_CallFunctionObjArgs(func, nullptr)) {
+                Script *ret = new PythonScript(sc, gameObject);
+                Py_DECREF(fs);
+                return ret;
+            }
+            return nullptr;
         }
     }
 }

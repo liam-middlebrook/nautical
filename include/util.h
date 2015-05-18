@@ -36,3 +36,5 @@ void write_string_to_file(const char* filename, const char* string);
 int does_file_exist(const char* filename);
 
 std::string get_exe_location();
+
+std::string get_data_location();

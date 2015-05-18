@@ -30,7 +30,7 @@ namespace nautical
 
         std::string loadTexture(std::string name, const char* fileLoc);
 
-        void loadScript(std::string file);
+        bool loadScript(std::string file);
 
         void addScript(std::string className, GameObject* gameObject);
 
