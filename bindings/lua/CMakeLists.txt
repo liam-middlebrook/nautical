@@ -17,3 +17,9 @@ set_target_properties(${SWIG_MODULE_nauticalua_REAL_NAME} PROPERTIES PREFIX "")
 add_library(nsl_lua lualoader.cpp ${swig_runtime})
 target_link_libraries(nsl_lua ${LUA_LIBRARIES} nautical-base)
 target_include_directories(nsl_lua PUBLIC ${LUA_INCLUDE_DIR} ".")
+
+install(
+	TARGETS ${SWIG_MODULE_nauticalua_REAL_NAME}
+	DESTINATION ${NAUTICAL_SHARE_BASE}/bindings/lua
+)
+

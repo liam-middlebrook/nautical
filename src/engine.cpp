@@ -117,7 +117,11 @@ void Engine::run(string dir=".")
         _keyboard->setKeyBinding(itr->name.GetString(), itr->value.GetInt());
     }
 
-    _factory->load(gamefile(nautical_config["script"]["file"].GetString()));
+    if(!_factory->load(gamefile(nautical_config["script"]["file"].GetString()))) {
+		std::cerr << "Could not load game script "
+			<< nautical_config["script"]["file"].GetString();
+		exit(0);
+	}
     auto s = _factory->script(nautical_config["script"]["class"].GetString(),
                               &world);
     world.addScript("script", s);
@@ -155,9 +159,9 @@ std::string Engine::loadTexture(std::string name, const char* fileLoc)
     return _textureLoader->loadTexture(name, fileLoc);
 }
 
-void Engine::loadScript(std::string file)
+bool Engine::loadScript(std::string file)
 {
-    _factory->load(file);
+    return _factory->load(file);
 }
 
 void Engine::addScript(std::string className, GameObject* gameObject)

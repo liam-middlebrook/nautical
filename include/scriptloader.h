@@ -40,15 +40,16 @@ namespace nautical
                 return nullptr;
             }
 
-            void load(std::string name)
+            bool load(std::string name)
             {
                 for (auto &loader : loaders)
                 {
                     if (loader->load(name))
                     {
-                        return;
+                        return true;
                     }
                 }
+				return false;
             }
 
             ~ScriptFactory()

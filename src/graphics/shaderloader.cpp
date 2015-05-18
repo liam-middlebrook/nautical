@@ -23,7 +23,7 @@ std::string ShaderLoader::loadShader(std::string name, const char* vertLoc,
 {
     // Load shader and shit
 	if(!does_file_exist(vertLoc)) {
-		vertLoc = (get_exe_location() + vertLoc).c_str();
+		vertLoc = (get_data_location() + "/resources/" + vertLoc).c_str();
 	}
     std::ifstream vertIn(vertLoc);
     std::string vertexStr((std::istreambuf_iterator<char>(vertIn)),
@@ -40,7 +40,7 @@ std::string ShaderLoader::loadShader(std::string name, const char* vertLoc,
     printf("Vertex Shader Status %d\n", status);
 
 	if(!does_file_exist(fragLoc)) {
-		fragLoc = (get_exe_location() + fragLoc).c_str();
+		fragLoc = (get_data_location() + "/resources/" + fragLoc).c_str();
 	}
     std::ifstream fragIn(fragLoc);
     std::string fragStr((std::istreambuf_iterator<char>(fragIn)),

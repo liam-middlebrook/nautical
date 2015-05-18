@@ -27,3 +27,13 @@ add_library(nsl_python pythonloader.cpp ${swig_runtime})
 target_link_libraries(nsl_python ${PYTHON_LIBRARIES} nautical-base)
 target_include_directories(nsl_python PUBLIC ${PYTHON_INCLUDE_DIRS} ".")
 
+install(
+	TARGETS ${SWIG_MODULE_nauticalpy_REAL_NAME}
+	DESTINATION ${NAUTICAL_SHARE_BASE}/bindings/python
+)
+
+install(
+	FILES ${CMAKE_CURRENT_BINARY_DIR}/nauticalpy.py
+	DESTINATION ${NAUTICAL_SHARE_BASE}/bindings/python
+)
+
